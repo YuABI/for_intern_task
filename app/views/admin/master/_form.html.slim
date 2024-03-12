@@ -1,0 +1,21 @@
+ruby:
+ object_name     = controller_name.singularize
+ object          = instance_variable_get("@#{object_name}")
+ decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+= form_with model: [:admin, object], html: { class: "" } do |f|
+  .row
+    .col-12
+      .card
+        .card-header.justify-content-between.d-flex.align-items-center
+          h4.card-title
+            = object.class.model_name.human
+        .card-body
+          = render partial: "form_object", locals: {f:, decorator_model:, object_name: , object: }
+
+    = render partial: "form_extra_object", locals: {f:, decorator_model:, object_name: , object: }
+  .row
+    .col-12.d-flex.justify-content-center.pb-4
+      = f.submit class: "btn btn-lg btn-#{color_submit} w-30", onclick: loading_open
+  javascript:
+    #{decorator_model.form_javascript(f)}

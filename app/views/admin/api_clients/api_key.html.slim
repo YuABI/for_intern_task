@@ -1,0 +1,51 @@
+= render partial: "navi", locals: {mode: :api_key}
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}").decorate
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+= form_with model: [:admin, object], html: { class: "" } do |f|
+  .row
+    .col-12
+      .card
+        .card-header.justify-content-between.d-flex.align-items-center
+          h4.card-title
+            = "API設定"
+        .card-body
+          .row
+            .decorator_form[class="mb-3 #{input_group_class} col-sm-8"]
+              label.form-label[for="#{object_name}_api_key"]
+                = object.label(:api_key, :admin)
+                = object.required_icon(:api_key)
+              = f.text_field(:api_key, class: decorator_model.input_class,disabled: true )
+          .row
+            .decorator_form[class="mb-3 #{input_group_class} col-sm-8"]
+              label.form-label[for="#{object_name}_api_secret_key"]
+                = object.label(:api_secret_key, :admin)
+                = object.required_icon(:api_secret_key)
+              = f.password_field(:api_secret_key,value:object.api_secret_key , class: decorator_model.input_class,disabled: true )
+              p.font-size-13.text-muted.mb-0
+                = link_to_function("#{ object.label(:api_secret_key, :admin)}を表示","Togglepass('api_client_api_secret_key')")
+          .row
+            .decorator_form[class="mb-3 #{input_group_class} col-sm-8"]
+              label.form-label[for="#{object_name}_api_access_token"]
+                = object.label(:api_access_token, :admin)
+                = object.required_icon(:api_access_token)
+              = f.password_field(:api_access_token,value:object.api_access_token, class: decorator_model.input_class,disabled: true )
+              p.font-size-13.text-muted.mb-0
+                = link_to_function("#{ object.label(:api_access_token, :admin)}を表示", "Togglepass('api_client_api_access_token')") unless object.api_access_token.blank?
+          .row
+            .decorator_form[class="mb-3 #{input_group_class} col-sm-3"]
+              label.form-label[for="#{object_name}_api_access_token_expired_at"]
+                = object.label(:api_access_token_expired_at, :admin)
+                = object.required_icon(:api_access_token_expired_at)
+              = f.text_field(:api_access_token_expired_at,value: object.strftime_at(:api_access_token_expired_at), class: decorator_model.input_class,disabled: true )
+  javascript:
+    function Togglepass(id) {
+        var input = $("#"+id);
+        if (input.attr('type') == 'text') {
+            input.attr('type', 'password');
+        } else {
+            input.attr('type', 'text');
+        }
+    };

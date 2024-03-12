@@ -1,0 +1,256 @@
+## The behavior of RuboCop can be controlled via the .rubocop.yml
+## configuration file. It makes it possible to enable/disable
+## certain cops (checks) and to alter their behavior if they accept
+## any parameters. The file can be placed either in your home
+## directory or in some project directory.
+##
+## RuboCop will start looking for the configuration file in the directory
+## where the inspected file is and continue its way up to the root directory.
+##
+## See https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md
+
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
+AllCops:
+  StyleGuideBaseURL: https://rubystyle.guide
+  TargetRubyVersion: 3.1.2
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+    - "db/migrate/*"
+    - "db/fixtures/**/*"
+    - "config/**/*"
+    - "bin/**/*"
+    - "lib/middlewares/**"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
+    - "spec/support/**/*"
+    - "spec/fixtures/**/*"
+    - "Gemfile"
+    - "Rakefile"
+    - "tmp/**/*"
+    - "lib/generators/**/*.rb"
+  NewCops: enable
+
+# バージョンアップ時の新ルール適応を実施する
+# AllCops:
+#   NewCops: enable
+#   Exclude:
+#     - "vendor/**/*" # rubocop config/default.yml
+#     - "db/schema.rb"
+#     - "db/migrate/*"
+#     - "db/fixtures/**/*"
+#     - "config/**/*"
+#     - "bin/**/*"
+#     - "lib/middlewares/**"
+#     - "spec/rails_helper.rb"
+#     - "spec/spec_helper.rb"
+#     - "spec/support/**/*"
+#     - "spec/fixtures/**/*"
+#     - "Gemfile"
+#     - "Rakefile"
+#     - "tmp/**/*"
+#     - "lib/generators/**/*.rb"
+
+Style/GlobalVars:
+  AllowedVariables: [$redis]
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+# 子クラスの書き方はHoge::Mogeも許可
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# if 文の中にある程度のブロックを書くぐらいは許容した方が現実的だが大きすぎるものは可読性が低くなるため書けないようにしておく
+Style/GuardClause:
+  MinBodyLength: 5
+
+# foo.positive? より foo > 0 のほうがわかりやすいし、positive?とかあんまり使ってるのみたことないのでNGにしておく
+Style/NumericPredicate:
+  Enabled: false
+
+# 特に model 内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
+Style/RedundantSelf:
+  Enabled: false
+
+# コピペ時に便利なので、複数行の場合はケツカンマを入れる (array)
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+# コピペ時に便利なので、複数行の場合はケツカンマを入れる (hash)
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+# 条件式の方を意識させたい場合には後置の if/unless を使わない方が分かりやすい
+Style/IfUnlessModifier:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: true
+  EnforcedStyle: no_space
+
+Metrics/BlockLength:
+  Max: 50
+  Exclude:
+    - "spec/**/*.rb"
+    - "db/**/*"
+    - "config/**/*"
+
+Metrics/ModuleLength:
+  Exclude:
+    - "spec/**/*.rb"
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/Be:
+  Enabled: false
+
+RSpec/FilePath:
+  Exclude:
+    - "spec/models/**/*.rb"
+
+RSpec/NamedSubject:
+  Exclude:
+    - "spec/requests/**/*.rb"
+
+RSpec/LetSetup:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Exclude:
+    - "spec/**/*.rb"
+
+RSpec/MessageChain:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+# before_actionの際の未定義メソッドのチェック（deviseとの兼ね合いで一旦false）
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - "spec/**/*"
+
+RSpec/RepeatedExample:
+  Exclude:
+    - "spec/policies/**/*" # punditのテストメソッドを利用すると繰り返しが発生するため
+
+RSpec/MultipleSubjects:
+  Exclude:
+    - "spec/policies/**/*" # punditのテストメソッドを利用するため
+
+# Rubocop新バージョンでの追加項目
+Lint/EmptyClass:
+  Enabled: false
+
+Lint/SymbolConversion:
+  Enabled: false
+
+Naming/BlockForwarding:
+  Enabled: false
+
+Style/ArgumentsForwarding: # new in 1.1
+  Enabled: true
+
+Style/FetchEnvVar: # new in 1.28
+  Enabled: true
+
+Style/FileWrite: # new in 1.24
+  Enabled: false
+
+Style/NegatedIfElseCondition: # new in 1.2
+  Enabled: false
+
+Style/ObjectThen: # new in 1.28
+  Enabled: false
+
+Rails/NegateInclude: # new in 2.7
+  Enabled: false
+
+RSpec/OverwritingSetup:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/BeforeAfterAll:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+# テストコードは長くなるケースが多いので除外
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - "spec/**/*.rb"
+
+#デフォルト（10）は少ないので一旦倍くらいにしておく
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - 'db/migrate/*.rb'
+    - 'spec/**/*.rb'
+
+# デフォルト（8）だと少ないので一旦少し増やしておく
+Metrics/PerceivedComplexity:
+  Max: 12
+
+# デフォルト（7）だと少ないので一旦少し増やしておく
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/AbcSize:
+  Max: 30
+
+RSpec/IdenticalEqualityAssertion:
+  Enabled: false
+
+# TODO: 直したいRubocop disable
+Lint/LiteralAsCondition:
+  Enabled: false
+
+# あまりこだわりのないRubocop disable
+Style/HashEachMethods:
+  Enabled: false
+
+Style/SingleArgumentDig:
+  Enabled: false
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+
+Rails/DynamicFindBy:
+  Whitelist:
+    - find_by_hashid

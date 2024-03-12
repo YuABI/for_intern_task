@@ -1,0 +1,31 @@
+.vertical-menu
+  .navbar-brand-box
+    = link_to(admin_root_path,class: "logo logo-dark") do
+      span.logo-sm
+        = image_logo
+      span.logo-lg
+        = image_logo
+    = link_to(admin_root_path,class: "logo logo-light") do
+      span.logo-lg
+        = image_logo
+      span.logo-sm
+        = image_logo
+  button.btn.btn-sm.px-3.font-size-16.header-item.vertical-menu-btn[type="button"]
+    i.fa.fa-fw.fa-bars
+  .sidebar-menu-scroll[data-simplebar]
+    #sidebar-menu
+      ul#side-menu.metismenu.list-unstyled
+        -  @current_admin_user.target_operations.group_by(&:operation_category_id).sort_by {|a| a.first}.each do |operation_category_id,operations|
+          ruby:
+            operation_category = OperationCategory.find(operation_category_id)
+            next if operations.blank?
+
+          li class="#{"mm-active" if @current_operation&.operation_category_id.to_i == operation_category.id}"
+            a.has-arrow[href="javascript: void(0);"]
+              i.icon.nav-icon[data-feather="#{operation_category.icon.presence || "shopping-cart"}"]
+              span.menu-item
+                = operation_category.name
+            ul.sub-menu[aria-expanded="false"]
+              - operations.each do |operation|
+                li class="#{"mm-active" if @current_operation&.code == operation.code}"
+                  = link_to("#{"未："  unless (eval("#{operation.code.singularize}".camelize + "Decorator") rescue nil)}" +operation.name,send("admin_#{operation.code}_path"))  rescue nil

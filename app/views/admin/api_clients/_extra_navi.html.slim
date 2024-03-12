@@ -1,0 +1,14 @@
+- if @api_client&.exists_db?
+  ul.nav.nav-tabs.nav-tabs-custom[role="tablist"]
+    li.nav-item[role="presentation"]
+      = link_to(edit_admin_api_client_path(@api_client),class: "nav-link #{"active" if mode == :edit}") do
+        span.d-block.d-sm-none
+          i.fas.fa-home
+        span.d-none.d-sm-block
+          | 基本設定
+    li.nav-item[role="presentation"]
+      = link_to(api_key_admin_api_client_path(id: @api_client),class: "nav-link #{"active" if mode == :api_key}") do
+        span.d-block.d-sm-none
+          i.far.fa-user
+        span.d-none.d-sm-block
+          | API設定

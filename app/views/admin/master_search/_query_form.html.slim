@@ -1,0 +1,23 @@
+ruby:
+  url        = __send__("search_admin_#{controller_name}_path")
+  model_name = controller_name.singularize
+  model      = eval(model_name.camelize)
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+css:
+  .page_admin .control_check {
+    padding: 2px 0 5px 30px;
+  }
+= form_with scope: @query,url: url, html: {class: "",id:"search"} do |f|
+  .row
+    .col-12
+      .card
+        .card-header.justify-content-between.d-flex.align-items-center
+          h4.card-title 検索
+          = link_to_remote raw("検索条件のクリア"), {url: __send__("search_clear_admin_#{controller_name}_path"), method: "POST", submit: "search"}, {class: "btn btn-sm btn-soft-#{color_clear}"}
+
+        .card-body
+          = render partial: "query_form_object", locals: {f: f,decorator_model: decorator_model,model: model}
+        .card-footer
+          = render partial: "query_action", locals: {f: f,decorator_model: decorator_model,model: model}
+          = render partial: "query_extra_action", locals: {f: f,decorator_model: decorator_model,model: model}

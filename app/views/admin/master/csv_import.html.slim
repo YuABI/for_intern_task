@@ -1,0 +1,30 @@
+= render partial: "navi", locals: {mode: :csv_import}
+
+ruby:
+  object_name     = controller_name.singularize
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+= form_with scope: @csv_import_service,url: send("csv_import_admin_#{controller_name}_path"), html: {class: "",id: "import", multipart: true } do |f|
+  = alert_message(color: color_danger,title: flash[:import_errors],messages: @csv_import_service.generate_error_messages)
+
+  .row
+    .col-12
+      .card
+        .card-header.justify-content-between.d-flex.align-items-center
+          h4.card-title
+            = "CSV一括更新"
+        .card-body
+          .row
+              .decorator_form[class="mb-3 #{input_group_class} col-sm-12"]
+                label.form-label[for="import_file"]
+                  = "CSVファイル"
+                = f.file_field :import_file, class: "form-control"
+
+  .row
+    .col-12.d-flex.justify-content-center.pb-4
+      = f.submit "一括更新する",class: "btn btn-lg btn-#{color_danger} w-30",data: { confirm: "本当に一括更新を行いますか?" }
+  javascript:
+        #{decorator_model.form_javascript(f)}
+
+
+

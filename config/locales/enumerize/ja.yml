@@ -1,0 +1,33 @@
+ja:
+  enumerize:
+    defaults:
+      available:
+        available: "する"
+        unavailable: "しない"
+      sex:
+        female: 女性
+        male: 男性
+        unknown: 不明
+    address:
+      address_type:
+        user: "登録住所"
+        other: "別送先"
+
+    api_result:
+      request_method:
+        get: "GET"
+        post: "POST"
+        patch: "PATCH"
+        delete: "DELETE"
+    webhook_service:
+      request_method:
+        get: "GET"
+        post: "POST"
+        patch: "PATCH"
+        delete: "DELETE"
+    webhook_result:
+      request_method:
+        get: "GET"
+        post: "POST"
+        patch: "PATCH"
+        delete: "DELETE"

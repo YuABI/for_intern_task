@@ -1,0 +1,78 @@
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}").decorate
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+.col-12.d-flex.pb-4
+  = link_to_remote "住所追加",
+          { url: add_address_admin_users_path(id: object.exists_db? ? object.id : nil), method: "POST", submit: "form", loading: true },
+          { class: "btn btn-#{color_add}" }
+.col-12
+  = f.fields_for :addresses do |fe|
+    - unless fe.object._destroy
+      .card
+        .card-header.justify-content-between.d-flex.align-items-center
+          h4.card-title
+            = fe.object.address_type.text
+          - unless  fe.object.address_type.user?
+            = link_to_remote icon_del,
+                    { url: del_address_admin_users_path(id: object.exists_db? ? object.id : nil, target_idx: fe.index), method: "POST", submit: "form", loading: true }, { class: "btn btn-sm btn-#{color_destroy}" }
+
+
+        .card-body
+          = render partial: "form_object", locals: {f: fe, decorator_model: AddressDecorator, object_name: :"user_addresses_attributes_#{fe.index}", object: fe.object}
+
+          - fe.object.class.column_names.each do |column|
+            - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
+            = fe.hidden_field(column)
+    - else
+      = fe.hidden_field(:_destroy, value: 1)
+      - fe.object.class.column_names.each do |column|
+        = fe.hidden_field(column)
+    = f.object.decorate.error_message_html(:addresses,:admin)
+
+
+.col-12
+  .card
+    .card-header.justify-content-between.d-flex.align-items-center
+      h4.card-title
+        = "問い合わせ"
+    .card-body
+      .table-responsive
+        table.table.table-bordered.mb-0
+          thead
+            tr
+              th.bg-light
+                = UserInquiry.human :inquiry_at
+              th.bg-light
+                = UserInquiry.human :admin_user_id
+              th.bg-light
+                = UserInquiry.human :content
+              th.bg-light.text-center
+                = link_to_remote icon_add,
+                        { url: add_user_inquiry_admin_users_path(id: object.exists_db? ? object.id : nil), method: "POST", submit: "form", loading: true },
+                        { class: "btn btn-#{color_add}" }
+          tbody
+            ruby:
+              admin_user_choices = AdminUser.pluck(:name, :id)
+
+            = f.fields_for :user_inquiries do |fe|
+              - unless fe.object._destroy
+                tr
+                  td
+                    = fe.datetime_field(:inquiry_at, class: fe.object.decorate.input_class(:inquiry_at, :admin))
+                  td
+                    = fe.select(:admin_user_id,admin_user_choices, { include_blank: false}, { class: "form-select #{fe.object.decorate.input_class(:admin_user_id, :admin)}" })
+                  td
+                    = fe.text_area(:content, class: fe.object.decorate.input_class(:content,:admin), style:"width:100%;min-height: 100px;")
+                    - fe.object.class.column_names.each do |column|
+                      - next if [:admin_user_id,:inquiry_at,:content].include?(column.to_sym)
+                      = fe.hidden_field(column)
+                  td.text-center
+                    = link_to_remote icon_del,
+                            { url: del_user_inquiry_admin_users_path(id: object.exists_db? ? object.id : nil,target_idx: fe.index), method: "POST", submit: "form", loading: true }, { class: "btn btn-#{color_destroy}" }
+              - else
+                = fe.hidden_field(:_destroy, value: 1)
+                - fe.object.class.column_names.each do |column|
+                  = fe.hidden_field(column)
+        = f.object.decorate.error_message_html(:user_inquiries,:admin)

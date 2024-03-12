@@ -1,0 +1,8 @@
+ja:
+  flash_messages:
+    create_successed: '登録いたしました。'
+    update_successed: '更新いたしました。'
+    destroy_successed: '削除いたしました。'
+    create_failed: '登録に失敗しました。'
+    update_failed: '更新に失敗しました。'
+    destroy_failed: '削除に失敗しました。'

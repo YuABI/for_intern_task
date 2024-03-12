@@ -1,0 +1,10 @@
+ruby:
+  object_name     = controller_name.singularize
+
+- decorator_model.show_objects(@current_admin_user,object).each do |show_object_lists|
+  - show_object_lists.each do |show_object|
+    tr id="object#{object.id}"
+      th.bg-light.w-30
+        = object.class.human(show_object[:code])
+      td[style=""]
+        = show_object[:value]

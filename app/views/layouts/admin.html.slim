@@ -1,0 +1,63 @@
+doctype html
+html lang="ja"
+  head
+    meta[charset="utf-8"]
+    title
+      = Settings.system.name
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    meta[content="Premium Multipurpose Admin & Dashboard Template" name="description"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    /= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "admin/application", "data-turbo-track": "reload"
+    = stylesheet_link_tag "base/dashonic/bootstrap.min.css", "data-turbo-track": "reload", "id": "bootstrap-style"
+    = stylesheet_link_tag "base/dashonic/icons.min.css", "data-turbo-track": "reload"
+    = stylesheet_link_tag "base/dashonic/app.min.css", "data-turbo-track": "reload","id": "app-style"
+    = stylesheet_link_tag "base/custom", "data-turbo-track": "reload"
+    = render partial: "layouts/layout_css"
+
+    = javascript_include_tag "admin/application", 'data-turbolinks-track' => false
+  / = favicon_link_tag('admin/favicon.ico')
+  body data-layout-scrollable="false"
+    - unless @current_admin_user
+      = yield
+    -else
+      #layout-wrapper
+        #header
+          = render partial: "layouts/_parts/admin/header"
+        #left_bar
+          = render partial: "layouts/_parts/admin/left_bar"
+        .main-content
+          .page-content
+            .container-fluid
+              - if @write_operation
+                - unless @no_navi
+                  = yield :navi
+                #main_alert
+                  = render partial: 'layouts/_parts/admin/main_alert'
+                = yield
+              - else
+                = alert_message(color: color_danger,messages: "アクセス権限がありません。")
+          #footer
+            = render partial: "layouts/_parts/admin/footer"
+
+        #right_bar.right-bar
+          = render partial: "layouts/_parts/admin/right_bar"
+    .rightbar-overlay
+    #modal.modal.fade[tabindex="-1"]
+      .modal-dialog.modal-xl
+        .modal-content
+          .modal-header.bdb-0.prb-0 style="display: block;padding-top: 5px;text-align: right;"
+            button.close.modal-close.btn-secondary.btn.btn-sm[type="button" data-dismiss="modal" aria-label="Close"]
+              span[aria-hidden="true"]
+                | ×
+
+          #modal-body.modal-body
+    div#asnica-overlay
+      div.inner
+        = image_tag("/img/loading2.gif",width: 100)
+    = javascript_include_tag "base/libs/bootstrap/js/bootstrap.bundle.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/libs/metismenujs/metismenujs.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/libs/simplebar/simplebar.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/libs/feather-icons/feather.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/app.js", 'data-turbolinks-track' => false

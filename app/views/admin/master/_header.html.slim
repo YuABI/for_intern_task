@@ -1,0 +1,9 @@
+ruby:
+ decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+ _model = eval("#{controller_name.singularize}".camelize)
+thead
+  tr
+    - decorator_model.header_objects.each.with_index do |header_object,idx|
+      th.bg-light style="#{decorator_model.header_style[idx]}"
+        = header_object
+    th.bg-light[colspan="#{decorator_model.action_links(@current_admin_user,_model.new.decorate,@write_operation).size}"]

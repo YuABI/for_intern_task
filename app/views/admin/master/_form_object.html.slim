@@ -1,0 +1,16 @@
+ruby:
+  object = object.decorate
+- decorator_model.form_objects(f).each do |form_object_lists|
+  .row
+    - form_object_lists.each do |form_object|
+      .decorator_form[class="mb-3 #{input_group_class} col-sm-#{form_object[:col] || 12}" style="#{"display: none;" if form_object[:hidden] }"]
+        label.form-label[for="#{object_name}_#{form_object[:code]}"]
+          = form_object[:label]
+        - unless form_object[:no_required]
+          = object.required_icon(form_object[:code])
+        = form_object[:input]
+        = object.error_message_html(form_object[:code])
+        p.font-size-13.text-muted.mb-0
+          = form_object[:help].to_s.html_safe
+        p.cap.font-size-13.text-danger.mb-0
+          = form_object[:alert].to_s.html_safe

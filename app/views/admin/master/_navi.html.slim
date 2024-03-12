@@ -1,0 +1,34 @@
+
+- unless @no_navi
+  ruby:
+    decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+    csv_import      = decorator_model.admin_csv_import?
+  - content_for(:navi) do
+    .row
+      .col-12
+        .page-title-box.d-flex.align-items-center.justify-content-between
+          h4.mb-0
+            = @current_operation.name
+          .page-title-right
+            ol.breadcrumb.m-0
+              - if mode == :index
+                - if decorator_model.allow_new? && @write_operation
+                  .row
+                    - if csv_import
+                      .col-6
+                        = link_to(raw("一括更新"), send("csv_import_admin_#{controller_name}_path"),class: "btn btn-#{color_danger} btn-sm")
+                    div class="col-#{csv_import ? 6 : 12 }"
+                      = link_to(raw("新規作成"), send("new_admin_#{controller_name.singularize}_path"), class: "btn btn-#{color_new} btn-sm") if @write_operation
+              - else
+                li.breadcrumb-item
+                  = link_to("一覧",send("admin_#{controller_name}_path"))
+                - if mode == :edit
+                  li.breadcrumb-item.active
+                    = "編集"
+                - if mode == :new
+                  li.breadcrumb-item.active
+                    = "新規登録"
+                - if mode == :import
+                  li.breadcrumb-item.active
+                    = "一括更新"
+= render partial: "extra_navi", locals: {mode: mode}

@@ -1,0 +1,10 @@
+ruby:
+  csv_export = decorator_model.admin_csv_export?
+.row.mb-3
+  .col-2.text-center
+  div class="col-#{csv_export ? 4 : 8} text-#{csv_export ? "right" : "center"}"
+    = link_to_remote raw("検索"), {url: __send__("search_admin_#{controller_name}_path"), method: "POST", submit: "search", loading: true}, { class: "btn btn-#{color_search} w-50"}
+  - if csv_export
+    div class="col-4 text-left"
+      = link_to_remote raw("CSV出力"), {url: __send__("generate_csv_admin_#{controller_name}_path"), method: "POST", submit: "search", loading: true}, {class: "btn btn-#{color_download} w-50"}
+  .col-2.text-center

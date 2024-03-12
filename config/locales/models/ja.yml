@@ -1,0 +1,74 @@
+ja:
+  activerecord:
+    models:
+      user: 顧客管理
+      api_client: APIクライアント設定
+      webhook_service: Webhook設定
+      webhook_result: Webhook通信履歴
+      api_result: API通信履歴
+      admin_user: 管理者設定
+      system_config: システム設定
+
+    attributes:
+      default: &default
+        id: ID
+        api_client_id: APIクライアント
+        admin_user_id: 管理者
+        email: メールアドレス
+        name: 名称
+        password: パスワード
+        last_logined_at: 最終ログイン日時
+        last_logined_at_from: 最終ログイン日FROM
+        last_logined_at_to: 最終ログイン日TO
+        address_info: 住所情報
+        first_name: お名前(名)
+        family_name: お名前(姓)
+        first_name_kana: お名前(メイ）
+        family_name_kana: お名前(セイ)
+        zip: 郵便番号
+        pref: 都道府県
+        city: 市郡区・町・村
+        address1: 丁目・番地
+        address2: 建物名
+        tel: 電話番号
+      admin_user:
+        <<: *default
+        name: 管理者名
+        email: メールアドレス
+        login_code: ログインコード
+        hashed_password: ハッシュパスワード
+      api_client:
+        <<: *default
+        api_key: APIキー
+        api_secret_key: シークレットキー
+        api_access_token: アクセストークン
+        api_access_token_expired_at: アクセストーク有効期限
+      api_result:
+        <<: *default
+        end_point: エンドポイント
+        api_status_id: APIステータス
+        request_at_from: リクエスト日FROM
+        request_at_to: リクエスト日TO
+      system_config:
+        <<: *default
+      user:
+        <<: *default
+        sex: 性別
+        birthday: 誕生日
+      user_inquiry:
+        <<: *default
+        inquiry_at: 問い合わ日時
+        content: 問い合わ内容
+      user/addresses:
+        <<: *default
+      address:
+        <<: *default
+
+
+  activemodel:
+    attributes:
+      default: &default
+        id: ID
+      public_file:
+        <<: *default
+        updated_at: 更新日時

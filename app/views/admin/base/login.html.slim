@@ -1,0 +1,38 @@
+.authentication-bg.min-vh-100
+  .bg-overlay.bg-white
+  .container
+    .d-flex.flex-column.min-vh-100.px-3.pt-4
+      .row.justify-content-center.my-auto
+        .col-md-8.col-lg-6.col-xl-4
+          .text-center
+            .mb-4.mb-md-5
+              = image_tag("admin/logo.png",width: "100%")
+            .mb-4
+              h5
+                | ログイン画面
+              p
+                | ログインIDとパスワードを入力してください。
+          = alert_message(color: :danger,messages: flash[:alert])
+          = form_tag admin_login_path, method: :post, class: "",  id: "login-form" do
+            .form-floating.form-floating-custom.mb-3
+              = text_field :admin_user, :email, class: "form-control",placeholder: "ログインID"
+              label[for="admin_user_email"]
+                = AdminUser.human(:email)
+              .form-floating-icon
+                i.uil.uil-users-alt
+            .form-floating.form-floating-custom.mb-3
+              = password_field :admin_user, :password, class: "form-control",placeholder: "パスワード"
+              label[for="admin_user_password"]
+                = AdminUser.human(:password)
+              .form-floating-icon
+                i.uil.uil-padlock
+            .mt-3
+              = submit_tag "ログイン", class: "btn btn-info w-100"
+
+      .row
+        .col-xl-12
+          .text-center.text-muted.p-4
+            p.mb-0
+              |  © ASNICA, Inc. All rights reserved.
+              = space(2)
+              =  Settings.system.name
