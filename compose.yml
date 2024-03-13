@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      RAILS_LOG_TO_STDOUT: 'true'
+      EDITOR: vi
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/my_app
+      - bundle:/usr/local/bundle
+      - node_modules:/var/www/my_app/node_modules
+  db:
+    image: postgres:14.5
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '6432:5432'
+    environment:
+      TZ: Japan
+      POSTGRES_PASSWORD: 'password'
+volumes:
+  bundle:
+    driver: local
+  node_modules:
+    driver: local
+  db_data:
+    driver: local
