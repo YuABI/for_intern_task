@@ -1,0 +1,2 @@
+class UserLifeplansAsset < ApplicationRecord
+end
