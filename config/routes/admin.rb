@@ -9,6 +9,9 @@ namespace :admin do
     :users,
     :api_results,
     :system_configs,:admin_users,:api_clients,
+    # TODO: 試しにマスターコントローラを実装
+    :user_lifeplans, :user_lifeplan_assets, :user_lifeplan_beneficiarys, :user_lifeplan_contacts,
+    :user_lifeplan_expenses, :user_lifeplan_finance_conditions, :user_lifeplan_incomes,
   ].each do |sym|
     namespace sym do
       case sym
