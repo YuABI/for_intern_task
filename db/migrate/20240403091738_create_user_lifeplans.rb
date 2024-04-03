@@ -24,8 +24,6 @@ class CreateUserLifeplans < ActiveRecord::Migration[7.1]
       t.datetime :deleted_at
 
       t.timestamps
-
-      t.timestamps
     end
   end
 end

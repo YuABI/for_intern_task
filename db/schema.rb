@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_18_075947) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_093558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,6 +119,130 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_18_075947) do
     t.index ["user_id"], name: "index_user_inquiries_on_user_id"
   end
 
+  create_table "user_lifeplan_assets", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "user_lifeplan_id", null: false
+    t.integer "rate", default: 0, null: false
+    t.integer "asset_kind", default: 0, null: false
+    t.string "financial_institution_name", default: "", null: false
+    t.string "store_name", default: "", null: false
+    t.integer "deposit_kind", default: 0, null: false
+    t.string "account_number", default: "", null: false
+    t.datetime "reference_at"
+    t.integer "amount_of_money", default: 0, null: false
+    t.string "content", default: "", null: false
+    t.string "company_name", default: "", null: false
+    t.integer "asset_number", default: 0, null: false
+    t.integer "asset_appraisal_value", default: 0, null: false
+    t.integer "equity_appraisal_value", default: 0, null: false
+    t.integer "scheduled_for_sale", default: 0, null: false
+    t.integer "sundry_expenses", default: 0, null: false
+    t.integer "profit", default: 0, null: false
+    t.string "description", default: "", null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_assets_on_user_lifeplan_id"
+  end
+
+  create_table "user_lifeplan_beneficiaries", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "user_lifeplan_id", null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_beneficiaries_on_user_lifeplan_id"
+  end
+
+  create_table "user_lifeplan_contacts", force: :cascade do |t|
+    t.bigint "user_lifeplan_id", null: false
+    t.string "name", default: "", null: false
+    t.integer "contact_kind", default: 0, null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_contacts_on_user_lifeplan_id"
+  end
+
+  create_table "user_lifeplan_expenses", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.integer "expenditure_item_name", default: 0, null: false
+    t.bigint "user_lifeplan_id", null: false
+    t.integer "content", default: 0, null: false
+    t.string "company_name", default: "", null: false
+    t.integer "assets_number", default: 0, null: false
+    t.integer "note", default: 0, null: false
+    t.datetime "payment_start_at", null: false
+    t.datetime "payment_end_at", null: false
+    t.integer "monthly_amount", default: 0, null: false
+    t.integer "pay_by_years", default: 0, null: false
+    t.integer "yearly_amount", default: 0, null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_expenses_on_user_lifeplan_id"
+  end
+
+  create_table "user_lifeplan_finance_conditions", force: :cascade do |t|
+    t.bigint "user_lifeplan_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "until_submitted_at", null: false
+    t.string "account", default: "", null: false
+    t.string "account_info", default: "", null: false
+    t.integer "balance", default: 0, null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_finance_conditions_on_user_lifeplan_id"
+  end
+
+  create_table "user_lifeplan_incomes", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "user_lifeplan_id", null: false
+    t.integer "income_kind", default: 0, null: false
+    t.integer "asset_income_kind", default: 0, null: false
+    t.string "content", default: "", null: false
+    t.string "company_name", default: "", null: false
+    t.integer "assets_number", default: 0, null: false
+    t.datetime "payment_start_at"
+    t.datetime "payment_end_at"
+    t.integer "monthly_amount", default: 0, null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
+  end
+
+  create_table "user_lifeplans", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "apply_reviewed_at"
+    t.datetime "reviewed_at"
+    t.integer "background_reason", default: 0, null: false
+    t.string "background_reason_comment", default: "", null: false
+    t.integer "legal_heir", default: 0, null: false
+    t.string "legal_heir_comment", default: "", null: false
+    t.integer "residue", default: 0, null: false
+    t.integer "relatives", default: 0, null: false
+    t.string "relatives_comment", default: "", null: false
+    t.integer "household_disposal", default: 0, null: false
+    t.integer "real_estate_disposal", default: 0, null: false
+    t.integer "close_grave", default: 0, null: false
+    t.integer "funeral_memorial_policy", default: 0, null: false
+    t.string "small_account", default: "", null: false
+    t.string "note", default: "", null: false
+    t.integer "deleted", default: 0, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", comment: "顧客", force: :cascade do |t|
     t.string "email", default: "", null: false, comment: "メールアドレス"
     t.string "hashed_password", default: "", null: false, comment: "ハッシュパスワード"
@@ -153,4 +277,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_18_075947) do
     t.index ["zip"], name: "index_zip_lists_on_zip"
   end
 
+  add_foreign_key "user_lifeplan_assets", "user_lifeplans"
+  add_foreign_key "user_lifeplan_beneficiaries", "user_lifeplans"
+  add_foreign_key "user_lifeplan_contacts", "user_lifeplans"
+  add_foreign_key "user_lifeplan_expenses", "user_lifeplans"
+  add_foreign_key "user_lifeplan_finance_conditions", "user_lifeplans"
+  add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
 end
