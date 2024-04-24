@@ -114,13 +114,13 @@ module Admin
     end
 
     def find_object
-      obj = _model_.find_by({ id: params[:id] })
+      obj = _model_.custom_find_by({ id: params[:id] })
       instance_set(name_singularize, obj)
       obj
     end
 
     def find_or_initialize_object
-      obj   = _model_.find_by({ id: params[:id] })
+      obj   = _model_.custom_find_by({ id: params[:id] })
       obj ||= _model_.new
 
       instance_set(name_singularize, obj)

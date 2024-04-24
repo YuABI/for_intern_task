@@ -1,0 +1,16 @@
+ruby:
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+  objects = instance_variable_get("@#{controller_name}").order(id: :asc)
+
+tbody
+  - objects.each do |object|
+    ruby:
+      decorate_object = object.decorate
+      style = decorate_object.front_body_style(@current_user)
+    tr id="object#{object.id}"
+      - decorate_object.class.front_body_objects(@current_user).each.with_index do |body_object,idx|
+        td[style="#{style}#{decorator_model.front_body_style(@current_user)[idx]}"]
+          = eval("decorate_object.#{body_object}")
+      - decorator_model.front_action_links(@current_user,decorate_object,@form_write).each do |link|
+        td.text-center[style="#{style};width:100px;"]
+          = link

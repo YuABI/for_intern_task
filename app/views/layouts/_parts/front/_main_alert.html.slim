@@ -1,0 +1,11 @@
+ruby:
+  instance_val = @instance || eval("@#{controller_name.singularize}")
+  messages = instance_val.errors.full_messages if instance_val&.errors&.any?
+
+- unless flash[:notice].blank?
+  = alert_message(color: color_success,messages: flash[:notice])
+- unless flash[:alert].blank?
+  = alert_message(color: color_danger,title: flash[:alert],messages: messages)
+
+- flash[:alert] = nil
+- flash[:notice] = nil

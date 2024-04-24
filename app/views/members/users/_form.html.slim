@@ -1,0 +1,44 @@
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}")
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+= form_with model: [:members, object], html: { id: "form" } do |f|
+  .row
+    .col-lg-12
+      .card
+        .card-body
+          div
+            ul.wizard-nav.mb-5
+              li.wizard-list-item
+                .list-item[class="active"]
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="顧客登録"]
+                    i.uil.uil-users-alt
+              li.wizard-list-item
+                .list-item
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="カウンセリング登録"]
+                    i.uil.uil-clipboard-notes
+              li.wizard-list-item
+                .list-item
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="ライフプラン審査"]
+                    i.uil.uil-paperclip
+            .wizard-tab style="display: block;"
+              .text-center.mb-4
+                h5
+                  | 顧客登録
+                p.card-title-desc
+                  | 必須項目を入力してください
+              - decorator_model.member_form_objects(@current_user,f).each do |form_object_lists|
+                .row
+                  - form_object_lists.each do |form_object|
+                    div class="#{input_group_class} col-sm-#{form_object[:col] || 12}" style="#{"display: none;" if form_object[:hidden] }"
+                      .mb-3
+                        label.form-label[for="#{object_name}_#{form_object[:code]}"]
+                          = form_object[:label]
+                        = form_object[:input]
+              = render partial: "form_extra_object", locals: {f:, decorator_model:, object_name: , object: }
+            .d-flex.align-items-start.gap-3.mt-4
+              = f.submit "保存して終了", class: "btn btn-danger w-sm", onclick: loading_open
+              = f.submit "面談内容の記入へ進む", class: "btn btn-primary w-sm ms-auto", onclick: loading_open, name: "user_counsel"
+              /= link_to_remote "面談内容の記入へ進む", {url: member_users_path(user_counsel: true), method: "POST", submit: "form", loading: true}, { class: "btn btn-primary w-sm ms-auto"}
+              /button#nextBtn.btn.btn-primary.w-sm.ms-auto[type="button"]
+                | 面談内容の記入へ進む

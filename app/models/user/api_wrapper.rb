@@ -4,14 +4,22 @@
 #
 #  id                                  :bigint           not null, primary key
 #  birthday(誕生日)                    :date
+#  company_name(会社名)                :string           default(""), not null
 #  deleted(削除区分)                   :integer          default(0), not null
 #  deleted_at(削除日時)                :datetime
+#  division_name(部署名)               :string           default(""), not null
 #  email(メールアドレス)               :string           default(""), not null
+#  family_name(姓)                     :string           default(""), not null
+#  family_name_kana(姓カナ)            :string           default(""), not null
+#  first_name(名)                      :string           default(""), not null
+#  first_name_kana(名カナ)             :string           default(""), not null
 #  hashed_password(ハッシュパスワード) :string           default(""), not null
 #  last_logined_at(最終ログイン日時)   :datetime
-#  name(氏名)                          :string           default(""), not null
+#  modile_tel(携帯番号)                :string           default(""), not null
+#  position_name(役職名)               :string           default(""), not null
 #  salt                                :string
 #  sex                                 :integer          default("unknown"), not null
+#  tel(電話番号)                       :string           default(""), not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
 #

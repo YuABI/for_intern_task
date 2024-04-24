@@ -2,23 +2,18 @@
 #
 # Table name: addresses
 #
-#  id                       :integer          not null, primary key
-#  address1(番地)           :string           default(""), not null
-#  address2(建物名)         :string           default(""), not null
-#  address_type(住所区分)   :string           default(NULL), not null
-#  city(市区町村)           :text             default(""), not null
-#  deleted(削除区分)        :integer          default(0), not null
-#  deleted_at(削除日時)     :datetime
-#  family_name(姓)          :string           default(""), not null
-#  family_name_kana(姓カナ) :string           default(""), not null
-#  first_name(名)           :string           default(""), not null
-#  first_name_kana(名カナ)  :string           default(""), not null
-#  pref(都道府県)           :string           default(""), not null
-#  tel(電話番号)            :string           default(""), not null
-#  zip(郵便番号)            :string           default(""), not null
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  user_id(顧客)            :bigint           default(0), not null
+#  id                     :integer          not null, primary key
+#  address1(番地)         :string           default(""), not null
+#  address2(建物名)       :string           default(""), not null
+#  address_type(住所区分) :string           default(NULL), not null
+#  city(市区町村)         :text             default(""), not null
+#  deleted(削除区分)      :integer          default(0), not null
+#  deleted_at(削除日時)   :datetime
+#  pref(都道府県)         :string           default(""), not null
+#  zip(郵便番号)          :string           default(""), not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  user_id(顧客)          :bigint           default(0), not null
 #
 # Indexes
 #
@@ -35,6 +30,8 @@ class Address < ApplicationRecord
 
   enumerize :address_type, in: {
     user: 'user',
+    resident_card: 'resident_card',
+    domicile: 'domicile',
     other: 'other',
   }, scope: true
   after_initialize :after_initialize_setup

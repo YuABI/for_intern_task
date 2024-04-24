@@ -1,0 +1,15 @@
+- if @alert_mode_h.present? && ["auto_alert"].exclude?(action_name)
+  = link_to_modal "", {url: auto_alert_path}, id: "auto_alert"
+  javascript:
+    $("#auto_alert").click();
+#modal.modal.fade[tabindex="-1"]
+  .modal-dialog.modal-xl
+    .modal-content
+      .modal-header.bdb-0.prb-0 style="padding-top: 5px;"
+        button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+          span[aria-hidden="true"]
+            | ×
+      #modal-body.modal-body
+      .modal-footer
+        button.btn.btn-light[type="button" data-bs-dismiss="modal"]
+          | 閉じる

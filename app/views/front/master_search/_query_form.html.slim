@@ -1,0 +1,33 @@
+ruby:
+  url        = __send__("search_#{controller_name}_path")
+  model_name = controller_name.singularize
+  model      = eval(model_name.camelize)
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+= form_with scope: @query,url: url, html: {class: "",id:"search"} do |f|
+  -  query_form_objects = decorator_model.front_query_form_objects(@current_user,f)
+  - unless query_form_objects.blank?
+    css:
+        .page_front .control_check {
+            padding: 2px 0 5px 30px;
+        }
+    .row
+      .col-12
+        .card
+          .card-header.justify-content-between.d-flex.align-items-center
+            h4.card-title 検索
+            .page-title-right
+              ol.breadcrumb.m-0
+
+          .card-body
+            = render partial: "query_form_object", locals: {f: f,decorator_model: decorator_model,model: model}
+          .card-footer
+            .row
+              .col-2.text-center
+              .col-4.text-right
+                = link_to_remote raw("検索"), {url: url, method: "POST", submit: "search", loading: true}, { class: "btn btn-#{color_search} w-50"}
+              .col-4.text-left
+                = link_to_remote raw("検索条件のクリア"), {url: __send__("search_clear_#{controller_name}_path"), method: "POST", submit: "search"}, {class: "btn btn-#{color_clear} w-50"}
+              - if decorator_model.front_csv_download?
+                / .btn_box
+                /   = link_to_remote raw("CSV出力"), {url: __send__("generate_csv_front_#{controller_name}_path"), method: "POST", submit: "search", loading: true}, {class: "btn_tpl #{color_download} btn_L taL"}

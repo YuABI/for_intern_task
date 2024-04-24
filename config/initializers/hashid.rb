@@ -15,7 +15,7 @@ Hashid::Rails.configure do |config|
   config.override_find = false
 
   # Whether to override the `to_param` method
-  config.override_to_param = false
+  config.override_to_param = true
 
   # Whether to sign hashids to prevent conflicts with regular IDs (see https://github.com/jcypret/hashid-rails/issues/30)
   config.sign_hashids = true

@@ -95,10 +95,11 @@ Rails.application.configure do
 
   MAIL_TEST_MODE    = false
   AUTH_BASIC_CONFIG  = {
-    admin: true,
+    admin: false,
     front: false,
-    user: "asnica" ,
-    pass: "asnica"
+    member: false,
+    user: "ocean",
+    pass: "ocean"
   }
 
 

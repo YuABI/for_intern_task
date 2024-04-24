@@ -1,0 +1,31 @@
+header#page-topbar
+  .navbar-header
+    .d-flex
+      .navbar-brand-box
+        = link_to(members_root_path,class: "logo logo-dark") do
+          span.logo-sm
+            = image_logo
+          span.logo-lg
+            = image_logo
+        = link_to(members_root_path,class: "logo logo-light") do
+          span.logo-sm
+            = image_logo
+          span.logo-lg
+            = image_logo
+      button.btn.btn-sm.px-3.font-size-16.header-item.vertical-menu-btn[type="button"]
+        i.fa.fa-fw.fa-bars
+    .d-flex
+      .dropdown.d-inline-block
+        button#page-header-user-dropdown.btn.header-item.user.text-start.d-flex.align-items-center[type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+          span.ms-2.d-none.d-sm-block.user-item-desc
+            span.user-name
+              = ""
+        .dropdown-menu.dropdown-menu-end.pt-0
+          .p-3.bg-primary.border-bottom
+            h6.mb-0.text-white
+              = ""
+          = link_to(members_logout_path, class: "dropdown-item") do
+            i.mdi.mdi-logout.text-muted.font-size-16.align-middle.me-1
+            span.align-middle
+              | ログアウト
+
