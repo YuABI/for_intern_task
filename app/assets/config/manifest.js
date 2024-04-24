@@ -10,6 +10,10 @@
 //= link_directory ../stylesheets/common .css
 //= link_tree ../stylesheets/admin .css
 //= link_tree ../builds
+//= link front/application.css
+//= link members/application.css
+//= link front/application.js
+//= link members/application.js
 
 
 

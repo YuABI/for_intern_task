@@ -1,0 +1,20 @@
+ruby:
+  model = eval(controller_name.singularize.camelize)
+  query_form_sym = "#{controller_name.singularize}_query_form"
+  objects = instance_variable_get("@#{controller_name}")
+  @paginate_url_opt = {action: "search", :"#{query_form_sym}" => (params[:"#{query_form_sym}"].try(:permit!) || {})}
+
+.row
+  .col-12
+    .card
+      .card-header
+        = render "front/_parts/paginate", @query.class.paginate_opt({:models => objects, remote: true}, @paginate_url_opt) unless objects.blank?
+      .card-body
+        .table-responsive
+          table.table.table-bordered.mb-0
+            = render "header"
+            = render "body"
+      .card-footer
+         = render "front/_parts/paginate", @query.class.paginate_opt({:models => objects, remote: true}, @paginate_url_opt) unless objects.blank?
+
+

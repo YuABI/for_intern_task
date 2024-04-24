@@ -1,0 +1,55 @@
+= render partial: "navi", locals: {mode: :new}
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}")
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+= form_with model: [:members, object], html: { class: "" } do |f|
+  .row
+    .col-lg-12
+      .card
+        .card-body
+          div
+            ul.wizard-nav.mb-5
+              li.wizard-list-item
+                .list-item
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="顧客登録"]
+                    i.uil.uil-users-alt
+              li.wizard-list-item
+                .list-item[class="active"]
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="カウンセリング登録"]
+                    i.uil.uil-clipboard-notes
+              li.wizard-list-item
+                .list-item
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="ライフプラン審査"]
+                    i.uil.uil-paperclip
+            .wizard-tab style="display: block;"
+              .text-center.mb-4
+                h4
+                  | カウンセリング登録
+                p.card-title-desc
+                  | メモとして利用ください
+              .row
+                .col-xl-12
+                  .card
+                    .card-header.justify-content-between.d-flex.align-items-center
+                      | 面談のテーマ
+                    .card-body
+                      .accordion
+                        = f.fields_for :user_counsels do |fe|
+                          - unless fe.object._destroy
+                          .accordion-item
+                            h2.accordion-header[id="#{fe.object.counseling_category}-headingOne"]
+                              button.accordion-button.collapsed[type="button" data-bs-toggle="collapse" data-bs-target="##{fe.object.counseling_category}-collapseOne" aria-expanded="false" aria-controls="#{fe.object.counseling_category}-collapseOne"]
+                                = fe.object.counseling_category.text
+                            .accordion-collapse.collapse[aria-labelledby="-headingOne" id="#{fe.object.counseling_category}-collapseOne"]
+                              .accordion-body
+                                = f.text_area(:memo, class: f.object.decorate.input_class(:memo, :member), placeholder: '顧客に関する情報を記載してください', style:"min-height: 100px;")
+  .row
+    .col-12.d-flex.justify-content-center.pb-4
+      = link_to("顧客情報へもどる", edit_member_user_path(object), class: "btn btn-warning w-sm mx-2")
+      = f.submit "保存して終了", class: "btn btn-danger w-sm", onclick: loading_open
+      = f.submit "ライフプラン審査へ進む", class: "btn btn-#{color_add} w-sm ms-auto", onclick: loading_open, name: ""
+    javascript:
+        #{decorator_model.form_javascript(f)}
+
+

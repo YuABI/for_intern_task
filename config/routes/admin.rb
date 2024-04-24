@@ -7,8 +7,12 @@ namespace :admin do
 
   [
     :users,
+    :members, :organizations,
+    :invoices,
+    :trust_companies, :insurance_companies, :plans, :plan_options,
+    :news, :contents,
     :api_results,
-    :system_configs,:admin_users,:api_clients,
+    :system_configs,:admin_users, :api_clients,
   ].each do |sym|
     namespace sym do
       case sym

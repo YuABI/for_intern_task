@@ -12,6 +12,10 @@ class ApplicationDecorator < Draper::Decorator
     ''
   end
 
+  def member_body_style(member)
+    body_style
+  end
+
   def admin_body_style
     body_style
   end
@@ -152,14 +156,26 @@ class ApplicationDecorator < Draper::Decorator
       ]
     end
 
+    def member_header_objects(member)
+      header_objects
+    end
+
     def body_style
       {}
+    end
+
+    def member_body_style(member)
+      body_style
     end
 
     def body_objects
       [
         'id',
       ]
+    end
+
+    def member_body_objects(member)
+      body_objects
     end
 
     def show_objects(_admin_user, obj)
@@ -219,6 +235,25 @@ class ApplicationDecorator < Draper::Decorator
       links << (if write_form && _exist && object.allow_delete?
                   h.link_to('削除', h.__send__("admin_#{object.class.table_name.singularize}_path", object), method: :delete,
                                                                                                            data: { confirm: '本当に削除しますか？' }, class:  "btn btn-sm btn-#{h.color_destroy}")
+                else
+                  '-'
+                end)
+      links
+    end
+
+    def member_action_links(member, object, write_form)
+      links = []
+      _exist  = object.exists_db?
+      links << (if write_form && _exist && object.allow_edit?
+                  h.link_to('修正', h.__send__("edit_members_#{object.class.table_name.singularize}_path", object),
+                            object.html_option.merge(class: "btn btn-sm btn-#{h.color_edit}"))
+                else
+                  '-'
+                end)
+
+      links << (if write_form && _exist && object.allow_delete?
+                  h.link_to('削除', h.__send__("members_#{object.class.table_name.singularize}_path", object), method: :delete,
+                            data: { confirm: '本当に削除しますか？' }, class:  "btn btn-sm btn-#{h.color_destroy}")
                 else
                   '-'
                 end)

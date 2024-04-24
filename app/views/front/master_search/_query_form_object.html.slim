@@ -1,0 +1,17 @@
+ruby:
+  model_name      = controller_name.singularize
+  model           = eval(model_name.camelize)
+  object_name     = @query.class.name.singularize
+  object          = @query
+
+- decorator_model.front_query_form_objects(@current_user,f).each do |query_form_object_lists|
+  .row
+    - query_form_object_lists.each do |query_form_object|
+      .decorator_form[class="mb-3 #{input_group_class} col-sm-#{query_form_object[:col] || 12}" style="#{"display: none;" if query_form_object[:hidden] }"]
+        label.form-label[for="#{object_name}_#{query_form_object[:code]}"]
+          = model.human(query_form_object[:code])
+        = query_form_object[:input]
+        p.font-size-13.text-muted.mb-0
+          = query_form_object[:help].to_s.html_safe
+        p.cap.font-size-13.text-danger.mb-0
+          = query_form_object[:alert].to_s.html_safe

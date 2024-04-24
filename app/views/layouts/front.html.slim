@@ -1,0 +1,62 @@
+doctype html
+html lang="ja"
+  head
+    meta[charset="utf-8"]
+    title
+      = Settings.system.name
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    meta[content="" name="description"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    /= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "front/application", "data-turbo-track": "reload"
+    = stylesheet_link_tag "base/dashonic/bootstrap.min.css", "data-turbo-track": "reload", "id": "bootstrap-style"
+    = stylesheet_link_tag "base/dashonic/icons.min.css", "data-turbo-track": "reload"
+    = stylesheet_link_tag "base/dashonic/app.min.css", "data-turbo-track": "reload","id": "app-style"
+    = stylesheet_link_tag "base/custom", "data-turbo-track": "reload"
+    = stylesheet_link_tag "base/libs/quill/quill.snow.css", "data-turbo-track": "reload"
+    = render partial: "layouts/layout_css"
+
+    = javascript_include_tag "front/application", 'data-turbolinks-track' => false
+    = favicon_link_tag(image_short_logo_path)
+
+    css:
+      #page-topbar {
+          background-image: url(#{asset_path("base/ox_header.png")});
+          background-repeat: no-repeat;
+          background-position: right;background-size: contain;
+      }
+  body data-layout="horizontal"
+    - unless @current_user
+      = yield
+    -else
+      #layout-wrapper
+        #header
+          header#page-topbar style=""
+            = render partial: "layouts/_parts/front/header"
+            = render partial: "layouts/_parts/front/menu_bar"
+        .main-content
+          .page-content.sukuoi-bg
+            .container-fluid
+              - if true#@form_read
+                - unless @no_navi
+                  = yield :navi
+                #main_alert
+                  = render partial: 'layouts/_parts/front/main_alert'
+                = yield
+              - else
+                = alert_message(color: color_danger, messages: "アクセス権限がありません。")
+          #footer
+            = render partial: "layouts/_parts/front/footer"
+        #right_bar.right-bar
+          = render partial: "layouts/_parts/front/right_bar"
+    .rightbar-overlay
+    = render partial: 'layouts/_parts/front/modal'
+    div#sukuoi-overlay
+      div.inner
+        = image_tag("/img/loading2.gif",width: 100)
+    = javascript_include_tag "base/libs/bootstrap/js/bootstrap.bundle.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/libs/metismenujs/metismenujs.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/libs/simplebar/simplebar.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/libs/feather-icons/feather.min.js", 'data-turbolinks-track' => false
+    = javascript_include_tag "base/app.js", 'data-turbolinks-track' => false

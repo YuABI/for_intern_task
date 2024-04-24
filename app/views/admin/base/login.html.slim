@@ -6,12 +6,12 @@
         .col-md-8.col-lg-6.col-xl-4
           .text-center
             .mb-4.mb-md-5
-              = image_tag("admin/logo.png",width: "100%")
+              = image_tag("admin/logo.svg",width: "100%")
             .mb-4
-              h5
-                | ログイン画面
+              h3
+                | 本部ログイン画面
               p
-                | ログインIDとパスワードを入力してください。
+                | メールアドレスとパスワードを入力してください。
           = alert_message(color: :danger,messages: flash[:alert])
           = form_tag admin_login_path, method: :post, class: "",  id: "login-form" do
             .form-floating.form-floating-custom.mb-3
@@ -33,6 +33,6 @@
         .col-xl-12
           .text-center.text-muted.p-4
             p.mb-0
-              |  © ASNICA, Inc. All rights reserved.
+              |  © OCEAN GROUP All rights reserved.
               = space(2)
               =  Settings.system.name

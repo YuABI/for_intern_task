@@ -1,0 +1,99 @@
+.navbar-header
+  .d-flex
+    .navbar-brand-box
+      = link_to(front_root_path,class: "logo logo-dark") do
+        span.logo-sm
+          = image_logo
+        span.logo-lg
+          = image_header_logo
+      = link_to(front_root_path,class: "logo logo-light") do
+        span.logo-sm
+          = image_logo
+        span.logo-lg
+          = image_header_logo
+    button.btn.btn-sm.px-3.font-size-16.d-lg-none.header-item.collapsed[type="button" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content" aria-expanded="false"]
+      i.fa.fa-fw.fa-bars
+
+  .d-flex
+    .dropdown.d-none.d-lg-block.ms-2
+      button.btn.header-item[type="button" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false"]
+        span
+          = image_tag("base/tel.png",{height: 33})
+    // TODO: compose化
+    .dropdown.d-inline-block
+      button#page-header-notifications-dropdown.btn.header-item.noti-icon[type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+        i.icon-sm[data-feather="bell"]
+        - unless @unread_count.zero?
+          span.noti-dot.bg-danger
+      .dropdown-menu.dropdown-menu-lg.dropdown-menu-end.p-0[aria-labelledby="page-header-notifications-dropdown"]
+        .p-3
+          .row.align-items-center
+            .col
+              h5.m-0.font-size-15
+                |  お知らせ
+        div[data-simplebar style="max-height: 250px;"]
+          h6.dropdown-header.bg-light
+            | 最近
+          - NoticeBoard.alive_records.where(company_id: [@current_company.try(:id).to_i,0]).order("created_at desc").limit(3).each do |notice|
+            - notice = notice.decorate
+            = link_to news_detail_path(code: notice), {class: "text-reset notification-item"} do
+              .d-flex.border-bottom.align-items-start
+                / .flex-shrink-0
+                .flex-grow-1
+                  h6.mb-1
+                    = notice.title
+                    - if NoticeBoardUser.read_notice(@current_user, notice).blank?
+                      span.badge.badge-soft-pink.mx-auto
+                        | NEW
+                  .text-muted
+                    /p.mb-1.font-size-13
+                      | Your task changed an issue from "In Progress" to
+                    p.mb-0.font-size-10.text-uppercase.fw-bold
+                      i.mdi.mdi-clock-outline
+                      = notice.created_at_human
+        .p-2.border-top.d-grid
+          = link_to news_path, class: "btn btn-sm btn-link font-size-14 btn-block text-center" do
+            i.uil-arrow-circle-right.me-1
+            span
+              | もっと見る
+    - unless @mode_staff
+      .dropdown.d-none.d-lg-block.ms-2.align-self-center
+        = select_tag :target_shop_id,
+                options_for_select( options_for_select((@current_user.all_company? ? Shop.available_records : @current_company.shops.available_records).eager_load(:company).where(company: {available: Company._available_}).reorder(:company_id, :id).map{|i|["#{i.company.name}：#{i.name}",i.to_param]},@current_shop.to_param)),
+                {class: "form-select select2",onchange: "loading_open();window.location.href = '/target_shop/'+$('#target_shop_id').val();"}
+    - else
+      / .dropdown.d-none.d-lg-block.ms-2
+        button.btn.header-item[type="button" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false"]
+          span
+            = "#{@current_company.name}：#{@current_shop.name}"
+
+    .dropdown.d-inline-block
+      button#page-header-user-dropdown.btn.header-item.user.text-start.d-flex.align-items-center[type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+        span.ms-2.d-none.d-sm-block.user-item-desc
+          span.user-name
+            = "#{@current_user.code}：#{@current_user.name} 様"
+
+      .dropdown-menu.dropdown-menu-end.pt-0
+        - if false
+          = link_to(my_page_path, class: "dropdown-item") do
+            i.mdi.mdi-account-cog.text-muted.font-size-16.align-middle.me-1
+            span.align-middle
+              | マイページ
+        - unless @mode_staff
+          - if false
+            = link_to(shops_path, class: "dropdown-item") do
+              i.mdi.mdi-home.text-muted.font-size-16.align-middle.me-1
+              span.align-middle
+                | 販売施設設定
+          = link_to(users_path, class: "dropdown-item") do
+            i.mdi.mdi-account-group-outline.text-muted.font-size-16.align-middle.me-1
+            span.align-middle
+              | ユーザー設定
+        = link_to(contact_path, class: "dropdown-item") do
+          i.mdi.mdi-email-send-outline.text-muted.font-size-16.align-middle.me-1
+          span.align-middle
+            | お問合わせ
+        = link_to(front_logout_path, class: "dropdown-item") do
+          i.mdi.mdi-logout.text-muted.font-size-16.align-middle.me-1
+          span.align-middle
+            | ログアウト

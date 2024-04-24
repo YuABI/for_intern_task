@@ -4,6 +4,8 @@ class ActionDispatch::Routing::Mapper
   end
 end
 Rails.application.routes.draw do
+  draw :front
+  draw :members
   draw :admin
   draw :api
   # 開発環境で、localhost:xxxx/letter_opener　でメールを確認出来る
