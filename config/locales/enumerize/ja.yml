@@ -11,8 +11,21 @@ ja:
     address:
       address_type:
         user: "登録住所"
-        other: "別送先"
-
+        resident_card: "住民票"
+        domicile: "本籍"
+        other: "その他"
+    user_counsel:
+      counseling_category:
+        whole: "全体のメモ"
+        trigger: "身元保証人を探したきっかけ"
+        personality: "パーソナリティ"
+        real_estate: "不動産"
+        financial: "金融資産"
+        income: "収入"
+        expense: "支出"
+        facility: "施設"
+        medical_care: "医療"
+        after_death: "死後の方針"
     api_result:
       request_method:
         get: "GET"

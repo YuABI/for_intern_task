@@ -4,14 +4,22 @@
 #
 #  id                                  :bigint           not null, primary key
 #  birthday(誕生日)                    :date
+#  company_name(会社名)                :string           default(""), not null
 #  deleted(削除区分)                   :integer          default(0), not null
 #  deleted_at(削除日時)                :datetime
+#  division_name(部署名)               :string           default(""), not null
 #  email(メールアドレス)               :string           default(""), not null
+#  family_name(姓)                     :string           default(""), not null
+#  family_name_kana(姓カナ)            :string           default(""), not null
+#  first_name(名)                      :string           default(""), not null
+#  first_name_kana(名カナ)             :string           default(""), not null
 #  hashed_password(ハッシュパスワード) :string           default(""), not null
 #  last_logined_at(最終ログイン日時)   :datetime
-#  name(氏名)                          :string           default(""), not null
+#  modile_tel(携帯番号)                :string           default(""), not null
+#  position_name(役職名)               :string           default(""), not null
 #  salt                                :string
 #  sex                                 :integer          default("unknown"), not null
+#  tel(電話番号)                       :string           default(""), not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
 #
@@ -22,17 +30,26 @@
 #  index_users_on_email_and_deleted  (email,deleted)
 #
 class User < ApplicationRecord
-  include BaseAuthenticatable
+  # include BaseAuthenticatable TODO: 顧客画面実装時に構築
   include EmailSetting
-  include ApiWrapperSetting
+  include MemberSetting
+
+  validates :family_name,       presence: { if: proc { |a| a.family_name      != '　' } }
+  validates :first_name,        presence: { if: proc { |a| a.first_name       != '　' } }
+  validates :family_name_kana, presence: {}
+  validates :first_name_kana, presence: {}
+  validates :family_name_kana, format: { with: Regex::KANA }
+  validates :first_name_kana, format: { with: Regex::KANA }
 
   has_many :addresses, -> { order(address_type: :desc, id: :asc) }
   has_many :user_inquiries, -> { order(inquiry_at: :desc) }
+  has_many :user_counsels, -> { order(id: :desc) }
 
   has_many :other_addresses, -> { where(address_type: :other) }, class_name: 'Address'
 
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :user_inquiries, allow_destroy: true
+  accepts_nested_attributes_for :user_counsels, allow_destroy: true
 
   enumerize :sex, in: {
     unknown: 0,

@@ -1,0 +1,37 @@
+.authentication-bg.min-vh-100.login-image-sukuoi
+  .container
+    .d-flex.flex-column.min-vh-100.px-3.pt-4
+      .row.justify-content-center.my-auto
+        .col-5.bg-white.py-4
+          .text-center.py-5.p-4
+            .mb-4.mb-md-5
+              a.d-block.auth-logo[href="#"]
+                = image_tag(image_top_logo_path,style:"height:180px;")
+            .mb-4
+              /h5
+                | タイトル未定
+              h5
+                | メールアドレスとパスワードを入力ください
+              = alert_message(color: :danger, messages: flash[:alert])
+            = form_tag members_login_path, method: :post, class: "", id: "login-form" do
+              .form-floating.form-floating-custom.mb-3
+                = text_field :member, :email, class: "form-control form-control-sukuoi", placeholder: "ログインID"
+                label[for="input-username"]
+                  | メールアドレス
+                .form-floating-icon
+                  i.uil.uil-users-alt.text-sukuoi
+              .form-floating.form-floating-custom.mb-3
+                = password_field :member, :password, class: "form-control form-control-sukuoi", placeholder: "パスワード"
+                label[for="input-password"]
+                  = User.human(:password)
+                .form-floating-icon
+                  i.uil.uil-padlock.text-sukuoi
+              .mt-3
+                = submit_tag "ログイン", class: "btn btn-secondary btn-rounded w-75 bg-sukuoi"
+      .row
+        .col-xl-12
+          .text-center.text-white.p-4
+            p.mb-0
+              |  © OCEAN GROUP All rights reserved.
+              = space(2)
+              = Settings.system.name

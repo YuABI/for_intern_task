@@ -1,0 +1,31 @@
+ruby:
+  paginate_link = paginate(
+          models,
+          params: params || ApplicationQuery.paginate_opt[:params],
+          window: window || ApplicationQuery.paginate_opt[:window],
+          outer_window: outer_window || ApplicationQuery.paginate_opt[:outer_window],
+          remote: remote || false
+  )
+
+.row
+  .col-4
+    .gridjs-summary
+      = "全"
+      b.text-sukuoi
+        = models.total_count
+      = "件"
+      = space
+      = space
+      b.text-sukuoi
+        = models.current_page
+      = space
+      = "/"
+      = space
+      b.text-sukuoi
+        = models.total_pages
+      = "ページ"
+
+  .col-8
+    nav
+      ul.pagination.justify-content-end
+        = paginate_link

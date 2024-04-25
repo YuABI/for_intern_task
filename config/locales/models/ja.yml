@@ -2,11 +2,21 @@ ja:
   activerecord:
     models:
       user: 顧客管理
+      organization: 法人管理
+      member: 会員・パートナー管理
+      invoice: 請求管理
+      trust_company: 信託会社マスタ
+      insurance_company: 保険会社マスタ
+      plan: プラン設定
+      plan_option: オプション設定
+      news: お知らせ管理
+      content: コンテンツ管理
       api_client: APIクライアント設定
       webhook_service: Webhook設定
       webhook_result: Webhook通信履歴
       api_result: API通信履歴
       admin_user: 管理者設定
+      role: 権限管理
       system_config: システム設定
       user_lifeplan: ライフプラン
       user_lifeplan_income: 収入
@@ -62,14 +72,25 @@ ja:
         <<: *default
         sex: 性別
         birthday: 誕生日
+        modile_tel: 携帯番号
+        company_name: 会社名
+        division_name: 部署名
+        position_name: 肩書き
       user_inquiry:
         <<: *default
-        inquiry_at: 問い合わ日時
-        content: 問い合わ内容
+        inquiry_at: 問い合わせ日時
+        content: 問い合わせ内容
       user/addresses:
         <<: *default
       address:
         <<: *default
+      organization:
+        <<: *default
+      member:
+        <<: *default
+        organization_id: 法人
+        mobile_tel: 携帯番号
+        available: 利用する
       user_lifeplan:
         <<: *default
       user_lifeplan_income:

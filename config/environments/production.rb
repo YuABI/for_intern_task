@@ -106,8 +106,9 @@ Rails.application.configure do
   AUTH_BASIC_CONFIG  = {
     admin: true,
     front: false,
-    user: "recipe",
-    pass: "recipe"
+    members: false,
+    user: "ocean",
+    pass: "ocean"
   }
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,

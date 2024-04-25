@@ -1,0 +1,3 @@
+- if @current_company && @current_shop
+  = render Front::NoticeBoards::Component.new(shop: @current_shop,user: @current_user,limit: 2)
+  = render Front::PurchaseOrders::MenuCalendar::Component.new(user: @current_user, shop: @current_shop)

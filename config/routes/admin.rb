@@ -7,7 +7,12 @@ namespace :admin do
 
   [
     :users,
+    :members, :organizations,
+    :invoices,
+    :trust_companies, :insurance_companies, :plans, :plan_options,
+    :news, :contents,
     :api_results,
+    :system_configs,:admin_users, :api_clients,
     :system_configs,:admin_users,:api_clients,
     # TODO: 試しにマスターコントローラを実装
     :user_lifeplans, :user_lifeplan_assets, :user_lifeplan_beneficiarys, :user_lifeplan_contacts,

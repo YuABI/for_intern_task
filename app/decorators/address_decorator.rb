@@ -6,19 +6,6 @@ class AddressDecorator < ApplicationDecorator
       [
         [
           init_form(f,
-                    { code: :family_name,
-                      input: f.text_field(:family_name, class: f.object.decorate.input_class(:family_name, :admin), placeholder: ''), col: 3 }),
-          init_form(f,
-                    { code: :first_name,
-                      input: f.text_field(:first_name, class: f.object.decorate.input_class(:first_name, :admin), placeholder: ''), col: 3 }),
-          init_form(f,
-                    { code: :family_name_kana,
-                      input: f.text_field(:family_name_kana, class: f.object.decorate.input_class(:family_name_kana, :admin), placeholder: ''), col: 3 }),
-          init_form(f,
-                    { code: :first_name_kana,
-                      input: f.text_field(:first_name_kana, class: f.object.decorate.input_class(:first_name_kana, :admin), placeholder: ''), col: 3 }),
-        ], [
-          init_form(f,
                     { code: :zip,
                       input: f.text_field(:zip, class: f.object.decorate.input_class(:zip, :admin), placeholder: ''), col: 3 }),
           init_form(f,

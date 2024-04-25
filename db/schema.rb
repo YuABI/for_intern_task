@@ -10,22 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_03_093558) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_11_054430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", id: :serial, comment: "住所", force: :cascade do |t|
     t.bigint "user_id", default: 0, null: false, comment: "顧客"
-    t.string "family_name", default: "", null: false, comment: "姓"
-    t.string "first_name", default: "", null: false, comment: "名"
-    t.string "family_name_kana", default: "", null: false, comment: "姓カナ"
-    t.string "first_name_kana", default: "", null: false, comment: "名カナ"
     t.string "zip", default: "", null: false, comment: "郵便番号"
     t.string "pref", default: "", null: false, comment: "都道府県"
     t.text "city", default: "", null: false, comment: "市区町村"
     t.string "address1", default: "", null: false, comment: "番地"
     t.string "address2", default: "", null: false, comment: "建物名"
-    t.string "tel", default: "", null: false, comment: "電話番号"
     t.string "address_type", default: "", null: false, comment: "住所区分"
     t.integer "deleted", default: 0, null: false, comment: "削除区分"
     t.datetime "deleted_at", comment: "削除日時"
@@ -52,38 +47,55 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_093558) do
     t.index ["email"], name: "index_admin_users_on_email"
   end
 
-  create_table "api_clients", comment: "APIクライアント", force: :cascade do |t|
-    t.string "name", default: "", null: false, comment: "名称"
-    t.string "api_key", default: "", null: false, comment: "APIキー"
-    t.string "api_secret_key", default: "", null: false, comment: "シークレットキー"
-    t.string "api_access_token", default: "", null: false, comment: "アクセストークン"
-    t.datetime "api_access_token_expired_at", comment: "アクセストーク有効期限"
+  create_table "member_users", comment: "顧客と会員・パートナーの中間", force: :cascade do |t|
+    t.bigint "member_id", default: 0, null: false, comment: "会員・パートナー"
+    t.bigint "user_id", default: 0, null: false, comment: "顧客"
     t.integer "deleted", default: 0, null: false, comment: "削除区分"
     t.datetime "deleted_at", comment: "削除日時"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["api_access_token", "deleted"], name: "index_api_clients_on_api_access_token_and_deleted"
-    t.index ["api_access_token"], name: "index_api_clients_on_api_access_token"
-    t.index ["deleted"], name: "index_api_clients_on_deleted"
+    t.index ["deleted"], name: "index_member_users_on_deleted"
+    t.index ["user_id", "deleted"], name: "index_member_users_on_user_id_and_deleted"
   end
 
-  create_table "api_results", comment: "API実行履歴", force: :cascade do |t|
-    t.bigint "api_client_id", null: false
-    t.integer "api_status_id", default: 1, null: false, comment: "apiステータス"
-    t.text "end_point", default: "", null: false, comment: "エンドポイント"
-    t.integer "request_method", default: 0, null: false, comment: "リクエストメソッド"
-    t.text "request_body", comment: "リクエスト内容"
-    t.string "response_status", comment: "レスポンスステータス"
-    t.text "response_body", comment: "レスポンス内容"
-    t.datetime "request_at", comment: "リクエスト日時"
+  create_table "members", comment: "会員・パートナー", force: :cascade do |t|
+    t.bigint "organization_id", default: 0, null: false, comment: "組織"
+    t.string "email", default: "", null: false, comment: "メールアドレス"
+    t.string "hashed_password", default: "", null: false, comment: "ハッシュパスワード"
+    t.string "salt"
+    t.datetime "last_logined_at", comment: "最終ログイン日時"
+    t.string "tel", default: "", null: false, comment: "電話番号"
+    t.string "mobile_tel", default: "", null: false, comment: "携帯番号"
+    t.string "family_name", default: "", null: false, comment: "姓"
+    t.string "first_name", default: "", null: false, comment: "名"
+    t.string "family_name_kana", default: "", null: false, comment: "姓カナ"
+    t.string "first_name_kana", default: "", null: false, comment: "名カナ"
+    t.integer "available", default: 1, null: false, comment: "利用区分"
     t.integer "deleted", default: 0, null: false, comment: "削除区分"
     t.datetime "deleted_at", comment: "削除日時"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["api_client_id", "deleted"], name: "index_api_results_on_api_client_id_and_deleted"
-    t.index ["api_client_id"], name: "index_api_results_on_api_client_id"
-    t.index ["api_status_id"], name: "index_api_results_on_api_status_id"
-    t.index ["deleted"], name: "index_api_results_on_deleted"
+    t.index ["deleted"], name: "index_members_on_deleted"
+    t.index ["email", "deleted"], name: "index_members_on_email_and_deleted"
+    t.index ["email"], name: "index_members_on_email"
+  end
+
+  create_table "organizations", comment: "組織", force: :cascade do |t|
+    t.string "name", default: "", null: false, comment: "名称"
+    t.string "zip", comment: "郵便番号"
+    t.string "pref", comment: "都道府県"
+    t.text "city", comment: "市区町村"
+    t.string "address1", comment: "番地"
+    t.string "address2", comment: "建物名"
+    t.string "tel", comment: "電話番号"
+    t.string "fax", comment: "FAX番号"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted"], name: "index_organizations_on_deleted"
+    t.index ["name", "deleted"], name: "index_organizations_on_name_and_deleted"
+    t.index ["name"], name: "index_organizations_on_name"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -104,143 +116,40 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_093558) do
     t.index ["deleted"], name: "index_system_configs_on_deleted"
   end
 
-  create_table "user_inquiries", id: :serial, comment: "顧客問い合わせ", force: :cascade do |t|
-    t.bigint "user_id", default: 0, null: false, comment: "顧客"
-    t.bigint "admin_user_id", default: 0, null: false, comment: "管理者"
-    t.datetime "inquiry_at", comment: "問い合わ日時"
-    t.string "content", default: "", null: false, comment: "内容"
+  create_table "user_counsel_details", force: :cascade do |t|
+    t.bigint "user_counsel_id", default: 0, null: false, comment: "顧客"
+    t.integer "counseling_category", default: 0, null: false, comment: "カテゴリー"
+    t.string "memo", default: "", null: false, comment: "備考"
     t.integer "deleted", default: 0, null: false, comment: "削除区分"
     t.datetime "deleted_at", comment: "削除日時"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_user_id"], name: "index_user_inquiries_on_admin_user_id"
+  end
+
+  create_table "user_counsels", force: :cascade do |t|
+    t.bigint "user_id", default: 0, null: false, comment: "顧客"
+    t.bigint "member_id", default: 0, null: false, comment: "メンバー"
+    t.datetime "counseling_at", comment: "カウンセリング日付"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_inquiries", id: :serial, comment: "顧客問い合わせ", force: :cascade do |t|
+    t.bigint "user_id", default: 0, null: false, comment: "顧客"
+    t.string "member_id", default: "", null: false, comment: "会員"
+    t.datetime "inquiry_at", comment: "問い合わせ日時"
+    t.string "content", default: "", null: false, comment: "内容"
+    t.integer "mode", default: 0, null: false, comment: "区分"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["deleted"], name: "index_user_inquiries_on_deleted"
+    t.index ["member_id"], name: "index_user_inquiries_on_member_id"
     t.index ["user_id", "deleted"], name: "index_user_inquiries_on_user_id_and_deleted"
     t.index ["user_id"], name: "index_user_inquiries_on_user_id"
-  end
-
-  create_table "user_lifeplan_assets", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.bigint "user_lifeplan_id", null: false
-    t.integer "rate", default: 0, null: false
-    t.integer "asset_kind", default: 0, null: false
-    t.string "financial_institution_name", default: "", null: false
-    t.string "store_name", default: "", null: false
-    t.integer "deposit_kind", default: 0, null: false
-    t.string "account_number", default: "", null: false
-    t.datetime "reference_at"
-    t.integer "amount_of_money", default: 0, null: false
-    t.string "content", default: "", null: false
-    t.string "company_name", default: "", null: false
-    t.integer "asset_number", default: 0, null: false
-    t.integer "asset_appraisal_value", default: 0, null: false
-    t.integer "equity_appraisal_value", default: 0, null: false
-    t.integer "scheduled_for_sale", default: 0, null: false
-    t.integer "sundry_expenses", default: 0, null: false
-    t.integer "profit", default: 0, null: false
-    t.string "description", default: "", null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_assets_on_user_lifeplan_id"
-  end
-
-  create_table "user_lifeplan_beneficiaries", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.bigint "user_lifeplan_id", null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_beneficiaries_on_user_lifeplan_id"
-  end
-
-  create_table "user_lifeplan_contacts", force: :cascade do |t|
-    t.bigint "user_lifeplan_id", null: false
-    t.string "name", default: "", null: false
-    t.integer "contact_kind", default: 0, null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_contacts_on_user_lifeplan_id"
-  end
-
-  create_table "user_lifeplan_expenses", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.integer "expenditure_item_name", default: 0, null: false
-    t.bigint "user_lifeplan_id", null: false
-    t.integer "content", default: 0, null: false
-    t.string "company_name", default: "", null: false
-    t.integer "assets_number", default: 0, null: false
-    t.integer "note", default: 0, null: false
-    t.datetime "payment_start_at", null: false
-    t.datetime "payment_end_at", null: false
-    t.integer "monthly_amount", default: 0, null: false
-    t.integer "pay_by_years", default: 0, null: false
-    t.integer "yearly_amount", default: 0, null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_expenses_on_user_lifeplan_id"
-  end
-
-  create_table "user_lifeplan_finance_conditions", force: :cascade do |t|
-    t.bigint "user_lifeplan_id", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "until_submitted_at", null: false
-    t.string "account", default: "", null: false
-    t.string "account_info", default: "", null: false
-    t.integer "balance", default: 0, null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_finance_conditions_on_user_lifeplan_id"
-  end
-
-  create_table "user_lifeplan_incomes", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.bigint "user_lifeplan_id", null: false
-    t.integer "income_kind", default: 0, null: false
-    t.integer "asset_income_kind", default: 0, null: false
-    t.string "content", default: "", null: false
-    t.string "company_name", default: "", null: false
-    t.integer "assets_number", default: 0, null: false
-    t.datetime "payment_start_at"
-    t.datetime "payment_end_at"
-    t.integer "monthly_amount", default: 0, null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
-  end
-
-  create_table "user_lifeplans", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "apply_reviewed_at"
-    t.datetime "reviewed_at"
-    t.integer "background_reason", default: 0, null: false
-    t.string "background_reason_comment", default: "", null: false
-    t.integer "legal_heir", default: 0, null: false
-    t.string "legal_heir_comment", default: "", null: false
-    t.integer "residue", default: 0, null: false
-    t.integer "relatives", default: 0, null: false
-    t.string "relatives_comment", default: "", null: false
-    t.integer "household_disposal", default: 0, null: false
-    t.integer "real_estate_disposal", default: 0, null: false
-    t.integer "close_grave", default: 0, null: false
-    t.integer "funeral_memorial_policy", default: 0, null: false
-    t.string "small_account", default: "", null: false
-    t.string "note", default: "", null: false
-    t.integer "deleted", default: 0, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", comment: "顧客", force: :cascade do |t|
@@ -249,6 +158,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_093558) do
     t.string "salt"
     t.integer "sex", default: 0, null: false
     t.date "birthday", comment: "誕生日"
+    t.string "tel", default: "", null: false, comment: "電話番号"
+    t.string "modile_tel", default: "", null: false, comment: "携帯番号"
+    t.string "family_name", default: "", null: false, comment: "姓"
+    t.string "first_name", default: "", null: false, comment: "名"
+    t.string "family_name_kana", default: "", null: false, comment: "姓カナ"
+    t.string "first_name_kana", default: "", null: false, comment: "名カナ"
+    t.string "company_name", default: "", null: false, comment: "会社名"
+    t.string "division_name", default: "", null: false, comment: "部署名"
+    t.string "position_name", default: "", null: false, comment: "役職名"
     t.datetime "last_logined_at", comment: "最終ログイン日時"
     t.integer "deleted", default: 0, null: false, comment: "削除区分"
     t.datetime "deleted_at", comment: "削除日時"
@@ -277,10 +195,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_093558) do
     t.index ["zip"], name: "index_zip_lists_on_zip"
   end
 
-  add_foreign_key "user_lifeplan_assets", "user_lifeplans"
-  add_foreign_key "user_lifeplan_beneficiaries", "user_lifeplans"
-  add_foreign_key "user_lifeplan_contacts", "user_lifeplans"
-  add_foreign_key "user_lifeplan_expenses", "user_lifeplans"
-  add_foreign_key "user_lifeplan_finance_conditions", "user_lifeplans"
-  add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
 end

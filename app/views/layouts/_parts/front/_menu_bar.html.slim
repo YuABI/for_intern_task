@@ -1,0 +1,72 @@
+.topnav
+  .container-fluid
+    nav.navbar.navbar-light.navbar-expand-lg.topnav-menu
+      #topnav-menu-content.collapse.navbar-collapse
+        ul.navbar-nav
+          // dropdownあり
+          /li.nav-item.dropdown
+            a#topnav-dashboard.nav-link.dropdown-toggle.arrow-none[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+              i.icon.nav-icon[data-feather="monitor"]
+              span[data-key="t-dashboards"]
+                | Dashboards
+              .arrow-down
+            .dropdown-menu[aria-labelledby="topnav-dashboard"]
+              a.dropdown-item[href="index.html" data-key="t-sales"]
+                | Sales
+              a.dropdown-item[href="dashboards-analytics.html" data-key="t-analytics"]
+                | Analytics
+          ruby:
+            menu_lists = [
+                    { name: "ホーム", icon: "home", url: front_root_path, active: false },
+                    { name: "ご注文", icon: "truck", url: calendar_purchase_orders_path, active: controller_name == "purchase_orders" },
+            ]
+            if @current_shop.use_menu.available?
+              menu_lists += [
+                      { name: "献立・栄養計算", icon: "calendar", url: menu_calendars_path, active: MenuGroup.form_groups.include?(controller_name.to_sym) },
+              ]
+            end
+            menu_lists += [
+                    { name: "お知らせ", icon: "bell", url: news_path, active: controller_name == "news" },
+                    { name: "よくあるご質問", icon: "bell", url: faq_path, active: action_name == "faq" },
+
+            ]
+
+
+          - menu_lists.each do |menu_list|
+            li.nav-item class="#{"active" if menu_list[:active]}"
+              = link_to menu_list[:url], class: "nav-link arrow-none #{"active" if menu_list[:active]}" do
+                i.icon.nav-icon[data-feather="#{menu_list[:icon]}"]
+                span[data-key=""]
+                  = menu_list[:name]
+          li.nav-item.dropdown
+            a#topnav-dashboard.nav-link.dropdown-toggle.arrow-none[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+              i.icon.nav-icon[data-feather="alert-circle"]
+              span[data-key="t-dashboards"]
+                | コンテンツ
+              .arrow-down
+            .dropdown-menu[aria-labelledby="topnav-dashboard"]
+              = link_to kondate_path, { class: "dropdown-item" } do
+                = ContentControl.mode.find_value(:kondate).text
+              = link_to shokuiku_path, { class: "dropdown-item" } do
+                = ContentControl.mode.find_value(:shokuiku).text
+              = link_to other_path, { class: "dropdown-item" } do
+                = ContentControl.mode.find_value(:other).text
+          - if @survey_controls.present?
+            li.nav-item.dropdown
+              a#topnav-uielement.nav-link.dropdown-toggle.arrow-none[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+                i.icon.nav-icon[data-feather="edit-3"]
+                span[data-key="t-elements"]
+                  | アンケート
+                .arrow-down
+              .dropdown-menu.mega-dropdown-menu.px-2.dropdown-mega-menu-xl[aria-labelledby="topnav-uielement"]
+                .ps-2.p-lg-0
+                  .row
+                    - @survey_controls.in_groups_of(6, false).each do |_survey_controls|
+                      .col-lg-5
+                        div
+                          /.menu-title
+                            | NEWS
+                          div
+                            - _survey_controls.each do |survey_control|
+                              = link_to survey_detail_path(code: survey_control), {class: "dropdown-item","data-key" => "t-lightbox"} do
+                                = survey_control.title

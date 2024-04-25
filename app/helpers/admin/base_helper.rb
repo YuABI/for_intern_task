@@ -2,7 +2,8 @@ module Admin
   module BaseHelper
     def image_logo(options = {})
       options[:height] ||= 33
-      image_tag('admin/logo.png', options)
+      options[:width] ||= "180px"
+      image_tag('admin/logo.svg', options)
     end
 
     def input_group_class

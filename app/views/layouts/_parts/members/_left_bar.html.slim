@@ -1,0 +1,36 @@
+.vertical-menu
+  /.navbar-brand-box
+    = link_to(admin_root_path,class: "logo logo-dark") do
+      span.logo-sm
+        = image_logo
+      span.logo-lg
+        = image_logo
+    = link_to(admin_root_path,class: "logo logo-light") do
+      span.logo-lg
+        = image_logo
+      span.logo-sm
+        = image_logo
+  button.btn.btn-sm.px-3.font-size-16.header-item.vertical-menu-btn[type="button"]
+    i.fa.fa-fw.fa-bars
+  ruby:
+    menu_lists = [
+            { name: "ホーム", icon: "home", url: members_root_path, active: action_name == "dashboard" },
+            { name: "顧客登録", icon: "user-plus", url: new_members_user_path, active: controller_name == "users" && action_name.in?(["new", "user_counsel"]) },
+            { name: "顧客一覧",   icon: "user", url: members_users_path, active: controller_name == "users" && action_name != "new" },
+    ]
+  .sidebar-menu-scroll.simplebar-scrollable-y[data-simplebar="init"]
+    .simplebar-wrapper style="margin: 0px;"
+      .simplebar-height-auto-observer-wrapper
+        .simplebar-height-auto-observer
+      .simplebar-mask
+        .simplebar-offset style="right: 0px; bottom: 0px;"
+          .simplebar-content-wrapper tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"
+            .simplebar-content style="padding: 0px;"
+              #sidebar-menu
+                ul#side-menu.metismenu.list-unstyled
+                  - menu_lists.each.with_index do |opt, i|
+                    li class="#{"mm-active" if opt[:active] }" aria-expanded="false"
+                      = link_to opt[:url] do
+                        i.icon.nav-icon[data-feather="#{opt[:icon]}"]
+                        span.menu-item
+                          = opt[:name]

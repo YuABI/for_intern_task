@@ -1,0 +1,31 @@
+.vertical-menu
+  .navbar-brand-box
+    = link_to(admin_root_path,class: "logo logo-dark") do
+      span.logo-sm
+        = image_logo
+      span.logo-lg
+        = image_logo
+    = link_to(admin_root_path,class: "logo logo-light") do
+      span.logo-lg
+        = image_logo
+      span.logo-sm
+        = image_logo
+  button.btn.btn-sm.px-3.font-size-16.header-item.vertical-menu-btn[type="button"]
+    i.fa.fa-fw.fa-bars
+  .sidebar-menu-scroll[data-simplebar]
+    #sidebar-menu
+      ul#side-menu.metismenu.list-unstyled
+        - BusinessType.all.each do |business_type|
+          ruby:
+            forms = @current_admin_user.target_forms(business_type.id)
+            next if forms.blank?
+
+          li class="#{"mm-active" if @current_form&.business_type.to_i == business_type.id}"
+            a.has-arrow[href="javascript: void(0);"]
+              i.icon.nav-icon[data-feather="#{business_type.icon}"]
+              span.menu-item
+                = business_type.name
+            ul.sub-menu[aria-expanded="false"]
+              - forms.each do |form|
+                li class="#{"mm-active" if @current_form&.controller == form.controller}"
+                  = link_to(form.name,send("admin_#{form.controller}_path"))  rescue nil

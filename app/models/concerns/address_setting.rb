@@ -4,13 +4,7 @@ module AddressSetting
     before_validation :convert_attribute
     # before_save :tel_split
     validates :zip, :pref, :city, :address1, presence: {}
-    validates :family_name,       presence: { if: proc { |a| a.family_name      != '　' } }
-    validates :first_name,        presence: { if: proc { |a| a.first_name       != '　' } }
     validates :zip, presence: {}, format: Regex::ZIP
-    validates :family_name_kana, presence: {}
-    validates :first_name_kana, presence: {}
-    validates :family_name_kana, format: { with: Regex::KANA }
-    validates :first_name_kana, format: { with: Regex::KANA }
 
     validates :tel, presence: {}, format: Regex::TEL
     validate :valid_zip?

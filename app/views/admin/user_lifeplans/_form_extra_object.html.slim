@@ -15,6 +15,20 @@ ruby:
             tr
               th.bg-light
                 = UserLifeplanAsset.human :name
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:name)
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:financial_institution_name)
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:account_number)
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:amount_of_money)
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:content)
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:company_name)
+              th.bg-light
+                = UserLifeplanAsset.human_attribute_name(:description)
               th.bg-light.text-center
                 = link_to_remote icon_add,
                         { url: add_user_lifeplan_asset_admin_user_lifeplans_path(id: object.exists_db? ? object.id : nil), method: "POST", submit: "form", loading: true },

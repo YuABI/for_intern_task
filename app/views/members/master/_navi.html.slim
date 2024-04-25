@@ -1,0 +1,25 @@
+= render partial: "header_navi", locals: {mode: mode}
+- unless @no_navi
+  ruby:
+    decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+  - content_for(:navi) do
+    .row
+      .col-12
+        .page-title-box.d-flex.align-items-center.justify-content-between
+          h4.mb-0
+            /= decorator_model.front_view_name(controller_name)
+          .page-title-right
+            ol.breadcrumb.m-0
+              - if mode == :index
+                - if decorator_model.allow_new?
+                  = link_to(raw("新規作成"), send("new_members_#{controller_name.singularize}_path"),class: "btn btn-#{color_new} btn-sm") if @form_write
+              - else
+                li.breadcrumb-item
+                  = link_to("一覧",send("members_#{controller_name}_path"))
+                - if mode == :edit
+                  li.breadcrumb-item.active
+                    = "編集"
+                - if mode == :new
+                  li.breadcrumb-item.active
+                    = "新規登録"
+= render partial: "extra_navi", locals: {mode: mode}
