@@ -44,13 +44,13 @@ class Members::UsersController < Members::MasterSearchController
 
   def create
     goto = nil
-    goto = "member_users_user_counsel_path" if params[:user_counsel].present?
+    goto = "members_users_user_counsel_path" if params[:user_counsel].present?
     super(goto)
   end
 
   def update
     goto = nil
-    goto = "member_users_user_counsel_path" if params[:user_counsel].present?
+    goto = "members_users_user_counsel_path" if params[:user_counsel].present?
     super(goto)
   end
 

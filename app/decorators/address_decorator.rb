@@ -22,9 +22,9 @@ class AddressDecorator < ApplicationDecorator
           init_form(f,
                     { code: :address2,
                       input: f.text_field(:address2, class: f.object.decorate.input_class(:address2, :admin), placeholder: ''), col: 3 }),
-          init_form(f,
-                    { code: :tel,
-                      input: f.text_field(:tel, class: f.object.decorate.input_class(:tel, :admin), placeholder: ''), col: 3 }),
+          # init_form(f,
+          #           { code: :tel,
+          #             input: f.text_field(:tel, class: f.object.decorate.input_class(:tel, :admin), placeholder: ''), col: 3 }),
 
         ]
       ]
