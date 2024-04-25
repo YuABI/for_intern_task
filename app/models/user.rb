@@ -44,6 +44,7 @@ class User < ApplicationRecord
   has_many :addresses, -> { order(address_type: :desc, id: :asc) }
   has_many :user_inquiries, -> { order(inquiry_at: :desc) }
   has_many :user_counsels, -> { order(id: :desc) }
+  has_many :user_lifeplans, -> { order(id: :desc) }
 
   has_many :other_addresses, -> { where(address_type: :other) }, class_name: 'Address'
 

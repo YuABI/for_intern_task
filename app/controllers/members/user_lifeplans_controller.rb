@@ -1,4 +1,4 @@
-class Admin::UserLifeplansController < Admin::MasterController
+class Members::UserLifeplansController < Members::MasterSearchController
   def add_user_lifeplan_asset
     add_associations(association_model: :user_lifeplan_assets)
   end

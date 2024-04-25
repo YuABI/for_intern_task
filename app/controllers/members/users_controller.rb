@@ -43,14 +43,26 @@ class Members::UsersController < Members::MasterSearchController
   end
 
   def create
-    goto = nil
-    goto = "members_users_user_counsel_path" if params[:user_counsel].present?
+    goto = if params[:user_counsel].present?
+             "members_users_user_counsel_path"
+           elsif params[:user_lifeplan].present?
+              select_user_lifeplan_url
+           else
+             nil
+           end
     super(goto)
   end
 
   def update
-    goto = nil
-    goto = "members_users_user_counsel_path" if params[:user_counsel].present?
+    goto = if params[:user_counsel].present?
+             "members_users_user_counsel_path"
+           elsif params[:user_lifeplan].present?
+              select_user_lifeplan_url
+           else
+             nil
+           end
+    p "goto"
+    p goto
     super(goto)
   end
 
@@ -69,4 +81,16 @@ class Members::UsersController < Members::MasterSearchController
 
   private
 
+  def select_user_lifeplan_url
+    user = find_object
+    last_user_lifeplan = user&.user_lifeplans&.order(:id)&.last
+
+    if user.present? && last_user_lifeplan.present?
+      "edit_members_user_lifeplan_path(#{last_user_lifeplan.id})"
+    elsif user.present? && last_user_lifeplan.blank?
+      "new_members_user_lifeplan_path(user_id: #{user.id})"
+    else
+      'new_members_user_lifeplan_path()'
+    end
+  end
 end

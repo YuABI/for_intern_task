@@ -24,10 +24,19 @@
 #  status                    :integer          default(0), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  user_id                   :bigint           not null
+#
+# Indexes
+#
+#  index_user_lifeplans_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 class UserLifeplan < ApplicationRecord
   # TODO: まだUserができていないので、一旦コメントアウト
-  # belongs_to :user
+  belongs_to :user
   has_many :user_lifeplan_beneficiaries, dependent: :destroy
   has_many :user_lifeplan_contacts, dependent: :destroy
   has_many :user_lifeplan_finance_conditions, dependent: :destroy

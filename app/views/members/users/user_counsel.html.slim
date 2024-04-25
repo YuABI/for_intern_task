@@ -48,7 +48,7 @@ ruby:
     .col-12.d-flex.justify-content-center.pb-4
       = link_to("顧客情報へもどる", edit_members_user_path(object), class: "btn btn-warning w-sm mx-2")
       = f.submit "保存して終了", class: "btn btn-danger w-sm", onclick: loading_open
-      = f.submit "ライフプラン審査へ進む", class: "btn btn-#{color_add} w-sm ms-auto", onclick: loading_open, name: ""
+      = f.submit "ライフプラン審査へ進む", class: "btn btn-#{color_add} w-sm ms-auto", onclick: loading_open, name: "user_lifeplan"
     javascript:
         #{decorator_model.form_javascript(f)}
 

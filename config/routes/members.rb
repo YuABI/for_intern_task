@@ -7,6 +7,7 @@ namespace :members do
 
   [
     :users,
+    :user_lifeplans
   ].each do |sym|
     namespace sym do
       case sym
@@ -29,6 +30,27 @@ namespace :members do
         collection do
           match :add_address, via: [:post,:patch]
           match :del_address, via: [:post,:patch]
+        end
+      when :user_lifeplans
+        collection do
+          match :add_user_lifeplan_asset, via: [:post,:patch]
+          match :del_user_lifeplan_asset, via: [:post,:patch]
+
+          match :add_user_lifeplan_income, via: [:post,:patch]
+          match :del_user_lifeplan_income, via: [:post,:patch]
+
+          match :add_user_lifeplan_expense, via: [:post,:patch]
+          match :del_user_lifeplan_expense, via: [:post,:patch]
+
+          match :add_user_lifeplan_finance_condition, via: [:post,:patch]
+          match :del_user_lifeplan_finance_condition, via: [:post,:patch]
+
+          match :add_user_lifeplan_contact, via: [:post,:patch]
+          match :del_user_lifeplan_contact, via: [:post,:patch]
+
+          match :add_user_lifeplan_beneficiary, via: [:post,:patch]
+          match :del_user_lifeplan_beneficiary, via: [:post,:patch]
+
         end
       end
 
