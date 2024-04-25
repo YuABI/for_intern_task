@@ -55,7 +55,8 @@ html lang="ja"
           #modal-body.modal-body
     div#asnica-overlay
       div.inner
-        = image_tag("/img/loading2.gif",width: 100)
+        / = image_tag("/img/loading2.gif",width: 100)
+        = image_tag("admin/parts/loading.gif",width: 100)
     = javascript_include_tag "base/libs/bootstrap/js/bootstrap.bundle.min.js", 'data-turbolinks-track' => false
     = javascript_include_tag "base/libs/metismenujs/metismenujs.min.js", 'data-turbolinks-track' => false
     = javascript_include_tag "base/libs/simplebar/simplebar.min.js", 'data-turbolinks-track' => false
