@@ -8,6 +8,13 @@ ja:
       api_result: API通信履歴
       admin_user: 管理者設定
       system_config: システム設定
+      user_lifeplan: ライフプラン
+      user_lifeplan_income: 収入
+      user_lifeplan_finance_condition: 財務情報
+      user_lifeplan_expense: 支出
+      user_lifeplan_contact: ライフプラン契約
+      user_lifeplan_beneficiary: 遺贈先
+      user_lifeplan_asset: 現預金
 
     attributes:
       default: &default
@@ -62,6 +69,20 @@ ja:
       user/addresses:
         <<: *default
       address:
+        <<: *default
+      user_lifeplan:
+        <<: *default
+      user_lifeplan_income:
+        <<: *default
+      user_lifeplan_finance_condition:
+        <<: *default
+      user_lifeplan_expense:
+        <<: *default
+      user_lifeplan_contact:
+        <<: *default
+      user_lifeplan_beneficiarie:
+        <<: *default
+      user_lifeplan_asset:
         <<: *default
 
 

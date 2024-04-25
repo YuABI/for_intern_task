@@ -3,7 +3,6 @@ class UserLifeplanDecorator < ApplicationDecorator
 
   class << self
     def form_objects(f)
-      p 'form_objects'
       [
         [
           init_form(f,

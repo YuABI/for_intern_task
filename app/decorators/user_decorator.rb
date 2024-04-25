@@ -72,4 +72,8 @@ class UserDecorator < ApplicationDecorator
       true
     end
   end
+
+  def name
+    addresses.first&.name
+  end
 end

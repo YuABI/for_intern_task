@@ -7,7 +7,7 @@ class Operation < Base::BasicActiveModel
     { id: 300,  code: 'system_configs', operation_category_id: OperationCategory.setting.id },
     { id: 400,  code: 'admin_users',    operation_category_id: OperationCategory.setting.id },
     { id: 500,  code: 'api_clients',    operation_category_id: OperationCategory.setting.id },
-    { id: 600,  code: 'user_lifeplans',    operation_category_id: OperationCategory.setting.id },
+    { id: 600,  code: 'user_lifeplans',    operation_category_id: OperationCategory.user.id },
   ].freeze
   def name
     I18n.t("activerecord.models.#{code.singularize}")
