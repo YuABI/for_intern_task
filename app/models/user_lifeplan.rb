@@ -34,4 +34,10 @@ class UserLifeplan < ApplicationRecord
   has_many :user_lifeplan_incomes, dependent: :destroy
   has_many :user_lifeplan_expenses, dependent: :destroy
   has_many :user_lifeplan_assets, dependent: :destroy
+
+  class << self
+    def permit_params
+      %i[name status apply_reviewed_at reviewed_at]
+    end
+  end
 end
