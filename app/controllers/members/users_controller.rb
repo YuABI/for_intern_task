@@ -61,8 +61,6 @@ class Members::UsersController < Members::MasterSearchController
            else
              nil
            end
-    p "goto"
-    p goto
     super(goto)
   end
 

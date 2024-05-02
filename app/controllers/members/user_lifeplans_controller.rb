@@ -51,7 +51,7 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
   def add_associations(**args)
     obj = find_or_initialize_object
-    obj.assign_attributes(admin_object_params)
+    obj.assign_attributes(members_object_params)
     association_model = args[:association_model]
 
     render_javascript do |page|
@@ -66,7 +66,7 @@ class Members::UserLifeplansController < Members::MasterSearchController
     obj = find_or_initialize_object
     association_model = args[:association_model]
 
-    options = admin_object_params
+    options = members_object_params
 
     options[:"#{association_model}_attributes"][params[:target_idx]][:_destroy] = '1'
 

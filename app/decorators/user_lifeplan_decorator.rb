@@ -1,8 +1,16 @@
 class UserLifeplanDecorator < ApplicationDecorator
-  delegate_all
-
   class << self
     def form_objects(f)
+      common_form_object(f)
+    end
+
+    def member_form_objects(member, f)
+      common_form_object(f)
+    end
+
+    private
+
+    def common_form_object(f)
       [
         [
           init_form( f, {
@@ -27,6 +35,13 @@ class UserLifeplanDecorator < ApplicationDecorator
         ],
         [
           init_form( f, {
+            code: :background_reason_comment,
+            input: f.number_field(:background_reason_comment, class: f.object.decorate.input_class(:background_reason_comment, :admin)),
+            col: 6, no_required: false, help: '', alert: ''
+          }),
+        ],
+        [
+          init_form( f, {
             code: :legal_heir,
             input: f.number_field(:legal_heir, class: f.object.decorate.input_class(:legal_heir, :admin)),
             col: 6, no_required: false, help: '', alert: ''
@@ -34,8 +49,22 @@ class UserLifeplanDecorator < ApplicationDecorator
         ],
         [
           init_form( f, {
+            code: :legal_heir_comment,
+            input: f.number_field(:legal_heir_comment, class: f.object.decorate.input_class(:legal_heir_comment, :admin)),
+            col: 6, no_required: false, help: '', alert: ''
+          }),
+        ],
+        [
+          init_form( f, {
             code: :residue,
             input: f.number_field(:residue, class: f.object.decorate.input_class(:residue, :admin)),
+            col: 6, no_required: false, help: '', alert: ''
+          }),
+        ],
+        [
+          init_form( f, {
+            code: :relatives_comment,
+            input: f.number_field(:relatives_comment, class: f.object.decorate.input_class(:relatives_comment, :admin)),
             col: 6, no_required: false, help: '', alert: ''
           }),
         ],
@@ -69,6 +98,13 @@ class UserLifeplanDecorator < ApplicationDecorator
         ],
         [
           init_form( f, {
+            code: :note,
+            input: f.number_field(:note, class: f.object.decorate.input_class(:note, :admin)),
+            col: 6, no_required: false, help: '', alert: ''
+          }),
+        ],
+        [
+          init_form( f, {
             code: :funeral_memorial_policy,
             input: f.number_field(:funeral_memorial_policy, class: f.object.decorate.input_class(:funeral_memorial_policy, :admin)),
             col: 6, no_required: false, help: '', alert: ''
@@ -76,7 +112,6 @@ class UserLifeplanDecorator < ApplicationDecorator
         ]
       ]
     end
-
   end
 
 end
