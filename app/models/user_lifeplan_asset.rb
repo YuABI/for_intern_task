@@ -6,23 +6,23 @@
 #  account_number             :string           default(""), not null
 #  amount_of_money            :integer          default(0), not null
 #  asset_appraisal_value      :integer          default(0), not null
-#  asset_kind                 :integer          default(0), not null
-#  asset_number               :integer          default(0), not null
+#  cache_deposit_kind         :string           default(NULL), not null
 #  company_name               :string           default(""), not null
 #  content                    :string           default(""), not null
 #  deleted                    :integer          default(0), not null
 #  deleted_at                 :datetime
-#  deposit_kind               :integer          default(0), not null
 #  description                :string           default(""), not null
 #  equity_appraisal_value     :integer          default(0), not null
 #  financial_institution_name :string           default(""), not null
 #  name                       :string           default(""), not null
+#  other_assets_kind          :string           default(NULL), not null
 #  profit                     :integer          default(0), not null
 #  rate                       :integer          default(0), not null
 #  reference_at               :datetime
 #  scheduled_for_sale         :integer          default(0), not null
 #  store_name                 :string           default(""), not null
 #  sundry_expenses            :integer          default(0), not null
+#  user_lifeplan_asset_kind   :string           default(NULL), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  user_lifeplan_id           :bigint           not null
@@ -36,4 +36,24 @@
 #  fk_rails_...  (user_lifeplan_id => user_lifeplans.id)
 #
 class UserLifeplanAsset < ApplicationRecord
+  belongs_to :user_lifeplan
+
+  enumerize :user_lifeplan_asset_kind, in: %i[
+    cash_deposits other_assets
+  ]
+  enumerize :cache_deposit_kind, in: %i[
+    ordinary_deposit standard_savings regular_savings fixed_deposit fixed_amount_savings time_deposit savings_deposit
+    installment_savings transfer_account investment_fund other_cache_deposit
+  ]
+  enumerize :other_assets_kind, in: %i[
+    land building condominium securities life_insurance property_insurance loan deposit other_assets
+  ]
+
+  class << self
+    def permit_params
+      %i[name user_lifeplan_id rate user_lifeplan_asset_kind financial_institution_name store_name cache_deposit_kind
+         other_assets_kind account_number reference_at amount_of_money content company_name asset_number
+         asset_appraisal_value equity_appraisal_value scheduled_for_sale sundry_expenses profit description]
+    end
+  end
 end

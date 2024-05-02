@@ -156,16 +156,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
     t.string "name", default: "", null: false
     t.bigint "user_lifeplan_id", null: false
     t.integer "rate", default: 0, null: false
-    t.integer "asset_kind", default: 0, null: false
+    t.string "other_assets_kind", default: "", null: false
     t.string "financial_institution_name", default: "", null: false
     t.string "store_name", default: "", null: false
-    t.integer "deposit_kind", default: 0, null: false
+    t.string "cache_deposit_kind", default: "", null: false
     t.string "account_number", default: "", null: false
     t.datetime "reference_at"
     t.integer "amount_of_money", default: 0, null: false
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
-    t.integer "asset_number", default: 0, null: false
     t.integer "asset_appraisal_value", default: 0, null: false
     t.integer "equity_appraisal_value", default: 0, null: false
     t.integer "scheduled_for_sale", default: 0, null: false
@@ -176,6 +175,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_lifeplan_asset_kind", default: "", null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_assets_on_user_lifeplan_id"
   end
 
@@ -192,22 +192,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
   create_table "user_lifeplan_contacts", force: :cascade do |t|
     t.bigint "user_lifeplan_id", null: false
     t.string "name", default: "", null: false
-    t.integer "contact_kind", default: 0, null: false
+    t.string "user_lifeplan_contact_kind", default: "", null: false
     t.integer "deleted", default: 0, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "contact_level_kind", default: "", null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_contacts_on_user_lifeplan_id"
   end
 
   create_table "user_lifeplan_expenses", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.integer "expenditure_item_name", default: 0, null: false
+    t.string "expenditure_item_name", default: "", null: false
     t.bigint "user_lifeplan_id", null: false
-    t.integer "content", default: 0, null: false
+    t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
-    t.integer "assets_number", default: 0, null: false
-    t.integer "note", default: 0, null: false
+    t.string "note", default: "", null: false
     t.datetime "payment_start_at", null: false
     t.datetime "payment_end_at", null: false
     t.integer "monthly_amount", default: 0, null: false
@@ -217,6 +217,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_lifeplan_expense_kind", default: "", null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_expenses_on_user_lifeplan_id"
   end
 
@@ -237,11 +238,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
   create_table "user_lifeplan_incomes", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.bigint "user_lifeplan_id", null: false
-    t.integer "income_kind", default: 0, null: false
-    t.integer "asset_income_kind", default: 0, null: false
+    t.string "cache_income_kind", default: "", null: false
+    t.string "pension_kind", default: "", null: false
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
-    t.integer "assets_number", default: 0, null: false
     t.datetime "payment_start_at"
     t.datetime "payment_end_at"
     t.integer "monthly_amount", default: 0, null: false
@@ -249,6 +249,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_lifeplan_income_kind", default: "", null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
   end
 
@@ -257,17 +258,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_25_092734) do
     t.integer "status", default: 0, null: false
     t.datetime "apply_reviewed_at"
     t.datetime "reviewed_at"
-    t.integer "background_reason", default: 0, null: false
+    t.string "background_reason", default: "", null: false
     t.string "background_reason_comment", default: "", null: false
-    t.integer "legal_heir", default: 0, null: false
+    t.string "legal_heir", default: "", null: false
     t.string "legal_heir_comment", default: "", null: false
-    t.integer "residue", default: 0, null: false
-    t.integer "relatives", default: 0, null: false
+    t.string "residue", default: "", null: false
+    t.string "relatives", default: "", null: false
     t.string "relatives_comment", default: "", null: false
-    t.integer "household_disposal", default: 0, null: false
-    t.integer "real_estate_disposal", default: 0, null: false
-    t.integer "close_grave", default: 0, null: false
-    t.integer "funeral_memorial_policy", default: 0, null: false
+    t.string "household_disposal", default: "", null: false
+    t.string "real_estate_disposal", default: "", null: false
+    t.string "close_grave", default: "", null: false
+    t.string "funeral_memorial_policy", default: "", null: false
     t.string "small_account", default: "", null: false
     t.string "note", default: "", null: false
     t.integer "deleted", default: 0, null: false

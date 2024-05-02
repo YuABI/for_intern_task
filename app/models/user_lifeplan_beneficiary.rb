@@ -20,4 +20,10 @@
 #
 class UserLifeplanBeneficiary < ApplicationRecord
   belongs_to :user_lifeplan
+
+  class << self
+    def permit_params
+      %i[name user_lifeplan_id]
+    end
+  end
 end

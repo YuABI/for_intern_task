@@ -24,4 +24,10 @@
 #
 class UserLifeplanFinanceCondition < ApplicationRecord
   belongs_to :user_lifeplan
+
+  class << self
+    def permit_params
+      %i[user_lifeplan_id status until_submitted_at account account_info balance]
+    end
+  end
 end
