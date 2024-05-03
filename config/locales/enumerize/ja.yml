@@ -70,10 +70,18 @@ ja:
         unselected: 未選択
         existing:  あり
         not_existing: なし
+      relatives_comment:
+        unselected: 未選択
+        no_children: 子どもがいない
+        children_issues: 子どもに問題がある
+        family_domestic_violence: 家族・親族によるDV
+        family_squandering: 家族・親族による散財
+        no_burden_on_family: 家族に迷惑をかけたくない
       household_disposal:
         unselected: 未選択
         existing:  あり
         not_existing: なし
+        checking: 現在確認中
       real_estate_disposal:
         unselected: 未選択
         existing:  あり
@@ -118,6 +126,7 @@ ja:
       user_lifeplan_income_kind:
         pension: 年金
         cache_income: 収入
+        temporary_cache_income: 一時
       pension_kind:
         national_pension: "国民年金"
         welfare_pension: "厚生年金"
@@ -143,7 +152,7 @@ ja:
         spending: 支出
         life_event: イベント
         elderly_facility: 施設
-        end_of_life deposit: 終活（STEP1〜STEP3費用）
+        end_of_life: 終活（STEP1〜STEP3費用）
         deposit: 終活（預託金）
     user_lifeplan_contact:
       user_lifeplan_contact_kind:

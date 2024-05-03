@@ -57,6 +57,7 @@ class UserLifeplan < ApplicationRecord
   enumerize :legal_heir_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown]
   enumerize :residue, in: %i[unselected existing not_existing]
   enumerize :relatives, in: %i[unselected existing not_existing]
+  enumerize :relatives_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown]
   enumerize :household_disposal, in: %i[unselected existing not_existing checking]
   enumerize :real_estate_disposal, in: %i[unselected existing not_existing checking]
   enumerize :close_grave, in: %i[unselected existing not_existing checking]

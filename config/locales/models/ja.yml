@@ -112,8 +112,8 @@ ja:
         note: 備考
       user_lifeplan_income:
         <<: *default
-        name: 名称
-        user_lifeplan_id: ユーザーライフプランID
+        name: 収入名
+        user_lifeplan_id: ライフプランID
         cache_income_kind: キャッシュ収入種類
         pension_kind: 年金種類
         content: 内容
@@ -124,7 +124,7 @@ ja:
         user_lifeplan_income_kind: 収入種類
       user_lifeplan_finance_condition:
         <<: *default
-        user_lifeplan_id: ユーザーライフプランID
+        user_lifeplan_id: ライフプランID
         status: ステータス
         until_submitted_at: 提出期限
         account: 口座
@@ -132,49 +132,49 @@ ja:
         balance: 残高
       user_lifeplan_expense:
         <<: *default
-        name: 名称
+        name: 支出名
         expenditure_item_name: 支出項目名
-        user_lifeplan_id: ユーザーライフプランID
+        user_lifeplan_id: ライフプランID
         content: 内容
         company_name: 会社名
         note: 備考
         payment_start_at: 支払開始日
         payment_end_at: 支払終了日
         monthly_amount: 月額
-        pay_by_years: 年払い
+        pay_by_years: 年毎
         yearly_amount: 年額
         user_lifeplan_expense_kind: 支出種類
       user_lifeplan_contact:
         <<: *default
-        user_lifeplan_id: ユーザーライフプランID
-        name: 名称
+        user_lifeplan_id: ライフプランID
+        name: 契約書名
         user_lifeplan_contact_kind: ライフプラン連絡種類
         contact_level_kind: 連絡レベル種類
       user_lifeplan_beneficiarie:
         <<: *default
-        user_lifeplan_id: ユーザーライフプランID
+        user_lifeplan_id: ライフプランID
         name: 名前
       user_lifeplan_asset:
         <<: *default
-        user_lifeplan_id: ユーザーライフプランID
-        name: 名前
+        user_lifeplan_id: ライフプランID
+        name: 資産名
         rate: レート
         other_assets_kind: 他の資産種類
         financial_institution_name: 金融機関名
-        store_name: 店名
+        store_name: 取扱店
         cache_deposit_kind: 預金種別
         account_number: 口座番号
         reference_at: 基準日
         amount_of_money: 金額
         content: 内容
         company_name: 会社名
-        asset_appraisal_value: 資産評価額
+        asset_appraisal_value: 評価額
         equity_appraisal_value: 持分評価額
         scheduled_for_sale: 売却予定
         sundry_expenses: 諸経費
         profit: 利益
-        description: 説明
-        user_lifeplan_asset_kind: ユーザーライフプラン資産種類
+        description: 摘要
+        user_lifeplan_asset_kind: 資産種類
 
 
   activemodel:
