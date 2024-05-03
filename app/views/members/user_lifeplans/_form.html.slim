@@ -36,7 +36,13 @@ ruby:
                         label.form-label[for="#{object_name}_#{form_object[:code]}"]
                           = form_object[:label]
                         = form_object[:input]
-              = render partial: "form_extra_object", locals: {f:, decorator_model:, object_name: , object: }
+              = render partial: "form_beneficiaries", locals: {f:, decorator_model:, object_name: , object: }
+              = render partial: "form_assets", locals: {f:, decorator_model:, object_name: , object: }
+              = render partial: "form_incomes", locals: {f:, decorator_model:, object_name: , object: }
+              = render partial: "form_expenses", locals: {f:, decorator_model:, object_name: , object: }
+              = render partial: "form_contacts", locals: {f:, decorator_model:, object_name: , object: }
+              = render partial: "form_finance_conditions", locals: {f:, decorator_model:, object_name: , object: }
+
   .row
     .col-12.pb-4
       = f.submit "確認画面へ", class: "btn btn-#{color_add} w-sm ms-auto float-end", onclick: loading_open, name: "confirm"

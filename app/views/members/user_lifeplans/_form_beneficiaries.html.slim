@@ -1,0 +1,29 @@
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}").decorate
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+.col-12.mb-3
+  label.me-3
+    | 遺贈先
+  = link_to_remote(icon_add,
+    { url: add_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.id : nil),
+      method: "POST", submit: "form", loading: true },
+    { class: "btn btn-#{color_add} mb-3" } )
+  .row
+    .col-6
+      = f.fields_for :user_lifeplan_beneficiaries do |fe|
+        - unless fe.object._destroy
+          - UserLifeplanBeneficiarDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
+            - form_object_lists.each do |form_object|
+              .input-group.mb-3
+                = form_object[:input]
+                = link_to_remote icon_del,
+                  { url: del_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.id : nil,
+                    target_idx: fe.index), method: "POST", submit: "form", loading: true },
+                  { class: "btn btn-#{color_destroy}" }
+        - else
+          = fe.hidden_field(:_destroy, value: 1)
+          - fe.object.class.column_names.each do |column|
+            = fe.hidden_field(column)
+        = f.object.decorate.error_message_html(:user_lifeplan_beneficiaries,:admin)

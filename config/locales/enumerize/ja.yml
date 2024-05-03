@@ -156,7 +156,7 @@ ja:
         deposit: 終活（預託金）
     user_lifeplan_contact:
       user_lifeplan_contact_kind:
-        will: 遺言書
+        testament: 遺言書
         power_of_attorney: 事務委任契約
         guardianship_agreement: 任意後見契約
         post_mortem_proxy: 死後事務委任契約

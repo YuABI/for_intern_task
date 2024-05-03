@@ -126,10 +126,12 @@ ja:
         <<: *default
         user_lifeplan_id: ライフプランID
         status: ステータス
-        until_submitted_at: 提出期限
+        until_submitted_on: 提出期限
+        confirmed_on: 残高確認日
         account: 口座
         account_info: 口座情報
         balance: 残高
+        docs: スキャン
       user_lifeplan_expense:
         <<: *default
         name: 支出名
@@ -148,6 +150,7 @@ ja:
         <<: *default
         user_lifeplan_id: ライフプランID
         name: 契約書名
+        docs: 添付ファイル
         user_lifeplan_contact_kind: ライフプラン連絡種類
         contact_level_kind: 連絡レベル種類
       user_lifeplan_beneficiarie:

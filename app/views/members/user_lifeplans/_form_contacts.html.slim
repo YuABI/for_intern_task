@@ -1,0 +1,19 @@
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}").decorate
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+.col-12.mb-3
+  label
+    | 契約書案確認
+  = f.fields_for :user_lifeplan_contacts do |fe|
+    label.d-block
+      = fe.object.user_lifeplan_contact_kind.text
+    .row
+      - UserLifeplanContactDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
+          - form_object_lists.each do |form_object|
+            - if form_object[:col]
+              div class="col-#{form_object[:col]}"
+            - else
+              div class="col"
+                = form_object[:input]

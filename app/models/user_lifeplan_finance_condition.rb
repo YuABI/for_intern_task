@@ -6,10 +6,11 @@
 #  account            :string           default(""), not null
 #  account_info       :string           default(""), not null
 #  balance            :integer          default(0), not null
+#  confirmed_on       :date
 #  deleted            :integer          default(0), not null
 #  deleted_at         :datetime
 #  status             :integer          default(0), not null
-#  until_submitted_at :datetime         not null
+#  until_submitted_on :datetime         not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_lifeplan_id   :bigint           not null
@@ -24,6 +25,7 @@
 #
 class UserLifeplanFinanceCondition < ApplicationRecord
   belongs_to :user_lifeplan
+  has_many_attached :docs
 
   class << self
     def permit_params

@@ -1,4 +1,12 @@
 class Members::UserLifeplansController < Members::MasterSearchController
+  def new
+    super
+
+    @user_lifeplan.user_lifeplan_contacts = UserLifeplanContact.user_lifeplan_contact_kind.values.map do |key|
+      UserLifeplanContact.new(user_lifeplan_contact_kind: key)
+    end
+  end
+
   def add_user_lifeplan_asset
     add_associations(association_model: :user_lifeplan_assets)
   end
@@ -68,6 +76,7 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
     options = members_object_params
 
+    p options[:"#{association_model}_attributes"]
     options[:"#{association_model}_attributes"][params[:target_idx]][:_destroy] = '1'
 
     obj.assign_attributes(options)
