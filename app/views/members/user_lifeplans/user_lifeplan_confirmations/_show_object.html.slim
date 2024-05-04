@@ -1,0 +1,7 @@
+ruby:
+  decorator = decorator_model.new(@user_lifeplan)
+
+= render Members::UserLifeplans::DetailIncomeAndExpenseComponent.new(user_lifeplan_decorator: decorator)
+= render Members::UserLifeplans::TrailBalanceComponent.new(user_lifeplan_decorator: decorator)
+= render Members::UserLifeplans::UserInformationComponent.new(user_lifeplan_decorator: decorator)
+= render Members::UserLifeplans::BlanceGraphComponent.new(user_lifeplan_decorator: decorator)

@@ -1,0 +1,19 @@
+= render partial: "navi", locals: {mode: :show}
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}")
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+.row
+  .col-12
+    .card
+      .card-header.justify-content-between.d-flex.align-items-center
+        h4.card-title
+          = "ライフプラン審査確認"
+      .card-body
+        .table-responsive
+          table.table.table-bordered.mb-0
+            = render partial: "show_object", locals: {object: object,decorator_model: decorator_model}
+= render partial: "show_extra_object", locals: {object: object,decorator_model: decorator_model}
+
+
