@@ -5,13 +5,24 @@ class UserLifeplanDecorator < ApplicationDecorator
     end
 
     def member_form_objects(member, f)
-      common_form_object(f)
+      common_form_object(f, member)
     end
 
     private
 
-    def common_form_object(f)
+    def common_form_object(f, member)
       [
+        [
+          init_form( f, {
+            code: :user_id,
+            # TODO: 顧客作成時にmemberとの紐付けが実装され次第、コメントアウトを外す
+            # input: f.select(:user_id, member.users.map { |user| [user.name, user.id] }, { include_blank: true },
+            #                 class: f.object.decorate.input_class(:name, :admin)),
+            input: f.select(:user_id, User.all.map { |user| [user.full_name, user.id] }, { include_blank: true },
+                            class: f.object.decorate.input_class(:name, :admin)  ),
+            col: 6, no_required: false, help: '', alert: ''
+          }),
+        ],
         [
           init_form( f, {
             code: :name,
@@ -36,8 +47,8 @@ class UserLifeplanDecorator < ApplicationDecorator
         [
           init_form( f, {
             code: :background_reason_comment,
-            input: f.number_field(:background_reason_comment, class: f.object.decorate.input_class(:background_reason_comment, :admin)),
-            col: 6, no_required: false, help: '', alert: ''
+            input: f.text_area(:background_reason_comment, class: f.object.decorate.input_class(:background_reason_comment, :admin)),
+            col: 6, no_required: false, help: '', alert: '', row: 10
           }),
         ],
         [

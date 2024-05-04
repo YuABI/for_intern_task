@@ -61,6 +61,10 @@ class User < ApplicationRecord
   validates :birthday, comparison: { less_than: Date.today }, if: -> { use_birthday? }
   after_initialize :after_initialize_setup
 
+  def full_name
+    "#{family_name} #{first_name}"
+  end
+
   def after_initialize_setup
     nil unless new_record?
   end

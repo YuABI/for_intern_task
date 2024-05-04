@@ -44,13 +44,13 @@ class UserLifeplanContactDecorator < ApplicationDecorator
         }), ],
         [ init_form( f, {
             code: :docs,
-            input: f.file_field(:copy_docs, class: f.object.decorate.input_class(:copy_docs, :admin), multiple: true),
+            input: f.file_field(:docs, class: f.object.decorate.input_class(:docs, :admin), multiple: true),
             no_required: false, help: '', alert: ''
         }) ],
       ] + f&.object&.docs&.map do |doc|
         [ init_form( f, {
             code: :docs,
-            input: f.hidden_field(:doc_ids, multiple: true, value: image.signed_id),
+            input: f.hidden_field(:doc_ids, multiple: true, value: doc.signed_id),
             no_required: false, help: '', alert: ''
         }) ]
       end

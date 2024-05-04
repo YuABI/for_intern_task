@@ -28,7 +28,7 @@ ruby:
                   | ライフプラン審査
                 p.card-title-desc
                   | 必須項目を入力してください
-              - decorator_model.member_form_objects(@current_user,f).each do |form_object_lists|
+              - decorator_model.member_form_objects(@current_member,f).each do |form_object_lists|
                 .row
                   - form_object_lists.each do |form_object|
                     div class="#{input_group_class} col-sm-#{form_object[:col] || 12}" style="#{"display: none;" if form_object[:hidden] }"

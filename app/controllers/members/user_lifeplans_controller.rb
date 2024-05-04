@@ -2,9 +2,8 @@ class Members::UserLifeplansController < Members::MasterSearchController
   def new
     super
 
-    @user_lifeplan.user_lifeplan_contacts = UserLifeplanContact.user_lifeplan_contact_kind.values.map do |key|
-      UserLifeplanContact.new(user_lifeplan_contact_kind: key)
-    end
+    @user_lifeplan.setup_contacts
+    @user_lifeplan.setup_user(params[:user_id]) if params[:user_id].present?
   end
 
   def add_user_lifeplan_asset
@@ -76,7 +75,6 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
     options = members_object_params
 
-    p options[:"#{association_model}_attributes"]
     options[:"#{association_model}_attributes"][params[:target_idx]][:_destroy] = '1'
 
     obj.assign_attributes(options)
@@ -85,5 +83,13 @@ class Members::UserLifeplansController < Members::MasterSearchController
     end
   rescue StandardError => e
     LoggerService.new(exception: e, request:).call
+  end
+
+  def members_object_params
+    origin_params = super
+    if origin_params[:member_id].blank?
+      origin_params[:member_id] = @current_member.id
+    end
+    origin_params
   end
 end

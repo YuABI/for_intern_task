@@ -7,6 +7,8 @@
 #  background_reason         :string           default(NULL), not null
 #  background_reason_comment :string           default(""), not null
 #  close_grave               :string           default(NULL), not null
+#  contact_inspect_note      :text
+#  contact_note              :text
 #  deleted                   :integer          default(0), not null
 #  deleted_at                :datetime
 #  funeral_memorial_policy   :string           default(NULL), not null
@@ -24,11 +26,13 @@
 #  status                    :integer          default(0), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  member_id                 :bigint           not null
 #  user_id                   :bigint           not null
 #
 # Indexes
 #
-#  index_user_lifeplans_on_user_id  (user_id)
+#  index_user_lifeplans_on_member_id  (member_id)
+#  index_user_lifeplans_on_user_id    (user_id)
 #
 # Foreign Keys
 #
@@ -49,7 +53,7 @@ class UserLifeplan < ApplicationRecord
   accepts_nested_attributes_for :user_lifeplan_incomes, allow_destroy: true
   accepts_nested_attributes_for :user_lifeplan_expenses, allow_destroy: true
   accepts_nested_attributes_for :user_lifeplan_assets, allow_destroy: true
-
+  has_many_attached :contact_note_docs
 
   enumerize :background_reason, in: %i[unselected no_children children_issues family_domestic_violence
                                        family_squandering no_burden_on_family]
@@ -65,7 +69,7 @@ class UserLifeplan < ApplicationRecord
 
   class << self
     def permit_params
-      %i[name status apply_reviewed_at reviewed_at background_reason background_reason_comment legal_heir
+      %i[user_id name status apply_reviewed_at reviewed_at background_reason background_reason_comment legal_heir
          legal_heir_comment residue relatives relatives_comment household_disposal real_estate_disposal
          close_grave funeral_memorial_policy small_account note] +
         [
@@ -77,5 +81,18 @@ class UserLifeplan < ApplicationRecord
           user_lifeplan_finance_conditions_attributes: UserLifeplanFinanceCondition.permit_params
         ]
     end
+  end
+
+  def setup_contacts
+    self.user_lifeplan_contacts = UserLifeplanContact.user_lifeplan_contact_kind.values.map do |key|
+      UserLifeplanContact.new(user_lifeplan_contact_kind: key)
+    end
+  end
+
+  def setup_user(user_hash_id)
+      # TODO: memberとの紐付けが実装され次第、コメントアウトを外す
+      # designated_user = users.find_by(id: params[:user_id])
+      designated_user = User.find_by_hashid(user_hash_id)
+      self.user_id = designated_user&.id
   end
 end

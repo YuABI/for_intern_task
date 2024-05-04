@@ -94,16 +94,17 @@ ja:
       user_lifeplan:
         <<: *default
         name: 名称
+        user_id: 顧客
         status: ステータス
         apply_reviewed_at: 申請審査日
         reviewed_at: 審査日
         background_reason: 依頼の背景
-        background_reason_comment: 依頼の背景コメント
+        background_reason_comment: 依頼の背景備考
         legal_heir: 法定相続人
-        legal_heir_comment: 法定相続人コメント
+        legal_heir_comment: 法定相続人の状況
         residue: 遺留分
         relatives: 親族
-        relatives_comment: 親族コメント
+        relatives_comment: 親族の状況
         household_disposal: 家財処分
         real_estate_disposal: 不動産処分
         close_grave: 墓じまい

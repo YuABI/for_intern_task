@@ -84,9 +84,9 @@ class Members::UsersController < Members::MasterSearchController
     last_user_lifeplan = user&.user_lifeplans&.order(:id)&.last
 
     if user.present? && last_user_lifeplan.present?
-      "edit_members_user_lifeplan_path(#{last_user_lifeplan.id})"
+      "edit_members_user_lifeplan_path('#{last_user_lifeplan.custom_id}')"
     elsif user.present? && last_user_lifeplan.blank?
-      "new_members_user_lifeplan_path(user_id: #{user.id})"
+      "new_members_user_lifeplan_path(user_id: '#{user.custom_id}')"
     else
       'new_members_user_lifeplan_path()'
     end

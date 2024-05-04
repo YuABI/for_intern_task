@@ -72,11 +72,10 @@ ja:
         not_existing: なし
       relatives_comment:
         unselected: 未選択
-        no_children: 子どもがいない
-        children_issues: 子どもに問題がある
-        family_domestic_violence: 家族・親族によるDV
-        family_squandering: 家族・親族による散財
-        no_burden_on_family: 家族に迷惑をかけたくない
+        cooperative: 協力的
+        no_issues: 特に問題なし
+        problematic_background: 背景に問題あり
+        estranged_unknown: 疎遠で不明
       household_disposal:
         unselected: 未選択
         existing:  あり

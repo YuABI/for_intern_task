@@ -9,11 +9,21 @@ ruby:
   = f.fields_for :user_lifeplan_contacts do |fe|
     label.d-block
       = fe.object.user_lifeplan_contact_kind.text
-    .row
+    .row.mb-3
       - UserLifeplanContactDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
-          - form_object_lists.each do |form_object|
-            - if form_object[:col]
-              div class="col-#{form_object[:col]}"
-            - else
-              div class="col"
-                = form_object[:input]
+        - form_object_lists.each do |form_object|
+          - if form_object[:col]
+            div class="col-#{form_object[:col]}"
+          - else
+            div class="col"
+              = form_object[:input]
+  label.d-block
+    | 契約備考欄
+  .row
+    div class="col"
+      = f.text_area :contact_note, class: "form-control", rows: 10
+    div class="col"
+      = f.file_field :contact_note_docs, class: "form-control"
+  - f.object.contact_note_docs.each do |contact_note_doc|
+    = f.hidden_field(:doc_ids, multiple: true, value: contact_note_doc.signed_id)
+
