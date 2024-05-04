@@ -72,7 +72,7 @@ module Members
     end
 
     def find_object
-      obj = _model_.custom_find_by({id: params[:id]})
+      obj = _model_.custom_find_by({id: params_id})
       instance_set(name_singularize, obj)
       obj
     end
@@ -82,6 +82,10 @@ module Members
 
       instance_set(name_singularize, obj)
       obj
+    end
+
+    def params_id
+      params[:id]
     end
 
 
