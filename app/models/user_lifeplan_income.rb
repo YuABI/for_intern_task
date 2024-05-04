@@ -44,8 +44,7 @@ class UserLifeplanIncome < ApplicationRecord
 
   class << self
     def permit_params
-      %i[name user_lifeplan_id user_lifeplan_income_kind pension_kind cache_income_kind content company_name
-         assets_number payment_start_at payment_end_at monthly_amount]
+      super
     end
   end
 end

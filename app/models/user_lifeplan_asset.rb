@@ -51,9 +51,7 @@ class UserLifeplanAsset < ApplicationRecord
 
   class << self
     def permit_params
-      %i[name user_lifeplan_id rate user_lifeplan_asset_kind financial_institution_name store_name cache_deposit_kind
-         other_assets_kind account_number reference_at amount_of_money content company_name asset_number
-         asset_appraisal_value equity_appraisal_value scheduled_for_sale sundry_expenses profit description]
+      super
     end
   end
 end

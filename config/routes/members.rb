@@ -33,7 +33,7 @@ namespace :members do
         end
       when :user_lifeplans
         scope module: :user_lifeplans do
-          resource :confirmations, only: %i[show update], params: :_id
+          resource :confirmations, only: %i[show update]
         end
         collection do
           match :add_user_lifeplan_asset, via: [:post,:patch]

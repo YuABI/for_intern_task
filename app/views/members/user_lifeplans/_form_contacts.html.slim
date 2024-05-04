@@ -17,6 +17,9 @@ ruby:
           - else
             div class="col"
               = form_object[:input]
+      - fe.object.class.column_names.each do |column|
+        - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
+        = fe.hidden_field(column)
   label.d-block
     | 契約備考欄
   .row

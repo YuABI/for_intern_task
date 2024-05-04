@@ -34,7 +34,7 @@ class UserLifeplanContact < ApplicationRecord
 
   class << self
     def permit_params
-      %i[user_lifeplan_id name user_lifeplan_contact_kind contact_level_kind]
+      super + [ { docs: [] } ]
     end
   end
 end

@@ -6,6 +6,20 @@ class Members::UserLifeplansController < Members::MasterSearchController
     @user_lifeplan.setup_user(params[:user_id]) if params[:user_id].present?
   end
 
+  def create
+    goto = "edit_members_user_lifeplan_url"
+    super(goto)
+  end
+
+  def update
+    goto = if params[:confirm].present?
+             "members_user_lifeplan_confirmations_url('#{params[:id]}')"
+           else
+             "edit_members_user_lifeplan_url('#{params[:id]}')"
+           end
+    super(goto)
+  end
+
   def add_user_lifeplan_asset
     add_associations(association_model: :user_lifeplan_assets)
   end
@@ -58,7 +72,8 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
   def add_associations(**args)
     obj = find_or_initialize_object
-    obj.assign_attributes(members_object_params)
+    p obj
+    obj.assign_attributes(members_object_params.except(:user_lifeplan_contacts_attributes))
     association_model = args[:association_model]
 
     render_javascript do |page|

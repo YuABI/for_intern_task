@@ -9,7 +9,7 @@ ruby:
       h4.card-title
         = "資産"
       = link_to_remote icon_add,
-              { url: add_user_lifeplan_asset_members_user_lifeplans_path(id: object.exists_db? ? object.id : nil), method: "POST", submit: "form", loading: true },
+              { url: add_user_lifeplan_asset_members_user_lifeplans_path(id: object.exists_db? ? object.custom_id : nil), method: "POST", submit: "form", loading: true },
               { class: "btn btn-#{color_add} text-right" }
     .card-body
       .table-responsive
@@ -31,7 +31,11 @@ ruby:
                         = form_object[:input]
                   td.text-center
                     = link_to_remote icon_del,
-                            { url: del_user_lifeplan_asset_members_user_lifeplans_path(id: object.exists_db? ? object.id : nil,target_idx: fe.index), method: "POST", submit: "form", loading: true }, { class: "btn btn-#{color_destroy}" }
+                            { url: del_user_lifeplan_asset_members_user_lifeplans_path(id: object.exists_db? ? object.custom_id : nil,target_idx: fe.index), method: "POST", submit: "form", loading: true }, { class: "btn btn-#{color_destroy}" }
+
+                    - fe.object.class.column_names.each do |column|
+                      - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
+                      = fe.hidden_field(column)
               - else
                 = fe.hidden_field(:_destroy, value: 1)
                 - fe.object.class.column_names.each do |column|

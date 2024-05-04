@@ -37,8 +37,7 @@ class UserLifeplanExpense < ApplicationRecord
 
   class << self
     def permit_params
-      %i[name user_lifeplan_expense_kind expenditure_item_name user_lifeplan_id content company_name assets_number note
-         payment_start_at payment_end_at monthly_amount pay_by_years yearly_amount]
+      super
     end
   end
 end

@@ -1,10 +1,8 @@
 class Members::UserLifeplans::ConfirmationsController < Members::MasterSearchController
 
-  def show
-  end
-
   # 申請処理
   def update
+      obj = find_object
   end
 
   private

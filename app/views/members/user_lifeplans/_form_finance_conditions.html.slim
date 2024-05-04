@@ -9,7 +9,7 @@ ruby:
       h4.card-title
         | 財務情報提出
       = link_to_remote icon_add,
-        { url: add_user_lifeplan_finance_condition_members_user_lifeplans_path(id: object.exists_db? ? object.id : nil),
+        { url: add_user_lifeplan_finance_condition_members_user_lifeplans_path(id: object.exists_db? ? object.custom_id : nil),
           method: "POST", submit: "form", loading: true },
         { class: "btn btn-#{color_add} text-right" }
     .card-body
@@ -31,7 +31,7 @@ ruby:
                         = form_object[:input]
                   td.text-center
                     = link_to_remote icon_del,
-                      { url: del_user_lifeplan_finance_condition_admin_user_lifeplans_path( id: object.exists_db? ? object.id : nil,target_idx: fe.index),
+                      { url: del_user_lifeplan_finance_condition_members_user_lifeplans_path( id: object.exists_db? ? object.custom_id : nil,target_idx: fe.index),
                         method: "POST", submit: "form", loading: true },
                       { class: "btn btn-#{color_destroy}" }
               - else

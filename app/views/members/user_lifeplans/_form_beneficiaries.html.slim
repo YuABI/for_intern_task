@@ -7,7 +7,7 @@ ruby:
   label.me-3
     | 遺贈先
   = link_to_remote(icon_add,
-    { url: add_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.id : nil),
+    { url: add_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.custom_id : nil),
       method: "POST", submit: "form", loading: true },
     { class: "btn btn-#{color_add} mb-3" } )
   .row
@@ -19,9 +19,12 @@ ruby:
               .input-group.mb-3
                 = form_object[:input]
                 = link_to_remote icon_del,
-                  { url: del_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.id : nil,
+                  { url: del_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.custom_id : nil,
                     target_idx: fe.index), method: "POST", submit: "form", loading: true },
                   { class: "btn btn-#{color_destroy}" }
+          - fe.object.class.column_names.each do |column|
+            - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
+            = fe.hidden_field(column)
         - else
           = fe.hidden_field(:_destroy, value: 1)
           - fe.object.class.column_names.each do |column|

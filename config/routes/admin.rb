@@ -15,8 +15,7 @@ namespace :admin do
     :system_configs,:admin_users, :api_clients,
     :system_configs,:admin_users,:api_clients,
     # TODO: 試しにマスターコントローラを実装
-    :user_lifeplans, :user_lifeplan_assets, :user_lifeplan_beneficiarys, :user_lifeplan_contacts,
-    :user_lifeplan_expenses, :user_lifeplan_finance_conditions, :user_lifeplan_incomes,
+    :user_lifeplans,
   ].each do |sym|
     namespace sym do
       case sym

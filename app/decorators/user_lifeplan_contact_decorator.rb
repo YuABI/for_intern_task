@@ -50,7 +50,7 @@ class UserLifeplanContactDecorator < ApplicationDecorator
       ] + f&.object&.docs&.map do |doc|
         [ init_form( f, {
             code: :docs,
-            input: f.hidden_field(:doc_ids, multiple: true, value: doc.signed_id),
+            input: f.hidden_field(:docs, multiple: true, value: doc.signed_id),
             no_required: false, help: '', alert: ''
         }) ]
       end

@@ -29,7 +29,7 @@ class UserLifeplanFinanceCondition < ApplicationRecord
 
   class << self
     def permit_params
-      %i[user_lifeplan_id status until_submitted_at account account_info balance]
+      super + [ { docs: [] } ]
     end
   end
 end

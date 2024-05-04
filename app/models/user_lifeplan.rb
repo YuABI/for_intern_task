@@ -69,16 +69,15 @@ class UserLifeplan < ApplicationRecord
 
   class << self
     def permit_params
-      %i[user_id name status apply_reviewed_at reviewed_at background_reason background_reason_comment legal_heir
-         legal_heir_comment residue relatives relatives_comment household_disposal real_estate_disposal
-         close_grave funeral_memorial_policy small_account note] +
+      super +
         [
           user_lifeplan_assets_attributes: UserLifeplanAsset.permit_params,
           user_lifeplan_incomes_attributes: UserLifeplanIncome.permit_params,
           user_lifeplan_expenses_attributes: UserLifeplanExpense.permit_params,
           user_lifeplan_beneficiaries_attributes: UserLifeplanBeneficiary.permit_params,
           user_lifeplan_contacts_attributes: UserLifeplanContact.permit_params,
-          user_lifeplan_finance_conditions_attributes: UserLifeplanFinanceCondition.permit_params
+          user_lifeplan_finance_conditions_attributes: UserLifeplanFinanceCondition.permit_params,
+          contact_note_docs: []
         ]
     end
   end

@@ -23,7 +23,7 @@ class UserLifeplanBeneficiary < ApplicationRecord
 
   class << self
     def permit_params
-      %i[name user_lifeplan_id]
+      super
     end
   end
 end
