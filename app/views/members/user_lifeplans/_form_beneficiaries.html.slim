@@ -14,7 +14,7 @@ ruby:
     .col-6
       = f.fields_for :user_lifeplan_beneficiaries do |fe|
         - unless fe.object._destroy
-          - UserLifeplanBeneficiarDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
+          - UserLifeplanBeneficiaryDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
             - form_object_lists.each do |form_object|
               .input-group.mb-3
                 = form_object[:input]

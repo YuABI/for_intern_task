@@ -10,7 +10,7 @@
 #  deleted            :integer          default(0), not null
 #  deleted_at         :datetime
 #  status             :integer          default(0), not null
-#  until_submitted_on :datetime         not null
+#  until_submitted_on :date
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_lifeplan_id   :bigint           not null

@@ -62,15 +62,15 @@ class UserLifeplanIncomeDecorator < ApplicationDecorator
           col: 6, no_required: false, help: '', alert: ''
         }), ],
         [ init_form(f, {
-          code: :payment_start_at,
-          input: f.text_field(:payment_start_at,
-                              class: f.object.decorate.input_class(:payment_start_at, :admin), type: :date),
+          code: :payment_start_on,
+          input: f.text_field(:payment_start_on,
+                              class: f.object.decorate.input_class(:payment_start_on, :admin), type: :date),
           col: 6, no_required: false, help: '', alert: ''
         }), ],
         [ init_form(f, {
-          code: :payment_end_at,
-          input: f.text_field(:payment_end_at,
-                              class: f.object.decorate.input_class(:payment_end_at, :admin), type: :date),
+          code: :payment_end_on,
+          input: f.text_field(:payment_end_on,
+                              class: f.object.decorate.input_class(:payment_end_on, :admin), type: :date),
           col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form(f, {

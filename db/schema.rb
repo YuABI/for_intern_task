@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_04_035702) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_04_081805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -189,7 +189,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_035702) do
     t.string "store_name", default: "", null: false
     t.string "cache_deposit_kind", default: "", null: false
     t.string "account_number", default: "", null: false
-    t.datetime "reference_at"
+    t.date "reference_on"
     t.integer "amount_of_money", default: 0, null: false
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
@@ -236,8 +236,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_035702) do
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
     t.string "note", default: "", null: false
-    t.datetime "payment_start_at", null: false
-    t.datetime "payment_end_at", null: false
+    t.date "payment_start_on"
+    t.date "payment_end_on"
     t.integer "monthly_amount", default: 0, null: false
     t.integer "pay_by_years", default: 0, null: false
     t.integer "yearly_amount", default: 0, null: false
@@ -252,7 +252,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_035702) do
   create_table "user_lifeplan_finance_conditions", force: :cascade do |t|
     t.bigint "user_lifeplan_id", null: false
     t.integer "status", default: 0, null: false
-    t.datetime "until_submitted_on", null: false
+    t.date "until_submitted_on"
     t.string "account", default: "", null: false
     t.string "account_info", default: "", null: false
     t.integer "balance", default: 0, null: false
@@ -271,8 +271,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_035702) do
     t.string "pension_kind", default: "", null: false
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
-    t.datetime "payment_start_at"
-    t.datetime "payment_end_at"
+    t.date "payment_start_on"
+    t.date "payment_end_on"
     t.integer "monthly_amount", default: 0, null: false
     t.integer "deleted", default: 0, null: false
     t.datetime "deleted_at"

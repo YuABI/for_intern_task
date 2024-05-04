@@ -12,8 +12,8 @@
 #  name                       :string           default(""), not null
 #  note                       :string           default(""), not null
 #  pay_by_years               :integer          default(0), not null
-#  payment_end_at             :datetime         not null
-#  payment_start_at           :datetime         not null
+#  payment_end_on             :date
+#  payment_start_on           :date
 #  user_lifeplan_expense_kind :string           default(NULL), not null
 #  yearly_amount              :integer          default(0), not null
 #  created_at                 :datetime         not null

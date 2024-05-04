@@ -68,8 +68,8 @@ class UserLifeplanAssetDecorator < ApplicationDecorator
           col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form( f, {
-          code: :reference_at,
-          input: f.text_field(:reference_at, class: f.object.decorate.input_class(:reference_at, :admin), type: 'date'),
+          code: :reference_on,
+          input: f.text_field(:reference_on, class: f.object.decorate.input_class(:reference_on, :admin), type: 'date'),
           col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form( f, {
