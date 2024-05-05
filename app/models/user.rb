@@ -93,6 +93,13 @@ class User < ApplicationRecord
     birthday.present?
   end
 
+  def age
+    return nil if birthday.blank?
+
+    date_format = "%Y%m%d"
+    (Date.today.strftime(date_format).to_i - birth_day.strftime(date_format).to_i) / 10000
+  end
+
   class << self
     def permit_params
       super + [

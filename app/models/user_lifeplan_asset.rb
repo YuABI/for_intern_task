@@ -38,7 +38,7 @@
 class UserLifeplanAsset < ApplicationRecord
   belongs_to :user_lifeplan
 
-  enumerize :user_lifeplan_asset_kind, in: %i[cash_deposits other_assets]
+  enumerize :user_lifeplan_asset_kind, in: %i[cash_deposits other_assets], scope: true
   enumerize :cache_deposit_kind, in: %i[
     ordinary_deposit standard_savings regular_savings fixed_deposit fixed_amount_savings time_deposit savings_deposit
     installment_savings transfer_account investment_fund other_cache_deposit unselected

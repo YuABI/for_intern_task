@@ -34,7 +34,7 @@ class UserLifeplanExpense < ApplicationRecord
 
   enumerize :user_lifeplan_expense_kind, in: %i[
     spending life_event elderly_facility end_of_life deposit
-  ]
+  ], scope: true
 
   enumerize :spending_item, in: %i[
     total_living_costs living_costs_housing_food food_expenses rent
