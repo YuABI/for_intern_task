@@ -77,6 +77,11 @@ class UserLifeplanIncomeDecorator < ApplicationDecorator
           code: :monthly_amount,
           input: f.number_field(:monthly_amount, class: f.object.decorate.input_class(:monthly_amount, :admin)),
           col: 6, no_required: false, help: '', alert: ''
+        }) ],
+        [ init_form(f, {
+          code: :yearly_amount,
+          input: f.number_field(:yearly_amount, class: f.object.decorate.input_class(:yearly_amount, :admin)),
+          col: 6, no_required: false, help: '', alert: ''
         }) ]
       ]
     end

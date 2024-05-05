@@ -14,6 +14,7 @@
 #  payment_start_on          :date
 #  pension_kind              :string           default(NULL), not null
 #  user_lifeplan_income_kind :string           default(NULL), not null
+#  yearly_amount             :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  user_lifeplan_id          :bigint           not null

@@ -36,9 +36,16 @@ class UserLifeplanExpenseDecorator < ApplicationDecorator
           col: 6, no_required: false, help: '', alert: ''
         }), ],
         [ init_form(f, {
+          code: :spending_item,
+          input: f.select(:spending_item,
+                          UserLifeplanExpense.spending_item.values.map { |v| [v.text, v.value] }, {},
+                          class: f.object.decorate.input_class(:spending_item, :admin)),
+          col: 6, no_required: false, help: '', alert: ''
+        }), ],
+        [ init_form(f, {
           code: :expenditure_item_name,
-          input: f.number_field(:expenditure_item_name,
-                                class: f.object.decorate.input_class(:expenditure_item_name, :admin)),
+          input: f.text_field(:expenditure_item_name,
+                              class: f.object.decorate.input_class(:expenditure_item_name, :admin), placeholder: ''),
           col: 6, no_required: false, help: '', alert: ''
         }), ],
         [ init_form(f, {

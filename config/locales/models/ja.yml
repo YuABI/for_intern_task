@@ -96,6 +96,7 @@ ja:
         name: 名称
         user_id: 顧客
         status: ステータス
+        basis_on: 基準日
         apply_reviewed_on: 申請審査日
         reviewed_on: 審査日
         background_reason: 依頼の背景
@@ -122,6 +123,7 @@ ja:
         payment_start_on: 支払開始日
         payment_end_on: 支払終了日
         monthly_amount: 月額
+        yearly_amount: 年額
         user_lifeplan_income_kind: 収入種類
       user_lifeplan_finance_condition:
         <<: *default
@@ -136,6 +138,7 @@ ja:
       user_lifeplan_expense:
         <<: *default
         name: 支出名
+        spending_item: 支出項目
         expenditure_item_name: 支出項目名
         user_lifeplan_id: ライフプランID
         content: 内容

@@ -14,6 +14,7 @@
 #  payment_start_on          :date
 #  pension_kind              :string           default(NULL), not null
 #  user_lifeplan_income_kind :string           default(NULL), not null
+#  yearly_amount             :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  user_lifeplan_id          :bigint           not null
@@ -34,12 +35,12 @@ class UserLifeplanIncome < ApplicationRecord
   ]
   enumerize :pension_kind, in: %i[
     national_pension welfare_pension national_welfare_pension survivor_pension corporate_pension disability_pension
-    private_pension_insurance pension_trust
-  ]
+    private_pension_insurance pension_trust unselected
+  ], default: :unselected
   enumerize :cache_income_kind, in: %i[
     salary severance_pay investment_fund insurance_money trust_fund donation rental_income parking_income refund
-    other_income
-  ]
+    other_income unselected
+  ], default: :unselected
 
 
   class << self

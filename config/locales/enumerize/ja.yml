@@ -153,6 +153,26 @@ ja:
         elderly_facility: 施設
         end_of_life: 終活（STEP1〜STEP3費用）
         deposit: 終活（預託金）
+      spending_item:
+        total_living_costs: 生活費一式
+        living_costs_housing_food: 生活費（住+食）
+        food_expenses: 食費
+        rent: 家賃
+        maintenance_fee: 管理費
+        parking_fee: 駐車場
+        total_utilities: ライフライン一式
+        electricity: 電気
+        gas: ガス
+        water: 水道
+        total_communication_costs: 通信費一式
+        communication_costs: 通信費
+        broadcasting_fee: 受信料
+        newspaper_fee: 新聞代
+        neighborhood_association_fee: 町内会費
+        medical_expenses: 医療費
+        taxes: 税金
+        insurance_premiums: 保険料
+        miscellaneous_expenses: その他雑費
     user_lifeplan_contact:
       user_lifeplan_contact_kind:
         testament: 遺言書

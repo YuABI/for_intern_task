@@ -6,6 +6,7 @@
 #  apply_reviewed_at         :datetime
 #  background_reason         :string           default(NULL), not null
 #  background_reason_comment :string           default(""), not null
+#  basis_on                  :date
 #  close_grave               :string           default(NULL), not null
 #  contact_inspect_note      :text
 #  contact_note              :text

@@ -14,6 +14,7 @@
 #  pay_by_years               :integer          default(0), not null
 #  payment_end_on             :date
 #  payment_start_on           :date
+#  spending_item              :string           default(NULL), not null
 #  user_lifeplan_expense_kind :string           default(NULL), not null
 #  yearly_amount              :integer          default(0), not null
 #  created_at                 :datetime         not null
@@ -33,6 +34,13 @@ class UserLifeplanExpense < ApplicationRecord
 
   enumerize :user_lifeplan_expense_kind, in: %i[
     spending life_event elderly_facility end_of_life deposit
+  ]
+
+  enumerize :spending_item, in: %i[
+    total_living_costs living_costs_housing_food food_expenses rent
+    maintenance_fee parking_fee total_utilities electricity gas water total_communication_costs communication_costs
+    broadcasting_fee newspaper_fee neighborhood_association_fee medical_expenses taxes insurance_premiums
+    miscellaneous_expenses
   ]
 
   class << self

@@ -63,6 +63,7 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'brakeman'
   gem 'yard'
+  gem 'roo', '~> 2.10', '>= 2.10.1'
 end
 
 group :test do

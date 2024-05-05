@@ -39,6 +39,13 @@ class UserLifeplanDecorator < ApplicationDecorator
         ],
         [
           init_form( f, {
+            code: :basis_on,
+            input: f.text_field(:basis_on, class: f.object.decorate.input_class(:status, :admin), type: :date),
+            col: 6, no_required: false, help: '', alert: ''
+          }),
+        ],
+        [
+          init_form( f, {
             code: :background_reason,
             input: f.select(:background_reason, UserLifeplan.background_reason.values.map { |v| [v.text, v.value] }, {}, class: f.object.decorate.input_class(:background_reason, :admin)),
             col: 6, no_required: false, help: '', alert: ''

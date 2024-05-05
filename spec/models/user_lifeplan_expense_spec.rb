@@ -14,6 +14,7 @@
 #  pay_by_years               :integer          default(0), not null
 #  payment_end_on             :date
 #  payment_start_on           :date
+#  spending_item              :string           default(NULL), not null
 #  user_lifeplan_expense_kind :string           default(NULL), not null
 #  yearly_amount              :integer          default(0), not null
 #  created_at                 :datetime         not null

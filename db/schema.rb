@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_04_081805) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_05_060628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -246,6 +246,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_081805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_lifeplan_expense_kind", default: "", null: false
+    t.string "spending_item", default: "", null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_expenses_on_user_lifeplan_id"
   end
 
@@ -279,6 +280,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_081805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_lifeplan_income_kind", default: "", null: false
+    t.integer "yearly_amount"
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
   end
 
@@ -308,6 +310,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_081805) do
     t.bigint "member_id", null: false
     t.text "contact_note"
     t.text "contact_inspect_note"
+    t.date "basis_on"
     t.index ["member_id"], name: "index_user_lifeplans_on_member_id"
     t.index ["user_id"], name: "index_user_lifeplans_on_user_id"
   end

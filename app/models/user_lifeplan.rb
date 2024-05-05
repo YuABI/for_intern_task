@@ -6,6 +6,7 @@
 #  apply_reviewed_at         :datetime
 #  background_reason         :string           default(NULL), not null
 #  background_reason_comment :string           default(""), not null
+#  basis_on                  :date
 #  close_grave               :string           default(NULL), not null
 #  contact_inspect_note      :text
 #  contact_note              :text
@@ -56,16 +57,16 @@ class UserLifeplan < ApplicationRecord
   has_many_attached :contact_note_docs
 
   enumerize :background_reason, in: %i[unselected no_children children_issues family_domestic_violence
-                                       family_squandering no_burden_on_family]
-  enumerize :legal_heir, in: %i[unselected existing not_existing]
-  enumerize :legal_heir_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown]
-  enumerize :residue, in: %i[unselected existing not_existing]
-  enumerize :relatives, in: %i[unselected existing not_existing]
-  enumerize :relatives_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown]
-  enumerize :household_disposal, in: %i[unselected existing not_existing checking]
-  enumerize :real_estate_disposal, in: %i[unselected existing not_existing checking]
-  enumerize :close_grave, in: %i[unselected existing not_existing checking]
-  enumerize :funeral_memorial_policy, in: %i[unselected decided checking]
+                                       family_squandering no_burden_on_family], default: :unselected
+  enumerize :legal_heir, in: %i[unselected existing not_existing], default: :unselected
+  enumerize :legal_heir_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown], default: :unselected
+  enumerize :residue, in: %i[unselected existing not_existing], default: :unselected
+  enumerize :relatives, in: %i[unselected existing not_existing], default: :unselected
+  enumerize :relatives_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown], default: :unselected
+  enumerize :household_disposal, in: %i[unselected existing not_existing checking], default: :unselected
+  enumerize :real_estate_disposal, in: %i[unselected existing not_existing checking], default: :unselected
+  enumerize :close_grave, in: %i[unselected existing not_existing checking], default: :unselected
+  enumerize :funeral_memorial_policy, in: %i[unselected decided checking], default: :unselected
 
   class << self
     def permit_params
