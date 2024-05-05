@@ -41,6 +41,28 @@
 #
 FactoryBot.define do
   factory :user_lifeplan do
-    
+    association :user
+    name { Faker::Name.name }
+    status { Faker::Number.between(from: 0, to: 5) }
+    apply_reviewed_at { Faker::Time.between(from: 2.years.ago, to: Date.today) }
+    reviewed_at { Faker::Time.between(from: 2.years.ago, to: Date.today) }
+    background_reason { UserLifeplan.background_reason.values.sample }
+    background_reason_comment { UserLifeplan.background_reason_comment.values.sample }
+    legal_heir { UserLifeplan.legal_heir.values.sample }
+    legal_heir_comment { UserLifeplan.legal_heir_comment.values.sample }
+    residue { UserLifeplan.residue.values.sample }
+    relatives { UserLifeplan.relatives.values.sample }
+    relatives_comment { UserLifeplan.relatives_comment.values.sample }
+    household_disposal { UserLifeplan.household_disposal.values.sample }
+    real_estate_disposal { UserLifeplan.real_estate_disposal.values.sample }
+    close_grave { UserLifeplan.close_grave.values.sample }
+    funeral_memorial_policy { UserLifeplan.funeral_memorial_policy.values.sample }
+    small_account { Faker::Bank.account_number(digits: 10) }
+    note { Faker::Lorem.paragraph }
+    user_id { Faker::Number.number(digits: 5) }
+    member_id { Faker::Number.number(digits: 5) }
+    contact_note { Faker::Lorem.paragraph }
+    contact_inspect_note { Faker::Lorem.paragraph }
+    basis_on { Faker::Date.between(from: 2.years.ago, to: Date.today) }
   end
 end

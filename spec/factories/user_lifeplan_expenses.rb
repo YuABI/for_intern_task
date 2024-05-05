@@ -31,6 +31,18 @@
 #
 FactoryBot.define do
   factory :user_lifeplan_expense do
-
+    association :user_lifeplan
+    name { Faker::Commerce.product_name }
+    expenditure_item_name { Faker::Commerce.department }
+    content { Faker::Lorem.sentence }
+    company_name { Faker::Company.name }
+    note { Faker::Lorem.paragraph }
+    payment_start_on { Faker::Date.backward(days: 365) }
+    payment_end_on { Faker::Date.forward(days: 365) }
+    monthly_amount { Faker::Number.between(from: 1000, to: 10000) }
+    pay_by_years { Faker::Number.between(from: 1, to: 10) }
+    yearly_amount { monthly_amount * 12 }
+    user_lifeplan_expense_kind { ["fixed", "variable"].sample } # Assume you have kinds like these.
+    spending_item { Faker::Commerce.material }
   end
 end

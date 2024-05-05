@@ -37,6 +37,23 @@
 #
 FactoryBot.define do
   factory :user_lifeplan_asset do
-
+    association :user_lifeplan
+    name { Faker::Commerce.product_name }
+    user_lifeplan_asset_kind { UserLifeplanAsset.user_lifeplan_asset_kind.values.sample }
+    cache_deposit_kind { UserLifeplanAsset.cache_deposit_kind.values.sample }
+    other_assets_kind { UserLifeplanAsset.other_assets_kind.values.sample }
+    financial_institution_name { Faker::Bank.name }
+    store_name { Faker::Company.name }
+    account_number { Faker::Bank.account_number }
+    reference_on { Faker::Date.between(from: 2.years.ago, to: Date.today) }
+    amount_of_money { Faker::Number.number(digits: 5) }
+    content { Faker::Lorem.sentence }
+    company_name { Faker::Company.name }
+    asset_appraisal_value { Faker::Number.number(digits: 5) }
+    equity_appraisal_value { Faker::Number.number(digits: 5) }
+    scheduled_for_sale { [0, 1].sample }
+    sundry_expenses { Faker::Number.number(digits: 3) }
+    profit { Faker::Number.number(digits: 3) }
+    description { Faker::Lorem.paragraph }
   end
 end
