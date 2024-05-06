@@ -1,1 +1,109 @@
-= user_lifeplan_yearly_blance.each_year_balances
+.table-responsive
+  table.table.table-bordered.mb-0
+    thead
+      tr.
+        th.align-middle.text-center(rowspan="2" colspan="2")
+          | 収支内訳表
+        th.align-middle.text-center
+          | 西暦
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          th.align-middle.text-center
+            = year
+      tr
+        th.align-middle.text-center
+          | 経過年数
+        - user_lifeplan_yearly_blance.each_year_balances.length.times do |i|
+          th.align-middle.text-center
+            = i + 1
+      tr.
+        th.align-middle.text-center
+          | 本人
+        td.align-middle.text-center
+          = "#{@user_lifeplan_yearly_blance.user.full_name} 様"
+        td.align-middle.text-center
+          | 年齢
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = each_year_balance.age
+      tr.
+        th.align-middle.text-center(rowspan="4")
+          | 収入
+        td.align-middle.text-center
+          | 年金
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.pension_amount)
+      tr
+        td.align-middle.text-center
+          | 収入
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.cache_income_amount)
+      tr
+        td.align-middle.text-center
+          | 一時的収入
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.temporary_cache_income_amount)
+      tr
+        td.align-middle.text-center
+          | 収入合計
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.incomes_amount_total)
+      tr.
+        th.align-middle.text-center(rowspan="5")
+          | 支出
+        td.align-middle.text-center
+          | 支出
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.spending_amount)
+      tr
+        td.align-middle.text-center
+          | ライフイベント
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.life_event_amount)
+      tr
+        td.align-middle.text-center
+          | 施設
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.elderly_facility_amount)
+      tr
+        td.align-middle.text-center
+          | 終活
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.end_of_life_amount)
+      tr
+        td.align-middle.text-center
+          | 支出合計
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.expenses_amount_total)
+      tr.
+        th.align-middle.text-center(colspan="2")
+          | 年間収支
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.yearly_balance)
+      tr.
+        th.align-middle.text-center(colspan="2")
+          | 現金預貯金
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.cash_deposits_amount)
+      tr.
+        th.align-middle.text-center(colspan="2")
+          | その他資産
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.other_assets_amount)
+      tr.
+        th.align-middle.text-center(colspan="2")
+          | 資産総合計
+        - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
+          td.align-middle.text-center
+            = change_delimited(each_year_balance.assets_total)
