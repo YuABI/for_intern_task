@@ -25,7 +25,7 @@ class UserLifeplan
       set_last_year
       set_initial_assets
 
-      first_year.upto(last_year) do |year|
+      (first_year..last_year).each do |year|
         pension_amount = 0
         pension_incomes.each do |pension_income|
           pension_amount += pension_income.yearly_amount if is_in_payment_period?(pension_income, year)
@@ -42,6 +42,7 @@ class UserLifeplan
             temporary_cache_income_amount += temporary_cache_income.yearly_amount
           end
         end
+        income_total = pension_amount + cache_income_amount + temporary_cache_income_amount
 
         spending_amount = 0
         spending_expenses.each do |spending_expense|
@@ -78,7 +79,7 @@ class UserLifeplan
             self.cache_assets_total = cache_assets_total + other_asset.equity_appraisal_value
           end
         end
-        self.cache_assets_total = cache_assets_total - expense_total
+        self.cache_assets_total = cache_assets_total + income_total - expense_total
         cash_deposits_amount = cache_assets_total
         other_assets_amount = other_assets_total
 
@@ -97,13 +98,13 @@ class UserLifeplan
     def is_per_year?(income_or_expense, year)
       return true if income_or_expense.pay_by_years == 0 || income_or_expense.pay_by_years == 1
 
-      start_diff = (income_or_expense.payment_start_on&.year || year) - year
+      start_diff = (income_or_expense.payment_start_year || year) - year
       start_diff % income_or_expense.pay_by_years == 0
     end
 
     def is_in_payment_period?(income_or_expense, year)
-      (income_or_expense.payment_start_on && income_or_expense.payment_start_on&.year <= year) ||
-              (income_or_expense.payment_end_on && income_or_expense.payment_end_on&.year >= year)
+      (income_or_expense.payment_start_year && income_or_expense.payment_start_year <= year) ||
+              (income_or_expense.payment_end_year && income_or_expense.payment_end_year >= year)
     end
 
     def set_last_year
@@ -111,18 +112,18 @@ class UserLifeplan
       self.last_year = first_year
 
       user_lifeplan.user_lifeplan_incomes.each do |user_lifeplan_income|
-        next if user_lifeplan_income.payment_end_on.blank?
+        next if user_lifeplan_income.payment_end_year.blank?
 
-        if user_lifeplan_income.payment_end_on.year > last_year
-          self.last_year = user_lifeplan_income.payment_end_on.year
+        if user_lifeplan_income.payment_end_year > last_year
+          self.last_year = user_lifeplan_income.payment_end_year
         end
       end
 
       user_lifeplan.user_lifeplan_expenses.each do |user_lifeplan_expense|
-        next if user_lifeplan_expense.payment_end_on.blank?
+        next if user_lifeplan_expense.payment_end_year.blank?
 
-        if user_lifeplan_expense.payment_end_on.year > last_year
-          self.last_year = user_lifeplan_expense.payment_end_on.year
+        if user_lifeplan_expense.payment_end_year > last_year
+          self.last_year = user_lifeplan_expense.payment_end_year
         end
       end
 
@@ -169,7 +170,7 @@ class UserLifeplan
     end
 
     def cash_deposit_assets
-      @cash_deposit_assets ||= user_lifeplan_assets.with_user_lifeplan_asset_kind(:cash_deposit)
+      @cash_deposit_assets ||= user_lifeplan_assets.with_user_lifeplan_asset_kind(:cash_deposits)
     end
 
     def other_assets

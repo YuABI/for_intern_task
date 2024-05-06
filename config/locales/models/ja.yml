@@ -120,8 +120,8 @@ ja:
         pension_kind: 年金種類
         content: 内容
         company_name: 会社名
-        payment_start_year: 支払開始日
-        payment_end_year: 支払終了日
+        payment_start_year: 支払開始年
+        payment_end_year: 支払終了年
         monthly_amount: 月額
         yearly_amount: 年額
         user_lifeplan_income_kind: 収入種類
@@ -144,8 +144,8 @@ ja:
         content: 内容
         company_name: 会社名
         note: 備考
-        payment_start_year: 支払開始日
-        payment_end_year: 支払終了日
+        payment_start_year: 支払開始年
+        payment_end_year: 支払終了年
         monthly_amount: 月額
         pay_by_years: 年毎
         yearly_amount: 年額
