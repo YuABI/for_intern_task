@@ -23,6 +23,14 @@ class Members::UserLifeplans::TrailBalanceComponent < Members::BaseComponent
   def change_delimited(number)
     return '-' if number.blank? || number.zero?
 
-    number_to_currency(number, unit: '', precision: 0)
+    span_class = if number.negative?
+                   'text-danger'
+                  else
+                    ''
+                  end
+
+    content_tag(:span, class: span_class) do
+      number_to_currency(number, unit: '', precision: 0)
+    end
   end
 end

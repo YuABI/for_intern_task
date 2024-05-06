@@ -21,6 +21,10 @@ class UserLifeplan
       @user ||= user_lifeplan.user
     end
 
+    def initial_assets_total
+      initial_cache_assets_total + initial_other_assets_total
+    end
+
     def calculate
       set_last_year
       set_initial_assets
