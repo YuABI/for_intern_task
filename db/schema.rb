@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_05_060628) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_06_080621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -236,8 +236,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_060628) do
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
     t.string "note", default: "", null: false
-    t.date "payment_start_on"
-    t.date "payment_end_on"
     t.integer "monthly_amount", default: 0, null: false
     t.integer "pay_by_years", default: 0, null: false
     t.integer "yearly_amount", default: 0, null: false
@@ -247,6 +245,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_060628) do
     t.datetime "updated_at", null: false
     t.string "user_lifeplan_expense_kind", default: "", null: false
     t.string "spending_item", default: "", null: false
+    t.integer "payment_start_year"
+    t.integer "payment_end_year"
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_expenses_on_user_lifeplan_id"
   end
 
@@ -272,8 +272,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_060628) do
     t.string "pension_kind", default: "", null: false
     t.string "content", default: "", null: false
     t.string "company_name", default: "", null: false
-    t.date "payment_start_on"
-    t.date "payment_end_on"
     t.integer "monthly_amount", default: 0, null: false
     t.integer "deleted", default: 0, null: false
     t.datetime "deleted_at"
@@ -281,6 +279,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_060628) do
     t.datetime "updated_at", null: false
     t.string "user_lifeplan_income_kind", default: "", null: false
     t.integer "yearly_amount"
+    t.integer "payment_start_year"
+    t.integer "payment_end_year"
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
   end
 
