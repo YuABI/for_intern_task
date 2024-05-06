@@ -2,6 +2,8 @@ class Members::UserLifeplans::UserLifeplanConfirmationsController < Members::Mas
 
   def show
     super
+    @user_lifeplan_yearly_blance = UserLifeplan::YearlyBalance.new(user_lifeplan_custom_id: params_id)
+    @user_lifeplan_yearly_blance.calculate
   end
 
   # 申請処理
