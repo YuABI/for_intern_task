@@ -97,7 +97,7 @@ class User < ApplicationRecord
     return nil if birthday.blank?
 
     date_format = "%Y%m%d"
-    (Date.today.strftime(date_format).to_i - birth_day.strftime(date_format).to_i) / 10000
+    (Date.today.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
   end
 
   class << self

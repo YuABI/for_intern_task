@@ -97,54 +97,6 @@ class UserLifeplan
       end
     end
 
-    private
-
-    def is_per_year?(income_or_expense, year)
-      return true if income_or_expense.pay_by_years == 0 || income_or_expense.pay_by_years == 1
-
-      start_diff = (income_or_expense.payment_start_year || year) - year
-      start_diff % income_or_expense.pay_by_years == 0
-    end
-
-    def is_in_payment_period?(income_or_expense, year)
-      (income_or_expense.payment_start_year && income_or_expense.payment_start_year <= year) ||
-              (income_or_expense.payment_end_year && income_or_expense.payment_end_year >= year)
-    end
-
-    def set_last_year
-      return if last_year.present?
-      self.last_year = first_year
-
-      user_lifeplan.user_lifeplan_incomes.each do |user_lifeplan_income|
-        next if user_lifeplan_income.payment_end_year.blank?
-
-        if user_lifeplan_income.payment_end_year > last_year
-          self.last_year = user_lifeplan_income.payment_end_year
-        end
-      end
-
-      user_lifeplan.user_lifeplan_expenses.each do |user_lifeplan_expense|
-        next if user_lifeplan_expense.payment_end_year.blank?
-
-        if user_lifeplan_expense.payment_end_year > last_year
-          self.last_year = user_lifeplan_expense.payment_end_year
-        end
-      end
-
-      if last_year == first_year
-        diff = 95 - ( user.age || 70 ) + 1
-        self.last_year = first_year + diff
-      end
-    end
-
-    def set_initial_assets
-      self.initial_cache_assets_total = cash_deposit_assets.sum(:amount_of_money)
-      self.initial_other_assets_total = other_assets.sum(:equity_appraisal_value)
-      self.cache_assets_total = initial_cache_assets_total
-      self.other_assets_total = initial_other_assets_total
-    end
-
-
     def pension_incomes
       @pension_incomes ||= user_lifeplan_incomes.with_user_lifeplan_income_kind(:pension)
     end
@@ -191,6 +143,53 @@ class UserLifeplan
 
     def user_lifeplan_expenses
       @user_lifeplan_expenses ||= user_lifeplan.user_lifeplan_expenses
+    end
+
+    private
+
+    def is_per_year?(income_or_expense, year)
+      return true if income_or_expense.pay_by_years == 0 || income_or_expense.pay_by_years == 1
+
+      start_diff = (income_or_expense.payment_start_year || year) - year
+      start_diff % income_or_expense.pay_by_years == 0
+    end
+
+    def is_in_payment_period?(income_or_expense, year)
+      (income_or_expense.payment_start_year && income_or_expense.payment_start_year <= year) ||
+              (income_or_expense.payment_end_year && income_or_expense.payment_end_year >= year)
+    end
+
+    def set_last_year
+      return if last_year.present?
+      self.last_year = first_year
+
+      user_lifeplan.user_lifeplan_incomes.each do |user_lifeplan_income|
+        next if user_lifeplan_income.payment_end_year.blank?
+
+        if user_lifeplan_income.payment_end_year > last_year
+          self.last_year = user_lifeplan_income.payment_end_year
+        end
+      end
+
+      user_lifeplan.user_lifeplan_expenses.each do |user_lifeplan_expense|
+        next if user_lifeplan_expense.payment_end_year.blank?
+
+        if user_lifeplan_expense.payment_end_year > last_year
+          self.last_year = user_lifeplan_expense.payment_end_year
+        end
+      end
+
+      if last_year == first_year
+        diff = 95 - ( user.age || 70 ) + 1
+        self.last_year = first_year + diff
+      end
+    end
+
+    def set_initial_assets
+      self.initial_cache_assets_total = cash_deposit_assets.sum(:amount_of_money)
+      self.initial_other_assets_total = other_assets.sum(:equity_appraisal_value)
+      self.cache_assets_total = initial_cache_assets_total
+      self.other_assets_total = initial_other_assets_total
     end
   end
 end

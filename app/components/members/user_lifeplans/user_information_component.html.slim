@@ -1,1 +1,83 @@
-div Add Members::UserLifeplans::UserInformation template here
+.table-responsive
+  table.table.table-bordered.mb-0
+    thead
+      tr
+        th(colspan="4")
+          |顧客情報
+      tr
+        th
+          |ご氏名(甲)
+        td
+          = user.full_name
+        th
+          |性別(甲)
+        td
+          = user.sex.text
+      tr
+        th
+          |ご住所
+        td(colspan="3")
+          = full_address
+      tr
+        th
+          |生年月日(甲)
+        td(colspan="3")
+          = l(user.birthday) if user.birthday
+      tr
+        th
+          |作成日
+        td(colspan="3")
+          = l(user.created_at)
+      tr
+        th
+          |基準日
+        td(colspan="3")
+          = l(user_lifeplan_decorator.basis_on) if user_lifeplan_decorator.basis_on
+      tr
+        th
+          |経過日数
+        td(colspan="3")
+          = duration_of_feeding_period
+      tr
+        th
+          |残り日数
+        td(colspan="3")
+          = duration_of_deadline
+      tr
+        th(rowspan="6")
+          |甲様情報
+        td
+          |作成日年齢
+        td(colspan="2")
+          = calcurate_age(user_lifeplan_decorator.created_at.year)
+      tr
+        td
+          |基準日年齢
+        td(colspan="2")
+          = calcurate_age(user_lifeplan_decorator.basis_on.year)
+      tr
+        td
+          |年金受給年齢
+        td(colspan="2")
+          = calcurate_age(pension_start_year)
+      tr
+        td
+          |入居年齢
+        td(colspan="2")
+          = calcurate_age(elderly_facility_start_year)
+      tr
+        td
+          |介護開始年齢
+        td(colspan="2")
+          = calcurate_age(nursing_care_start_year)
+      tr
+        td
+          |死亡年齢
+        td(colspan="2")
+          = calcurate_age(user_lifeplan_yearly_blance.last_year)
+      tr
+        th
+          |備考
+        td(colspan="3")
+          = ''
+
