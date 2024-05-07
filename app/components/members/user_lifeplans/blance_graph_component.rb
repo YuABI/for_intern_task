@@ -10,30 +10,70 @@ class Members::UserLifeplans::BlanceGraphComponent < Members::BaseComponent
     @user_lifeplan_yearly_blance = args[:user_lifeplan_yearly_blance]
   end
 
+  def each_year_balances
+    user_lifeplan_yearly_blance.each_year_balances.values
+  end
+
   def chart_data
     {
-      labels: ['2018/01/01', '2018/01/02', '2018/01/03', '2018/01/04', '2018/01/05', '2018/01/06', '2018/01/07'],
-      datasets: [{
-        label: '折れ線A',
-        type: "line",
-        fill: false,
-        data: [10000, 11000, 15000, 12000, 9000, 12000, 13000],
-        borderColor: "rgb(154, 162, 235)",
-        yAxisID: "y-axis-1",
-      }, {
-        label: '折れ線B',
-        type: "line",
-        fill: false,
-        data: [8000, 9000, 10000, 9000, 6000, 8000, 7000],
-        borderColor: "rgb(54, 162, 235)",
-        yAxisID: "y-axis-1",
-      }, {
-        label: '棒グラフ',
-        data: [22, 23, 10, 15, 40, 35, 30],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        yAxisID: "y-axis-2",
-      }]
+      labels: each_year_balances.map { |balance| "#{balance.age}歳" },
+      datasets: [
+        {
+          label: '収入合計',
+          type: "line",
+          fill: false,
+          data: each_year_balances.map(&:incomes_amount_total),
+          borderColor: "rgba(255,255,84,1)",
+          backgroundColor: "rgba(255,255,84,1)",
+          yAxisID: "incomeAndExpense",
+        },
+        {
+          label: '現金預金',
+          type: "line",
+          fill: false,
+          data: each_year_balances.map(&:cash_deposits_amount),
+          borderColor: "rgba(66,115,177,1)",
+          backgroundColor: "rgba(66,115,177,1)",
+          yAxisID: "assets",
+        },
+        {
+          label: 'その他資産',
+          type: "line",
+          fill: false,
+          data: each_year_balances.map(&:other_assets_amount),
+          borderColor: "rgba(66,115,177,0.5)",
+          backgroundColor: "rgba(66,115,177,0.5)",
+          yAxisID: "assets",
+        },
+        {
+          label: '終活',
+          data: each_year_balances.map(&:end_of_life_amount),
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(208,206,206, 1)",
+          yAxisID: "incomeAndExpense",
+        },
+        {
+          label: '施設',
+          data: each_year_balances.map(&:elderly_facility_amount),
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(247,206,252,1)",
+          yAxisID: "incomeAndExpense",
+        },
+        {
+          label: 'ライフイベント',
+          data: each_year_balances.map(&:life_event_amount),
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(244,181,145,1)",
+          yAxisID: "incomeAndExpense",
+        },
+        {
+          label: '支出',
+          data: each_year_balances.map(&:spending_amount),
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(185,220,138,1)",
+          yAxisID: "incomeAndExpense",
+        },
+      ]
     }
   end
 
@@ -45,28 +85,29 @@ class Members::UserLifeplans::BlanceGraphComponent < Members::BaseComponent
       },
       responsive: true,
       scales: {
-        yAxes: [{
-          id: "y-axis-1",
-          type: "linear",
-          position: "left",
-          ticks: {
-            max: 15000,
-            min: 0,
-            stepSize: 1000
+        x: {
+          stacked: true
+        },
+        incomeAndExpense: {
+          title: {
+            display: true,
+            text: '収支金額'
           },
-        }, {
-          id: "y-axis-2",
-          type: "linear",
-          position: "right",
-          ticks: {
-            max: 200,
-            min: 0,
-            stepSize: 5
+          max: 10000000,
+          min: -1000000,
+          stepSize: 1000000,
+          stacked: true
+        },
+        assets: {
+          title: {
+            display: true,
+            text: '資産金額'
           },
-          gridLines: {
-            drawOnChartArea: false,
-          },
-        }],
+          position: 'right',
+          max: 100000000,
+          min: -10000000,
+          stepSize: 10000000,
+        },
       },
     }
   end
