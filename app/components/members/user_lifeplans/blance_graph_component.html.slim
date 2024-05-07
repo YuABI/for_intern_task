@@ -1,1 +1,11 @@
-div Add Members::UserLifeplans::BlanceGraph template here
+canvas#blance-graph
+
+javascript:
+  $(function() {
+    let ctx = document.getElementById('blance-graph').getContext('2d');
+    let blanceGraph = new Chart(ctx, {
+      type: 'bar',
+      data: #{raw chart_data.to_json},
+      options: #{raw chart_options.to_json}
+    });
+  })
