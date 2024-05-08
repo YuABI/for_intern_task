@@ -4,6 +4,15 @@ class UserLifeplanDecorator < ApplicationDecorator
       common_form_object(f)
     end
 
+    def header_objects
+      ['' , UserLifeplan.human_attribute_name(:user_id), UserLifeplan.human_attribute_name(:user_lifeplan_status_id)]
+    end
+
+    def body_objects
+      %w[id user_name user_lifeplan_status_name]
+
+    end
+
     def member_form_objects(member, f)
       [
         [init_form( f, {
@@ -14,6 +23,16 @@ class UserLifeplanDecorator < ApplicationDecorator
           col: 6, no_required: false, help: '', alert: ''
         })]
       ] + common_form_object(f, member)
+    end
+
+    def admin_query_form_objects(f)
+      [
+        [ init_form(f, { code: :user_lifeplan_status_id,
+                         input: f.select(:user_lifeplan_status_id,
+                                         UserLifeplanStatus.all.map { |status| [status.name, status.id] },
+                                         { include_blank: true }, class: input_class),
+                         col: 4 })],
+      ]
     end
 
     private
@@ -182,6 +201,14 @@ class UserLifeplanDecorator < ApplicationDecorator
         ],
       ]
     end
+  end
+
+  def user_name
+    user&.full_name
+  end
+
+  def user_lifeplan_status_name
+    user_lifeplan_status&.name
   end
 
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Members::UserLifeplans::UserInformationComponent < Members::BaseComponent
+class UserLifeplans::UserInformationComponent < ApplicationComponent
   attr_reader :user_lifeplan_decorator, :user_lifeplan_yearly_blance, :user, :address
 
   def initialize(**args)

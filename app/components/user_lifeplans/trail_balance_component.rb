@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Members::UserLifeplans::TrailBalanceComponent < Members::BaseComponent
+class UserLifeplans::TrailBalanceComponent < ApplicationComponent
   attr_reader :user_lifeplan_decorator
   attr_reader :user_lifeplan_yearly_blance
 
