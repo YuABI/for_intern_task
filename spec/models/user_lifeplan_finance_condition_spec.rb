@@ -12,7 +12,7 @@
 #  until_submitted_on                        :date
 #  created_at                                :datetime         not null
 #  updated_at                                :datetime         not null
-#  user_lifeplan_finance_condition_status_id :integer          default(0), not null
+#  user_lifeplan_finance_condition_status_id :integer          default(1), not null
 #  user_lifeplan_id                          :bigint           not null
 #
 # Indexes

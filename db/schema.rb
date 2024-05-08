@@ -252,7 +252,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_100404) do
 
   create_table "user_lifeplan_finance_conditions", force: :cascade do |t|
     t.bigint "user_lifeplan_id", null: false
-    t.integer "user_lifeplan_finance_condition_status_id", default: 0, null: false
+    t.integer "user_lifeplan_finance_condition_status_id", default: 1, null: false
     t.date "until_submitted_on"
     t.string "account", default: "", null: false
     t.string "account_info", default: "", null: false
