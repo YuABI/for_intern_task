@@ -72,8 +72,7 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
   def add_associations(**args)
     obj = find_or_initialize_object
-    p obj
-    obj.assign_attributes(members_object_params.except(:user_lifeplan_contacts_attributes))
+    obj.assign_attributes(members_object_params)
     association_model = args[:association_model]
 
     render_javascript do |page|
