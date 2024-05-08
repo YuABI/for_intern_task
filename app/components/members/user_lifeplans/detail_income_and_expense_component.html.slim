@@ -1,7 +1,7 @@
 h4
   |現金預貯金
-.table-responsive.mb-3
-  table.table.table-bordered.mb-0
+div.table-responsive.mb-3
+  table.table.table-bordered.mb-3
     thead
       tr
         th
@@ -20,9 +20,25 @@ h4
           |金額
         th
           |摘要
-      - user_lifeplan_yearly_blance
+    tbody
+      - user_lifeplan_yearly_blance.cash_deposit_assets.each do |user_lifeplan_asset|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_asset.company_name
+          td
+            = user_lifeplan_asset.store_name
+          td
+            = user_lifeplan_asset.cache_deposit_kind.text
+          td
+            = user_lifeplan_asset.account_number
+          td
+            = l(user_lifeplan_asset.reference_on) if user_lifeplan_asset.reference_on.present?
+          td
+            = money_with_unit(user_lifeplan_asset.amount_of_money)
+          td
+            = user_lifeplan_asset.description
 h4
   |その他資産
 .table-responsive.mb-3
@@ -30,9 +46,43 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |持分
+        th
+          |種類
+        th
+          |内容/会社名/番号
+        th
+          |持分評価額
+        th
+          |売却予定年
+        th
+          |諸経費
+        th
+          |利益
+        th
+          |摘要
+      - user_lifeplan_yearly_blance.other_assets.each do |user_lifeplan_asset|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_asset.rate
+          td
+            = user_lifeplan_asset.other_assets_kind.text
+          td
+            = user_lifeplan_asset.content
+          td
+            = user_lifeplan_asset.equity_appraisal_value
+          td
+            = year_with_unit(user_lifeplan_asset.scheduled_for_sale)
+          td
+            = user_lifeplan_asset.sundry_expenses
+          td
+            = user_lifeplan_asset.profit
+          td
+            = user_lifeplan_asset.description
 h4
   |年金
 .table-responsive.mb-3
@@ -40,9 +90,39 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |資産収入
+        th
+          |種類
+        th
+          |内容/会社名/番号
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |月額
+        th
+          |年額
+      - user_lifeplan_yearly_blance.pension_incomes.each do |user_lifeplan_income|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_income.pension_kind.text
+          td
+            = user_lifeplan_income.user_lifeplan_income_kind.text
+          td
+            = user_lifeplan_income.content
+          td
+            = year_with_unit(user_lifeplan_income.payment_start_year )
+          td
+            = year_with_unit(user_lifeplan_income.payment_end_year)
+          td
+            = money_with_unit(user_lifeplan_income.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_income.yearly_amount)
 h4
   |収入
 
@@ -51,9 +131,39 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |資産収入
+        th
+          |種類
+        th
+          |内容/会社名/番号
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |月額
+        th
+          |年額
+      - user_lifeplan_yearly_blance.cache_incomes_and_temporary_cache_incomes.each do |user_lifeplan_income|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_income.cache_income_kind.text
+          td
+            = user_lifeplan_income.user_lifeplan_income_kind.text
+          td
+            = user_lifeplan_income.content
+          td
+            = year_with_unit(user_lifeplan_income.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_income.payment_end_year)
+          td
+            = money_with_unit(user_lifeplan_income.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_income.yearly_amount)
 h4
   |支出
 
@@ -62,9 +172,43 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |支出品名
+        th
+          |内容/会社名/番号
+        th
+          |備考
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |年毎
+        th
+          |月額
+        th
+          |年額
+      - user_lifeplan_yearly_blance.spending_expenses.each do |user_lifeplan_expense|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.spending_item.text
+          td
+            = user_lifeplan_expense.content
+          td
+            = user_lifeplan_expense.note
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_expense.payment_end_year )
+          td
+            = user_lifeplan_expense.pay_by_years
+          td
+            = money_with_unit(user_lifeplan_expense.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_expense.yearly_amount)
 h4
   |ライフイベント
 
@@ -73,9 +217,36 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |イベント内容
+        th
+          |備考
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |年毎
+        th
+          |金額
+      - user_lifeplan_yearly_blance.life_event_expenses.each do |user_lifeplan_expense|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.expenditure_item_name
+          td
+            = user_lifeplan_expense.note
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit( user_lifeplan_expense.payment_end_year )
+          td
+            = user_lifeplan_expense.pay_by_years
+          td
+            = money_with_unit(user_lifeplan_expense.yearly_amount)
+
 h4
   |施設
 
@@ -84,9 +255,39 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |費用項目
+        th
+          |施設
+        th
+          |備考
+        th
+          |入居開始
+        th
+          |入居終了
+        th
+          |月額
+        th
+          |年額
+      - user_lifeplan_yearly_blance.elderly_facility_expenses.each do |user_lifeplan_expense|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.expenditure_item_name
+          td
+            = user_lifeplan_expense.company_name
+          td
+            = user_lifeplan_expense.note
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_expense.payment_end_year)
+          td
+            = money_with_unit(user_lifeplan_expense.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_expense.yearly_amount)
 h4
   |終活
 
@@ -95,6 +296,36 @@ h4
     thead
       tr
         th
-      - user_lifeplan_yearly_blance
+          |名義人
+        th
+          |品名
+        th
+          |内容
+        th
+          |備考
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |年毎
+        th
+          |金額
+      - user_lifeplan_yearly_blance.end_of_life_expenses.each do |user_lifeplan_expense|
         tr
           td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.expenditure_item_name
+          td
+            = user_lifeplan_expense.content
+          td
+            = user_lifeplan_expense.note
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_expense.payment_end_year)
+          td
+            = user_lifeplan_expense.pay_by_years
+          td
+            = money_with_unit( user_lifeplan_expense.yearly_amount )

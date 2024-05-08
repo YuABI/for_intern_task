@@ -109,6 +109,10 @@ class UserLifeplan
       @temporary_cache_incomes ||= user_lifeplan_incomes.with_user_lifeplan_income_kind(:temporary_cache_income)
     end
 
+    def cache_incomes_and_temporary_cache_incomes
+      @cache_incomes_and_temporary_cache_incomes ||= cache_incomes + temporary_cache_incomes
+    end
+
     def spending_expenses
       @spending_expenses ||= user_lifeplan_expenses.with_user_lifeplan_expense_kind(:spending)
     end

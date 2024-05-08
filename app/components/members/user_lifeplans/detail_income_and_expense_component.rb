@@ -9,4 +9,31 @@ class Members::UserLifeplans::DetailIncomeAndExpenseComponent < Members::BaseCom
     @user_lifeplan_decorator = args[:user_lifeplan_decorator]
     @user_lifeplan_yearly_blance = args[:user_lifeplan_yearly_blance]
   end
+
+  def year_with_unit(year)
+    return '' if year.blank?
+
+    "#{year}年"
+  end
+
+  def money_with_unit(number)
+    return '' if number.blank?
+
+
+    span_class = if number.negative?
+                   'text-danger'
+                  else
+                    ''
+                  end
+
+    content_tag(:span, class: span_class) do
+      number_to_currency(number, unit: '¥', precision: 0)
+    end
+  end
+
+  def date_with_unit(date)
+    return '' if date.blank?
+
+    I18n.l(date)
+  end
 end
