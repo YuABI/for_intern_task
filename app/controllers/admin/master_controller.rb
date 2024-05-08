@@ -153,6 +153,10 @@ module Admin
       )
     end
 
+    def params_id
+      params[:id]
+    end
+
     def csv_import_service_params
       return {} unless params[:"import_csv_#{name_singularize}_import_service"]
 

@@ -295,8 +295,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_041256) do
   create_table "user_lifeplans", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.integer "user_lifeplan_status_id", default: 1, null: false
-    t.datetime "apply_reviewed_at"
-    t.datetime "reviewed_at"
+    t.datetime "review_requested_at"
+    t.datetime "review_completed_at"
     t.string "background_reason", default: "", null: false
     t.string "background_reason_comment", default: "", null: false
     t.string "legal_heir", default: "", null: false
@@ -323,6 +323,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_041256) do
     t.integer "start_resident_elderly_facility_age", default: 0, null: false
     t.integer "start_nursing_care_age", default: 0, null: false
     t.integer "death_age", default: 0, null: false
+    t.integer "review_started_at"
+    t.bigint "admin_user_id"
+    t.index ["admin_user_id"], name: "index_user_lifeplans_on_admin_user_id"
     t.index ["member_id"], name: "index_user_lifeplans_on_member_id"
     t.index ["user_id"], name: "index_user_lifeplans_on_user_id"
   end
@@ -379,5 +382,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_041256) do
   add_foreign_key "user_lifeplan_finance_conditions", "user_lifeplans"
   add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
   add_foreign_key "user_lifeplan_remand_histories", "user_lifeplans"
+  add_foreign_key "user_lifeplans", "admin_users"
   add_foreign_key "user_lifeplans", "users"
 end

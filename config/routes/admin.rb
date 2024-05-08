@@ -47,6 +47,11 @@ namespace :admin do
 
         end
       when :user_lifeplans
+        scope module: :user_lifeplans do
+          resource :confirmations, only: %i[show update], controller: :user_lifeplan_confirmations
+          resource :review_remands, only: %i[update], controller: :review_remands
+          resource :review_completes, only: %i[update], controller: :review_completes
+        end
         collection do
           match :add_user_lifeplan_asset, via: [:post,:patch]
           match :del_user_lifeplan_asset, via: [:post,:patch]
