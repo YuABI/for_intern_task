@@ -286,9 +286,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_041256) do
 
   create_table "user_lifeplan_remand_histories", force: :cascade do |t|
     t.bigint "user_lifeplan_id"
-    t.datetime "remand_at"
+    t.bigint "admin_user_id"
+    t.datetime "remanded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_user_lifeplan_remand_histories_on_admin_user_id"
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_remand_histories_on_user_lifeplan_id"
   end
 
@@ -381,7 +383,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_041256) do
   add_foreign_key "user_lifeplan_expenses", "user_lifeplans"
   add_foreign_key "user_lifeplan_finance_conditions", "user_lifeplans"
   add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
-  add_foreign_key "user_lifeplan_remand_histories", "user_lifeplans"
   add_foreign_key "user_lifeplans", "admin_users"
   add_foreign_key "user_lifeplans", "users"
 end

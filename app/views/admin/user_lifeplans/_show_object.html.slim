@@ -1,0 +1,15 @@
+ruby:
+  decorator = decorator_model.new(@user_lifeplan)
+
+h3.mb-3
+  |試算表
+= render UserLifeplans::DetailIncomeAndExpenseComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: @user_lifeplan_yearly_blance)
+h3.mb-3
+  |詳細収支内訳
+= render UserLifeplans::TrailBalanceComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: @user_lifeplan_yearly_blance)
+h3.mb-3
+  |収支グラフ
+= render UserLifeplans::BlanceGraphComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: @user_lifeplan_yearly_blance)
+h3.mb-3
+  |情報シート
+= render UserLifeplans::UserInformationComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: @user_lifeplan_yearly_blance)

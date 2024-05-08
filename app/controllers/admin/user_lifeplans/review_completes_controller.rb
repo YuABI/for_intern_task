@@ -4,7 +4,7 @@ module Admin
       before_action :set_user_lifeplan, only: %i[update]
 
       def update
-        if @user_lifeplan.complete_review
+        if @user_lifeplan.complete_review(@current_admin_user)
           redirect_to admin_user_lifeplans_url(@user_lifeplan), notice: t('flash_messages.update_successed')
 
         else
@@ -23,7 +23,7 @@ module Admin
       end
 
       def set_user_lifeplan
-        @user_lifeplan = UserLifeplan.find(params[:user_lifeplan_id])
+        @user_lifeplan = find_object
       end
 
       def params_id

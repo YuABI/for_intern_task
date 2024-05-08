@@ -49,12 +49,12 @@
         td
           |作成日年齢
         td(colspan="2")
-          = calcurate_age(user_lifeplan_decorator.created_at.year)
+          = calcurate_age(user_lifeplan_decorator.created_at&.year)
       tr
         td
           |基準日年齢
         td(colspan="2")
-          = calcurate_age(user_lifeplan_decorator.basis_on.year)
+          = calcurate_age(user_lifeplan_decorator.basis_on&.year)
       tr
         td
           |年金受給年齢

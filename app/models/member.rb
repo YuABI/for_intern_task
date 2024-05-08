@@ -37,4 +37,8 @@ class Member < ApplicationRecord
 
   class << self
   end
+
+  def full_name
+    "#{family_name} #{first_name}"
+  end
 end

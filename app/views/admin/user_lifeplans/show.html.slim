@@ -1,0 +1,27 @@
+= render partial: "navi", locals: {mode: :show}
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}")
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+.row
+  .col-12
+    .card
+      .card-header.justify-content-between.d-flex.align-items-center
+        h4.card-title
+          = "ライフプラン審査確認"
+        div
+          = link_to "編集画面", edit_admin_user_lifeplan_url(@user_lifeplan), class: "btn btn-secondary me-3"
+          - if @user_lifeplan.user_lifeplan_status.check_pending?
+            = link_to "差し戻し", admin_user_lifeplan_review_remands_url(@user_lifeplan),
+              class: "btn btn-danger me-3", method: :patch
+            = link_to "審査完了", admin_user_lifeplan_review_completes_url(@user_lifeplan),
+              class: "btn btn-primary", method: :patch
+
+      .card-body
+        .table-responsive
+          table.table.table-bordered.mb-0
+            = render partial: "show_object", locals: {object: object,decorator_model: decorator_model}
+
+
+

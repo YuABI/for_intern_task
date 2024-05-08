@@ -95,6 +95,7 @@ ja:
         <<: *default
         name: 名称
         user_id: 顧客
+        member_id: 会員・パートナー
         user_lifeplan_status_id: ステータス
         basis_on: 基準日
         apply_reviewed_on: 申請審査日

@@ -125,26 +125,21 @@ class UserLifeplan < ApplicationRecord
     save
   end
 
-  def start_review(new_admin_user_id = nil)
+  def remand_review(new_admin_user = nil)
+    return false  if !user_lifeplan_status.check_pending?
+
+    new_admin_user_id = new_admin_user_id || admin_user_id
+    self.admin_user_id = new_admin_user.id
+    self.user_lifeplan_status_id = UserLifeplanStatus.find_by(code: 'entering').id
+    user_lifeplan_remand_histories.build(remanded_at: Time.current, admin_user_id: new_admin_user.id)
+    save
+  end
+
+  def complete_review(new_admin_user = nil)
     return false if !user_lifeplan_status.check_pending?
 
-    self.review_started_at = Time.current.to_i
-    self.user_lifeplan_status_id = UserLifeplanStatus.find_by(code: 'checking').id
-    self.admin_user_id = new_admin_user_id if new_admin_user_id.present?
-    save
-  end
-
-  def remand_review
-    return false  if !user_lireplan_status.checking? && !user_lifeplan_status.check_pending?
-
-    self.user_lifeplan_status_id = UserLifeplanStatus.find_by(code: 'entering').id
-    remand_histories.build(remanded_at: Time.current)
-    save
-  end
-
-  def complete_review
-    return false if !user_lireplan_status.checking? && !user_lifeplan_status.check_pending?
-
+    new_admin_user_id = new_admin_user.id || admin_user_id
+    self.admin_user_id = new_admin_user_id
     self.review_completed_at = Time.current
     self.user_lifeplan_status_id = UserLifeplanStatus.find_by(code: 'check_completed').id
     save

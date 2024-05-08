@@ -1,4 +1,24 @@
 class Admin::UserLifeplansController < Admin::MasterSearchController
+  def show
+    super
+    @user_lifeplan_yearly_blance = UserLifeplan::YearlyBalance.new(user_lifeplan_custom_id: params_id)
+    @user_lifeplan_yearly_blance.calculate
+  end
+
+  def create
+    goto = "edit_admin_user_lifeplan_url"
+    super(goto)
+  end
+
+  def update
+    goto = if params[:confirm].present?
+             "admin_user_lifeplan_url('#{params[:id]}')"
+           else
+             "edit_admin_user_lifeplan_url('#{params[:id]}')"
+           end
+    super(goto)
+  end
+
   def add_user_lifeplan_asset
     add_associations(association_model: :user_lifeplan_assets)
   end
@@ -76,5 +96,24 @@ class Admin::UserLifeplansController < Admin::MasterSearchController
     end
   rescue StandardError => e
     LoggerService.new(exception: e, request:).call
+  end
+
+  def admin_object_params
+    origin_params = super
+    if origin_params[:contact_note_docs].present?
+      origin_params[:contact_note_docs] = origin_params[:contact_note_docs].uniq
+    end
+    origin_params[:user_lifeplan_contacts_attributes]&.each do |i, child_attr|
+      if child_attr[:docs].present?
+        origin_params[:user_lifeplan_contacts_attributes][i][:docs] = child_attr[:docs].uniq
+      end
+    end
+    origin_params[:user_lifeplan_finance_conditions_attributes]&.each do |i, child_attr|
+      if child_attr[:docs].present?
+        origin_params[:user_lifeplan_finance_conditions_attributes][i][:docs] = child_attr[:docs].uniq
+      end
+    end
+
+    origin_params
   end
 end

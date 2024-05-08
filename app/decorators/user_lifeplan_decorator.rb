@@ -1,7 +1,22 @@
 class UserLifeplanDecorator < ApplicationDecorator
   class << self
     def form_objects(f)
-      common_form_object(f)
+      [
+        [init_form( f, {
+          code: :user_lifeplan_status_id,
+          input: f.select(:user_lifeplan_status_id,
+                          UserLifeplanStatus.all.map { |status| [status.name, status.id] }, {  },
+                          class: f.object.decorate.input_class(:user_lifeplan_status_id, :admin)),
+          col: 6, no_required: false, help: '', alert: ''
+        })],
+        [init_form( f, {
+          code: :member_id,
+          input: f.select(:member_id,
+                          Member.all.map { |member| [member.full_name, member.id] }, {  },
+                          class: f.object.decorate.input_class(:member_id, :admin)),
+          col: 6, no_required: false, help: '', alert: ''
+        })]
+      ] + common_form_object(f)
     end
 
     def header_objects
@@ -11,6 +26,17 @@ class UserLifeplanDecorator < ApplicationDecorator
     def body_objects
       %w[id user_name user_lifeplan_status_name]
 
+    end
+
+    def admin_action_links(_admin_user, object, write_form)
+      links = []
+      if object.id
+        links << h.link_to('詳細', h.__send__("admin_#{object.class.table_name.singularize}_path", object),
+                  object.html_option.merge(class: "btn btn-sm btn-secondary"))
+      else
+        links << ''
+      end
+      links+ action_links(_admin_user, object, write_form)
     end
 
     def member_form_objects(member, f)
@@ -37,7 +63,7 @@ class UserLifeplanDecorator < ApplicationDecorator
 
     private
 
-    def common_form_object(f, member)
+    def common_form_object(f, member = nil)
       [
         [
           init_form( f, {

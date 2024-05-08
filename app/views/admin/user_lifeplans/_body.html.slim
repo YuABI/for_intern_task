@@ -12,6 +12,6 @@ tbody
         - decorate_object.class.body_objects.each.with_index do |body_object,idx|
           td[style="#{style}#{decorator_model.body_style[idx]}"]
             = eval("decorate_object.#{body_object}")
-        - decorator_model.action_links(@current_admin_user,decorate_object,@write_operation).each do |link|
+        - decorator_model.admin_action_links(@current_admin_user,decorate_object,@write_operation).each do |link|
           td.text-center[style="#{style};width:100px;"]
             = link
