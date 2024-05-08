@@ -1,4 +1,10 @@
 class Members::UserLifeplansController < Members::MasterSearchController
+  def show
+    super
+    @user_lifeplan_yearly_blance = UserLifeplan::YearlyBalance.new(user_lifeplan_custom_id: params_id)
+    @user_lifeplan_yearly_blance.calculate
+  end
+
   def new
     super
 
@@ -13,7 +19,7 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
   def update
     goto = if params[:confirm].present?
-             "members_user_lifeplan_confirmations_url('#{params[:id]}')"
+             "members_user_lifeplan_url('#{params[:id]}')"
            else
              "edit_members_user_lifeplan_url('#{params[:id]}')"
            end

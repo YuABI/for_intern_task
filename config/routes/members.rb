@@ -33,7 +33,6 @@ namespace :members do
         end
       when :user_lifeplans
         scope module: :user_lifeplans do
-          resource :confirmations, only: %i[show update], controller: :user_lifeplan_confirmations
           resource :review_requests, only: %i[update], controller: :review_requests
         end
         collection do
