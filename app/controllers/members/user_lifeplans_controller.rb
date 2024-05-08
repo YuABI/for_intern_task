@@ -104,6 +104,21 @@ class Members::UserLifeplansController < Members::MasterSearchController
     if origin_params[:member_id].blank?
       origin_params[:member_id] = @current_member.id
     end
+    if origin_params[:contact_note_docs].present?
+      origin_params[:contact_note_docs] = origin_params[:contact_note_docs].uniq
+    end
+    origin_params[:user_lifeplan_contacts_attributes]&.each do |i, child_attr|
+      if child_attr[:docs].present?
+        origin_params[:user_lifeplan_contacts_attributes][i][:docs] = child_attr[:docs].uniq
+      end
+    end
+    origin_params[:user_lifeplan_finance_conditions_attributes]&.each do |i, child_attr|
+      p child_attr
+      if child_attr[:docs].present?
+        origin_params[:user_lifeplan_finance_conditions_attributes][i][:docs] = child_attr[:docs].uniq
+      end
+    end
+
     origin_params
   end
 end

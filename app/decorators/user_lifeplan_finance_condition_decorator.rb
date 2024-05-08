@@ -63,13 +63,7 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
             input: f.text_field(:status, class: f.object.decorate.input_class(:status, :admin)),
             col: 6, no_required: false, help: '', alert: ''
         }) ]
-      ] + f&.object&.docs&.map do |doc|
-        [ init_form( f, {
-            code: :docs,
-            input: f.hidden_field(:doc_ids, multiple: true, value: doc.signed_id),
-            col: 6, no_required: false, help: '', alert: ''
-        }) ]
-      end
+      ]
     end
   end
 end

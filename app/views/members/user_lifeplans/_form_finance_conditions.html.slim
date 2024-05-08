@@ -28,7 +28,15 @@ ruby:
                   - UserLifeplanFinanceConditionDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
                     - form_object_lists.each do |form_object|
                       td
+                        - if form_object[:code] == :docs
+                          - fe.object.docs.each do |doc|
+                            = fe.hidden_field(:docs, multiple: true, value: doc.signed_id)
                         = form_object[:input]
+                        - if form_object[:code] == :docs
+                          b.me-1
+                            | アップロード済みファイル
+                          - fe.object.docs.each do |doc|
+                            = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
                   td.text-center
                     = link_to_remote icon_del,
                       { url: del_user_lifeplan_finance_condition_members_user_lifeplans_path( id: object.exists_db? ? object.custom_id : nil,target_idx: fe.index),

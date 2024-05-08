@@ -16,7 +16,15 @@ ruby:
             div class="col-#{form_object[:col]}"
           - else
             div class="col"
+              - if form_object[:code] == :docs
+                - fe.object.docs.each do |doc|
+                  = fe.hidden_field(:docs, multiple: true, value: doc.signed_id)
               = form_object[:input]
+              - if form_object[:code] == :docs
+                b.me-1
+                  | アップロード済みファイル
+                - fe.object.docs.each do |doc|
+                  = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
       - fe.object.class.column_names.each do |column|
         - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
         = fe.hidden_field(column)
@@ -26,6 +34,8 @@ ruby:
     div class="col"
       = f.text_area :contact_note, class: "form-control", rows: 10
     div class="col"
+      - f.object.contact_note_docs.each do |contact_note_doc|
+        = f.hidden_field(:contact_note_docs, multiple: true, value: contact_note_doc.signed_id)
       = f.file_field :contact_note_docs, class: "form-control", multiple: true
       - if f.object.contact_note_docs.present?
         b
@@ -33,5 +43,4 @@ ruby:
       - f.object.contact_note_docs.each do |contact_note_doc|
         br
         = link_to contact_note_doc.filename.to_s, url_for(contact_note_doc), target: :_blank
-        = f.hidden_field(:doc_ids, multiple: true, value: contact_note_doc.signed_id)
 

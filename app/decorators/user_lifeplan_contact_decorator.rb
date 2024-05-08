@@ -47,13 +47,7 @@ class UserLifeplanContactDecorator < ApplicationDecorator
             input: f.file_field(:docs, class: f.object.decorate.input_class(:docs, :admin), multiple: true),
             no_required: false, help: '', alert: ''
         }) ],
-      ] + f&.object&.docs&.map do |doc|
-        [ init_form( f, {
-            code: :docs,
-            input: f.hidden_field(:docs, multiple: true, value: doc.signed_id),
-            no_required: false, help: '', alert: ''
-        }) ]
-      end
+      ]
     end
   end
 end
