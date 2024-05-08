@@ -6,11 +6,11 @@
           |顧客情報
       tr
         th
-          |ご氏名(甲)
+          |ご氏名
         td
           = user.full_name
         th
-          |性別(甲)
+          |性別
         td
           = user.sex.text
       tr
@@ -20,7 +20,7 @@
           = full_address
       tr
         th
-          |生年月日(甲)
+          |生年月日
         td(colspan="3")
           = l(user.birthday) if user.birthday
       tr
