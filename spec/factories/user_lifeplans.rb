@@ -2,33 +2,37 @@
 #
 # Table name: user_lifeplans
 #
-#  id                        :bigint           not null, primary key
-#  apply_reviewed_at         :datetime
-#  background_reason         :string           default(NULL), not null
-#  background_reason_comment :string           default(""), not null
-#  basis_on                  :date
-#  close_grave               :string           default(NULL), not null
-#  contact_inspect_note      :text
-#  contact_note              :text
-#  deleted                   :integer          default(0), not null
-#  deleted_at                :datetime
-#  funeral_memorial_policy   :string           default(NULL), not null
-#  household_disposal        :string           default(NULL), not null
-#  legal_heir                :string           default(NULL), not null
-#  legal_heir_comment        :string           default(NULL), not null
-#  name                      :string           default(""), not null
-#  note                      :string           default(""), not null
-#  real_estate_disposal      :string           default(NULL), not null
-#  relatives                 :string           default(NULL), not null
-#  relatives_comment         :string           default(NULL), not null
-#  residue                   :string           default(NULL), not null
-#  reviewed_at               :datetime
-#  small_account             :string           default(""), not null
-#  status                    :integer          default(0), not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  member_id                 :bigint           not null
-#  user_id                   :bigint           not null
+#  id                                  :bigint           not null, primary key
+#  apply_reviewed_at                   :datetime
+#  background_reason                   :string           default(NULL), not null
+#  background_reason_comment           :string           default(""), not null
+#  basis_on                            :date
+#  close_grave                         :string           default(NULL), not null
+#  contact_inspect_note                :text
+#  contact_note                        :text
+#  death_age                           :integer          default(0), not null
+#  deleted                             :integer          default(0), not null
+#  deleted_at                          :datetime
+#  funeral_memorial_policy             :string           default(NULL), not null
+#  household_disposal                  :string           default(NULL), not null
+#  legal_heir                          :string           default(NULL), not null
+#  legal_heir_comment                  :string           default(NULL), not null
+#  name                                :string           default(""), not null
+#  note                                :string           default(""), not null
+#  real_estate_disposal                :string           default(NULL), not null
+#  relatives                           :string           default(NULL), not null
+#  relatives_comment                   :string           default(NULL), not null
+#  residue                             :string           default(NULL), not null
+#  reviewed_at                         :datetime
+#  small_account                       :string           default(""), not null
+#  start_nursing_care_age              :integer          default(0), not null
+#  start_pension_age                   :integer          default(0), not null
+#  start_resident_elderly_facility_age :integer          default(0), not null
+#  status                              :integer          default(0), not null
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  member_id                           :bigint           not null
+#  user_id                             :bigint           not null
 #
 # Indexes
 #

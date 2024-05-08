@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_06_080621) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_030922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -311,6 +311,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_06_080621) do
     t.text "contact_note"
     t.text "contact_inspect_note"
     t.date "basis_on"
+    t.integer "start_pension_age", default: 0, null: false
+    t.integer "start_resident_elderly_facility_age", default: 0, null: false
+    t.integer "start_nursing_care_age", default: 0, null: false
+    t.integer "death_age", default: 0, null: false
     t.index ["member_id"], name: "index_user_lifeplans_on_member_id"
     t.index ["user_id"], name: "index_user_lifeplans_on_user_id"
   end

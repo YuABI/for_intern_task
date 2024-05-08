@@ -2,33 +2,37 @@
 #
 # Table name: user_lifeplans
 #
-#  id                        :bigint           not null, primary key
-#  apply_reviewed_at         :datetime
-#  background_reason         :string           default(NULL), not null
-#  background_reason_comment :string           default(""), not null
-#  basis_on                  :date
-#  close_grave               :string           default(NULL), not null
-#  contact_inspect_note      :text
-#  contact_note              :text
-#  deleted                   :integer          default(0), not null
-#  deleted_at                :datetime
-#  funeral_memorial_policy   :string           default(NULL), not null
-#  household_disposal        :string           default(NULL), not null
-#  legal_heir                :string           default(NULL), not null
-#  legal_heir_comment        :string           default(NULL), not null
-#  name                      :string           default(""), not null
-#  note                      :string           default(""), not null
-#  real_estate_disposal      :string           default(NULL), not null
-#  relatives                 :string           default(NULL), not null
-#  relatives_comment         :string           default(NULL), not null
-#  residue                   :string           default(NULL), not null
-#  reviewed_at               :datetime
-#  small_account             :string           default(""), not null
-#  status                    :integer          default(0), not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  member_id                 :bigint           not null
-#  user_id                   :bigint           not null
+#  id                                  :bigint           not null, primary key
+#  apply_reviewed_at                   :datetime
+#  background_reason                   :string           default(NULL), not null
+#  background_reason_comment           :string           default(""), not null
+#  basis_on                            :date
+#  close_grave                         :string           default(NULL), not null
+#  contact_inspect_note                :text
+#  contact_note                        :text
+#  death_age                           :integer          default(0), not null
+#  deleted                             :integer          default(0), not null
+#  deleted_at                          :datetime
+#  funeral_memorial_policy             :string           default(NULL), not null
+#  household_disposal                  :string           default(NULL), not null
+#  legal_heir                          :string           default(NULL), not null
+#  legal_heir_comment                  :string           default(NULL), not null
+#  name                                :string           default(""), not null
+#  note                                :string           default(""), not null
+#  real_estate_disposal                :string           default(NULL), not null
+#  relatives                           :string           default(NULL), not null
+#  relatives_comment                   :string           default(NULL), not null
+#  residue                             :string           default(NULL), not null
+#  reviewed_at                         :datetime
+#  small_account                       :string           default(""), not null
+#  start_nursing_care_age              :integer          default(0), not null
+#  start_pension_age                   :integer          default(0), not null
+#  start_resident_elderly_facility_age :integer          default(0), not null
+#  status                              :integer          default(0), not null
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  member_id                           :bigint           not null
+#  user_id                             :bigint           not null
 #
 # Indexes
 #
@@ -59,14 +63,21 @@ class UserLifeplan < ApplicationRecord
   enumerize :background_reason, in: %i[unselected no_children children_issues family_domestic_violence
                                        family_squandering no_burden_on_family], default: :unselected
   enumerize :legal_heir, in: %i[unselected existing not_existing], default: :unselected
-  enumerize :legal_heir_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown], default: :unselected
+  enumerize :legal_heir_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown],
+            default: :unselected
   enumerize :residue, in: %i[unselected existing not_existing], default: :unselected
   enumerize :relatives, in: %i[unselected existing not_existing], default: :unselected
-  enumerize :relatives_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown], default: :unselected
+  enumerize :relatives_comment, in: %i[unselected cooperative no_issues problematic_background estranged_unknown],
+            default: :unselected
   enumerize :household_disposal, in: %i[unselected existing not_existing checking], default: :unselected
   enumerize :real_estate_disposal, in: %i[unselected existing not_existing checking], default: :unselected
   enumerize :close_grave, in: %i[unselected existing not_existing checking], default: :unselected
   enumerize :funeral_memorial_policy, in: %i[unselected decided checking], default: :unselected
+
+  attribute :start_pension_age, default: -> { 65 }
+  attribute :start_resident_elderly_facility_age, default: -> { 80 }
+  attribute :start_nursing_care_age, default: -> { 85 }
+  attribute :death_age, default: -> { 90 }
 
   class << self
     def permit_params

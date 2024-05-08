@@ -112,6 +112,11 @@ ja:
         funeral_memorial_policy: 葬儀・供養方針
         small_account: 小口口座
         note: 備考
+        start_pension_age: 年金開始年齢
+        start_resident_elderly_facility_age: 老人ホーム入居開始年齢
+        start_nursing_care_age: 介護開始年齢
+        death_age: 死亡年齢
+
       user_lifeplan_income:
         <<: *default
         name: 収入名

@@ -59,24 +59,24 @@
         td
           |年金受給年齢
         td(colspan="2")
-          = calcurate_age(pension_start_year)
+          = user_lifeplan_decorator.start_pension_age
       tr
         td
           |入居年齢
         td(colspan="2")
-          = calcurate_age(elderly_facility_start_year)
+          = user_lifeplan_decorator.start_resident_elderly_facility_age
       tr
         td
           |介護開始年齢
         td(colspan="2")
-          = calcurate_age(nursing_care_start_year)
+          = user_lifeplan_decorator.start_nursing_care_age
       tr
         td
           |死亡年齢
         td(colspan="2")
-          = calcurate_age(user_lifeplan_yearly_blance.last_year)
+          = user_lifeplan_decorator.death_age
       tr
         th
           |備考
         td(colspan="3")
-          = ''
+          = user_lifeplan_decorator.note
