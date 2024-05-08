@@ -20,7 +20,7 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
     end
 
     def codes
-      %i[until_submitted_on account account_info balance confirmed_on docs status]
+      %i[until_submitted_on account account_info balance confirmed_on docs user_lifeplan_finance_condition_status_id]
     end
 
     private
@@ -59,8 +59,10 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
             col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form( f, {
-            code: :status,
-            input: f.text_field(:status, class: f.object.decorate.input_class(:status, :admin)),
+            code: :user_lifeplan_finance_condition_status_id,
+            input: f.select(:user_lifeplan_finance_condition_status_id,
+                            UserLifeplanFinanceConditionStatus.all.map { |status| [status.name, status.id] }, {},
+                            class: f.object.decorate.input_class(:user_lifeplan_finance_condition_status_id, :admin)),
             col: 6, no_required: false, help: '', alert: ''
         }) ]
       ]

@@ -72,7 +72,7 @@ class UserLifeplanDecorator < ApplicationDecorator
             # input: f.select(:user_id, member.users.map { |user| [user.name, user.id] }, { include_blank: true },
             #                 class: f.object.decorate.input_class(:name, :admin)),
             input: f.select(:user_id, User.all.map { |user| [user.full_name, user.id] }, { include_blank: true },
-                            class: f.object.decorate.input_class(:name, :admin)  ),
+                            class: f.object.decorate.input_class(:user_id, :admin)  ),
             col: 6, no_required: false, help: '', alert: ''
           }),
         ],
@@ -235,6 +235,15 @@ class UserLifeplanDecorator < ApplicationDecorator
 
   def user_lifeplan_status_name
     user_lifeplan_status&.name
+  end
+
+
+  def input_class(attr, mode = :front)
+    origin = super
+    if %i[member_id user_id].include?(attr)
+      origin += ' select2'
+    end
+    origin
   end
 
 end

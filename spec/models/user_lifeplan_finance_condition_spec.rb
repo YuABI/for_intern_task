@@ -2,18 +2,18 @@
 #
 # Table name: user_lifeplan_finance_conditions
 #
-#  id                 :bigint           not null, primary key
-#  account            :string           default(""), not null
-#  account_info       :string           default(""), not null
-#  balance            :integer          default(0), not null
-#  confirmed_on       :date
-#  deleted            :integer          default(0), not null
-#  deleted_at         :datetime
-#  status             :integer          default(0), not null
-#  until_submitted_on :date
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  user_lifeplan_id   :bigint           not null
+#  id                                        :bigint           not null, primary key
+#  account                                   :string           default(""), not null
+#  account_info                              :string           default(""), not null
+#  balance                                   :integer          default(0), not null
+#  confirmed_on                              :date
+#  deleted                                   :integer          default(0), not null
+#  deleted_at                                :datetime
+#  until_submitted_on                        :date
+#  created_at                                :datetime         not null
+#  updated_at                                :datetime         not null
+#  user_lifeplan_finance_condition_status_id :integer          default(0), not null
+#  user_lifeplan_id                          :bigint           not null
 #
 # Indexes
 #
