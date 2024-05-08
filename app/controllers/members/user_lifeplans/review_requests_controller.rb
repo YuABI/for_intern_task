@@ -5,11 +5,11 @@ module Members
 
       def update
         if @user_lifeplan.request_review
-          redirect_to members_user_lifeplan_confirmations_url(@user_lifeplan),
+          redirect_to members_user_lifeplan_url(@user_lifeplan),
                       notice: t('flash_messages.update_successed')
 
         else
-          redirect_to members_user_lifeplan_confirmations_url(@user_lifeplan),
+          redirect_to members_user_lifeplan_url(@user_lifeplan),
                       notice: t('flash_messages.update_failed')
         end
       end
