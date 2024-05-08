@@ -10,7 +10,7 @@
 #  close_grave                         :string           default(NULL), not null
 #  contact_inspect_note                :text
 #  contact_note                        :text
-#  death_age                           :integer          default(0), not null
+#  death_age                           :integer          default(90), not null
 #  deleted                             :integer          default(0), not null
 #  deleted_at                          :datetime
 #  funeral_memorial_policy             :string           default(NULL), not null
@@ -25,14 +25,14 @@
 #  residue                             :string           default(NULL), not null
 #  reviewed_at                         :datetime
 #  small_account                       :string           default(""), not null
-#  start_nursing_care_age              :integer          default(0), not null
-#  start_pension_age                   :integer          default(0), not null
-#  start_resident_elderly_facility_age :integer          default(0), not null
-#  status                              :integer          default(0), not null
+#  start_nursing_care_age              :integer          default(85), not null
+#  start_pension_age                   :integer          default(65), not null
+#  start_resident_elderly_facility_age :integer          default(80), not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
 #  member_id                           :bigint           not null
 #  user_id                             :bigint           not null
+#  user_lifeplan_status_id             :integer          default(1), not null
 #
 # Indexes
 #

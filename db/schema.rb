@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_08_030922) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_041256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -284,9 +284,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_030922) do
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
   end
 
+  create_table "user_lifeplan_remand_histories", force: :cascade do |t|
+    t.bigint "user_lifeplan_id"
+    t.datetime "remand_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_lifeplan_id"], name: "index_user_lifeplan_remand_histories_on_user_lifeplan_id"
+  end
+
   create_table "user_lifeplans", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.integer "status", default: 0, null: false
+    t.integer "user_lifeplan_status_id", default: 1, null: false
     t.datetime "apply_reviewed_at"
     t.datetime "reviewed_at"
     t.string "background_reason", default: "", null: false
@@ -370,5 +378,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_030922) do
   add_foreign_key "user_lifeplan_expenses", "user_lifeplans"
   add_foreign_key "user_lifeplan_finance_conditions", "user_lifeplans"
   add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
+  add_foreign_key "user_lifeplan_remand_histories", "user_lifeplans"
   add_foreign_key "user_lifeplans", "users"
 end

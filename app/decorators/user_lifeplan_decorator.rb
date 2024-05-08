@@ -5,7 +5,15 @@ class UserLifeplanDecorator < ApplicationDecorator
     end
 
     def member_form_objects(member, f)
-      common_form_object(f, member)
+      [
+        [init_form( f, {
+          code: :user_lifeplan_status_id,
+          input: f.select(:user_lifeplan_status_id,
+                          UserLifeplanStatus.all.map { |status| [status.name, status.id] }, {  },
+                          class: f.object.decorate.input_class(:user_lifeplan_status_id, :admin), disabled: true),
+          col: 6, no_required: false, help: '', alert: ''
+        })]
+      ] + common_form_object(f, member)
     end
 
     private
@@ -57,13 +65,6 @@ class UserLifeplanDecorator < ApplicationDecorator
           init_form( f, {
             code: :name,
             input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin), placeholder: ''),
-            col: 6, no_required: false, help: '', alert: ''
-          }),
-        ],
-        [
-          init_form( f, {
-            code: :status,
-            input: f.number_field(:status, class: f.object.decorate.input_class(:status, :admin)),
             col: 6, no_required: false, help: '', alert: ''
           }),
         ],
