@@ -91,15 +91,15 @@ class UserLifeplan < ApplicationRecord
 
   class << self
     def permit_params
-      super +
+      p super +
         [
+          contact_note_docs: [],
           user_lifeplan_assets_attributes: UserLifeplanAsset.permit_params,
           user_lifeplan_incomes_attributes: UserLifeplanIncome.permit_params,
           user_lifeplan_expenses_attributes: UserLifeplanExpense.permit_params,
           user_lifeplan_beneficiaries_attributes: UserLifeplanBeneficiary.permit_params,
           user_lifeplan_contacts_attributes: UserLifeplanContact.permit_params,
           user_lifeplan_finance_conditions_attributes: UserLifeplanFinanceCondition.permit_params,
-          contact_note_docs: []
         ]
     end
   end

@@ -110,6 +110,7 @@ gem 'exception_notification'
 gem 'rack-attack'
 gem 'rubyzip'
 gem 'rack-user_agent'
+gem "aws-sdk-s3", require: false
 
 # セッションDB管理
 gem 'activerecord-session_store'

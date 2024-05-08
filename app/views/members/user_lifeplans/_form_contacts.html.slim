@@ -26,7 +26,12 @@ ruby:
     div class="col"
       = f.text_area :contact_note, class: "form-control", rows: 10
     div class="col"
-      = f.file_field :contact_note_docs, class: "form-control"
-  - f.object.contact_note_docs.each do |contact_note_doc|
-    = f.hidden_field(:doc_ids, multiple: true, value: contact_note_doc.signed_id)
+      = f.file_field :contact_note_docs, class: "form-control", multiple: true
+      - if f.object.contact_note_docs.present?
+        b
+          | アップロード済みファイル
+      - f.object.contact_note_docs.each do |contact_note_doc|
+        br
+        = link_to contact_note_doc.filename.to_s, url_for(contact_note_doc), target: :_blank
+        = f.hidden_field(:doc_ids, multiple: true, value: contact_note_doc.signed_id)
 
