@@ -159,8 +159,15 @@ class UserLifeplan
     end
 
     def is_in_payment_period?(income_or_expense, year)
-      (income_or_expense.payment_start_year && income_or_expense.payment_start_year <= year) ||
-              (income_or_expense.payment_end_year && income_or_expense.payment_end_year >= year)
+      if income_or_expense.payment_start_year.present? && income_or_expense.payment_end_year.present?
+        income_or_expense.payment_start_year <= year && year <= income_or_expense.payment_end_year
+      elsif income_or_expense.payment_start_year.present?
+        income_or_expense.payment_start_year <= year
+      elsif income_or_expense.payment_end_year.present?
+        year <= income_or_expense.payment_end_year
+      else
+        false
+      end
     end
 
     def set_last_year

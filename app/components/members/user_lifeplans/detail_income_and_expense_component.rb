@@ -27,7 +27,7 @@ class Members::UserLifeplans::DetailIncomeAndExpenseComponent < Members::BaseCom
                   end
 
     content_tag(:span, class: span_class) do
-      number_to_currency(number, unit: '¥', precision: 0)
+      number_to_currency(number, unit: '¥', precision: 0, format: "%u %n", negative_format: "%u -%n")
     end
   end
 
@@ -35,5 +35,11 @@ class Members::UserLifeplans::DetailIncomeAndExpenseComponent < Members::BaseCom
     return '' if date.blank?
 
     I18n.l(date)
+  end
+
+  def percent_with_unit(percent)
+    return '' if percent.blank?
+
+    "#{percent}%"
   end
 end

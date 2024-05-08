@@ -37,11 +37,11 @@ class UserLifeplanExpense < ApplicationRecord
   ], scope: true
 
   enumerize :spending_item, in: %i[
-    total_living_costs living_costs_housing_food food_expenses rent
+    unselected total_living_costs living_costs_housing_food food_expenses rent
     maintenance_fee parking_fee total_utilities electricity gas water total_communication_costs communication_costs
     broadcasting_fee newspaper_fee neighborhood_association_fee medical_expenses taxes insurance_premiums
     miscellaneous_expenses
-  ]
+  ], default: :unselected
 
   class << self
     def permit_params

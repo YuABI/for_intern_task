@@ -30,7 +30,7 @@ class Members::UserLifeplans::TrailBalanceComponent < Members::BaseComponent
                   end
 
     content_tag(:span, class: span_class) do
-      number_to_currency(number, unit: '', precision: 0)
+      number_to_currency(number, unit: '', precision: 0, format: "%u %n", negative_format: "%u -%n")
     end
   end
 end

@@ -34,12 +34,12 @@ class UserLifeplanIncome < ApplicationRecord
     pension cache_income temporary_cache_income
   ], scope: true
   enumerize :pension_kind, in: %i[
-    national_pension welfare_pension national_welfare_pension survivor_pension corporate_pension disability_pension
-    private_pension_insurance pension_trust unselected
+    unselected national_pension welfare_pension national_welfare_pension survivor_pension corporate_pension disability_pension
+    private_pension_insurance pension_trust
   ], default: :unselected
   enumerize :cache_income_kind, in: %i[
-    salary severance_pay investment_fund insurance_money trust_fund donation rental_income parking_income refund
-    other_income unselected
+    unselected salary severance_pay investment_fund insurance_money trust_fund donation rental_income parking_income refund
+    other_income
   ], default: :unselected
 
 

@@ -100,6 +100,7 @@ ja:
         cash_deposits: 現金預貯金
         other_assets: その他資産
       cache_deposit_kind:
+        unselected: 未選択
         ordinary_deposit: 普通預金
         standard_savings: 通常貯金
         regular_savings: 普通貯金
@@ -112,6 +113,8 @@ ja:
         investment_fund: 投資信託
         other_cache_deposit: その他
       other_assets_kind:
+        unselected: 未選択
+        ordinary_deposit: 普通預金
         land: 土地
         building: 建物
         condominium: マンション
@@ -127,6 +130,7 @@ ja:
         cache_income: 収入
         temporary_cache_income: 一時
       pension_kind:
+        unselected: 未選択
         national_pension: "国民年金"
         welfare_pension: "厚生年金"
         national_welfare_pension: "国民年金/厚生年金"
@@ -136,6 +140,7 @@ ja:
         private_pension_insurance: "個人年金保険"
         pension_trust: "年金型信託"
       cache_income_kind:
+        unselected: 未選択
         salary: 給与
         severance_pay: 退職金
         investment_fund: 投資信託
@@ -154,6 +159,7 @@ ja:
         end_of_life: 終活（STEP1〜STEP3費用）
         deposit: 終活（預託金）
       spending_item:
+        unselected: 未選択
         total_living_costs: 生活費一式
         living_costs_housing_food: 生活費（住+食）
         food_expenses: 食費

@@ -68,7 +68,7 @@ h4
           td
             = user_lifeplan_decorator.user.full_name
           td
-            = user_lifeplan_asset.rate
+            = percent_with_unit(user_lifeplan_asset.rate)
           td
             = user_lifeplan_asset.other_assets_kind.text
           td
