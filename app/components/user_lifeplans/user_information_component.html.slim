@@ -1,82 +1,82 @@
 .table-responsive
   table.table.table-bordered.mb-0
     thead
-      tr
+      tr.bg-light
         th(colspan="4")
           |顧客情報
       tr
-        th
+        th.bg-light
           |ご氏名
         td
           = user.full_name
-        th
+        th.bg-light
           |性別
         td
           = user.sex.text
       tr
-        th
+        th.bg-light
           |ご住所
         td(colspan="3")
           = full_address
       tr
-        th
+        th.bg-light
           |生年月日
         td(colspan="3")
           = l(user.birthday) if user.birthday
       tr
-        th
+        th.bg-light
           |作成日
         td(colspan="3")
           = l(user.created_at)
       tr
-        th
+        th.bg-light
           |基準日
         td(colspan="3")
           = l(user_lifeplan_decorator.basis_on) if user_lifeplan_decorator.basis_on
       tr
-        th
+        th.bg-light
           |経過日数
         td(colspan="3")
           = duration_of_feeding_period
       tr
-        th
+        th.bg-light
           |残り日数
         td(colspan="3")
           = duration_of_deadline
       tr
-        th(rowspan="6")
+        th.bg-light(rowspan="6")
           |甲様情報
-        td
+        th.bg-light
           |作成日年齢
         td(colspan="2")
           = calcurate_age(user_lifeplan_decorator.created_at&.year)
       tr
-        td
+        th.bg-light
           |基準日年齢
         td(colspan="2")
           = calcurate_age(user_lifeplan_decorator.basis_on&.year)
       tr
-        td
+        th.bg-light
           |年金受給年齢
         td(colspan="2")
           = user_lifeplan_decorator.start_pension_age
       tr
-        td
+        th.bg-light
           |入居年齢
         td(colspan="2")
           = user_lifeplan_decorator.start_resident_elderly_facility_age
       tr
-        td
+        th.bg-light
           |介護開始年齢
         td(colspan="2")
           = user_lifeplan_decorator.start_nursing_care_age
       tr
-        td
+        th.bg-light
           |死亡年齢
         td(colspan="2")
           = user_lifeplan_decorator.death_age
       tr
-        th
+        th.bg-light
           |備考
         td(colspan="3")
           = user_lifeplan_decorator.note

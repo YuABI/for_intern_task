@@ -1,22 +1,22 @@
 .table-responsive
   table.table.table-bordered.mb-3
     thead
-      tr.
-        th.align-middle.text-center(rowspan="2" colspan="2")
+      tr
+        th.align-middle.text-center.bg-light(rowspan="2" colspan="2")
           | 収支内訳表
-        th.align-middle.text-center
+        th.align-middle.text-center.bg-light
           | 西暦
         - user_lifeplan_yearly_blance.each_year_balances.each do |year, each_year_balance|
-          th.align-middle.text-center
+          th.align-middle.text-center.bg-light
             = year
       tr
-        th.align-middle.text-center
+        th.align-middle.text-center.bg-light
           | 経過年数
         - user_lifeplan_yearly_blance.each_year_balances.length.times do |i|
           th.align-middle.text-center
             = i
       tr.
-        th.align-middle.text-center
+        th.align-middle.text-center.bg-light
           | 本人
         td.align-middle.text-center
           = "#{@user_lifeplan_yearly_blance.user.full_name} 様"
@@ -26,7 +26,7 @@
           td.align-middle.text-center
             = each_year_balance.age
       tr.
-        th.align-middle.text-center(rowspan="4")
+        th.align-middle.text-center.bg-light(rowspan="4")
           | 収入
         td.align-middle.text-center
           | 年金
@@ -60,7 +60,7 @@
           td.align-middle.text-center
             = change_delimited(each_year_balance.incomes_amount_total)
       tr.
-        th.align-middle.text-center(rowspan="5")
+        th.align-middle.text-center.bg-light(rowspan="5")
           | 支出
         td.align-middle.text-center
           | 支出
@@ -102,7 +102,7 @@
           td.align-middle.text-center
             = change_delimited(each_year_balance.expenses_amount_total)
       tr.
-        th.align-middle.text-center(colspan="2")
+        th.align-middle.text-center.bg-light(colspan="2")
           | 年間収支
         td
           |-
@@ -110,7 +110,7 @@
           td.align-middle.text-center
             = change_delimited(each_year_balance.yearly_balance)
       tr.
-        th.align-middle.text-center(colspan="2")
+        th.align-middle.text-center.bg-light(colspan="2")
           | 現金預貯金
         td
           = change_delimited(user_lifeplan_yearly_blance.initial_cache_assets_total)
@@ -118,7 +118,7 @@
           td.align-middle.text-center
             = change_delimited(each_year_balance.cash_deposits_amount)
       tr.
-        th.align-middle.text-center(colspan="2")
+        th.align-middle.text-center.bg-light(colspan="2")
           | その他資産
         td
           = change_delimited(user_lifeplan_yearly_blance.initial_other_assets_total)
@@ -126,7 +126,7 @@
           td.align-middle.text-center
             = change_delimited(each_year_balance.other_assets_amount)
       tr.
-        th.align-middle.text-center(colspan="2")
+        th.align-middle.text-center.bg-light(colspan="2")
           | 資産総合計
         td
           = change_delimited(user_lifeplan_yearly_blance.initial_assets_total)
