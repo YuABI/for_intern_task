@@ -4,16 +4,21 @@ class UserLifeplanStatus < ActiveHash::Base
     { id: 2, name: '本部審査待ち', code: 'check_pending'},
     { id: 3, name: '本部審査完了', code: 'check_completed'}
   ]
+  class << self
+    def entering() 1;end
+    def check_pending() 2;end
+    def check_completed() 3;end
+  end
 
   def entering?
-    id == 1
+    id == self.class.entering()
   end
 
   def check_pending?
-    id == 2
+    id == self.class.check_pending()
   end
 
   def check_completed?
-    id == 3
+    id == self.class.check_completed()
   end
 end

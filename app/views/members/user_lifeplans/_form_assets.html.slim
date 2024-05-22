@@ -18,7 +18,7 @@ ruby:
             tr
               - UserLifeplanAssetDecorator.member_form_objects(@current_user,f).each do |form_object_lists|
                 - form_object_lists.each do |form_object|
-                  th.bg-light
+                  th.bg-light.text-nowrap(style="min-width: 150px;")
                     = UserLifeplanAsset.human form_object[:code]
               th.bg-light.text-center
           tbody

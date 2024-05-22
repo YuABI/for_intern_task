@@ -174,7 +174,7 @@ class UserLifeplan
       return if last_year.present?
       self.last_year = first_year
 
-      user_lifeplan.user_lifeplan_incomes.each do |user_lifeplan_income|
+      user_lifeplan&.user_lifeplan_incomes&.each do |user_lifeplan_income|
         next if user_lifeplan_income.payment_end_year.blank?
 
         if user_lifeplan_income.payment_end_year > last_year
@@ -182,7 +182,7 @@ class UserLifeplan
         end
       end
 
-      user_lifeplan.user_lifeplan_expenses.each do |user_lifeplan_expense|
+      user_lifeplan&.user_lifeplan_expenses&.each do |user_lifeplan_expense|
         next if user_lifeplan_expense.payment_end_year.blank?
 
         if user_lifeplan_expense.payment_end_year > last_year

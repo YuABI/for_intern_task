@@ -127,10 +127,6 @@ module Admin
       obj
     end
 
-    def params_id
-      params[:id]
-    end
-
     private
 
     def admin_object_params
@@ -155,10 +151,6 @@ module Admin
       params.require(:"#{name_singularize}").permit(
         _model_.permit_params
       )
-    end
-
-    def params_id
-      params[:id]
     end
 
     def csv_import_service_params

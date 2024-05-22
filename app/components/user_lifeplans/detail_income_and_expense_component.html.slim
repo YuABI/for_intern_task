@@ -2,7 +2,7 @@ h4
   |現金預貯金
 div.table-responsive.mb-3
   table.table.table-bordered.mb-3
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -43,7 +43,7 @@ h4
   |その他資産
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -63,6 +63,7 @@ h4
           |利益
         th
           |摘要
+    tbody
       - user_lifeplan_yearly_blance.other_assets.each do |user_lifeplan_asset|
         tr
           td
@@ -87,7 +88,7 @@ h4
   |年金
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -105,6 +106,7 @@ h4
           |月額
         th
           |年額
+    tbody
       - user_lifeplan_yearly_blance.pension_incomes.each do |user_lifeplan_income|
         tr
           td
@@ -128,7 +130,7 @@ h4
 
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -146,6 +148,7 @@ h4
           |月額
         th
           |年額
+    tbody
       - user_lifeplan_yearly_blance.cache_incomes_and_temporary_cache_incomes.each do |user_lifeplan_income|
         tr
           td
@@ -169,7 +172,7 @@ h4
 
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -189,6 +192,7 @@ h4
           |月額
         th
           |年額
+    tbody
       - user_lifeplan_yearly_blance.spending_expenses.each do |user_lifeplan_expense|
         tr
           td
@@ -214,7 +218,7 @@ h4
 
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -230,6 +234,7 @@ h4
           |年毎
         th
           |金額
+    tbody
       - user_lifeplan_yearly_blance.life_event_expenses.each do |user_lifeplan_expense|
         tr
           td
@@ -252,7 +257,7 @@ h4
 
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -270,6 +275,7 @@ h4
           |月額
         th
           |年額
+    tbody
       - user_lifeplan_yearly_blance.elderly_facility_expenses.each do |user_lifeplan_expense|
         tr
           td
@@ -293,7 +299,7 @@ h4
 
 .table-responsive.mb-3
   table.table.table-bordered.mb-0
-    thead
+    thead.table-light
       tr
         th
           |名義人
@@ -311,6 +317,7 @@ h4
           |年毎
         th
           |金額
+    tbody
       - user_lifeplan_yearly_blance.end_of_life_expenses.each do |user_lifeplan_expense|
         tr
           td

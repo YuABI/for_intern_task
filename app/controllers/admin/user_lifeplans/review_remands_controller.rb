@@ -24,7 +24,6 @@ module Admin
 
       def set_user_lifeplan
         @user_lifeplan = find_object
-        p @user_lifeplan
       end
 
       def params_id
