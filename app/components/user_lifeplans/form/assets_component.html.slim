@@ -15,21 +15,52 @@ ruby:
               method: "POST", submit: "form", loading: true },
             { class: "btn btn-#{color_add}" }
     .card-body
-      .table-responsive
+      .table-responsive.mb-3
         table.table.table-bordered.mb-0
           thead
             tr
-              - UserLifeplanAssetDecorator.form_columns.each do |form_object|
-                  th.bg-light.text-nowrap(style="min-width: 150px;")
+              - UserLifeplanAssetDecorator.cash_deposits_form_columns.each do |form_object|
+                  th.bg-light.text-nowrap(style="#{cell_style(form_object)}")
                     = UserLifeplanAsset.human form_object
               th.bg-light.text-center
           tbody
             - f.fields_for :user_lifeplan_assets do |fe|
+              - next if fe.object.other_assets?
               - unless fe.object._destroy
                 tr
-                  - UserLifeplanAssetDecorator.form_objects(current_user,fe).each do |form_object_lists|
+                  - UserLifeplanAssetDecorator.cache_deposits_form_objects(current_user,fe).each do |form_object_lists|
                     - form_object_lists.each do |form_object|
-                      td
+                      td(style="#{cell_style(form_object[:code])} background-color: #fff;")
+                        = form_object[:input]
+                  td.text-center
+                    = fe.hidden_field(:user_lifeplan_asset_kind)
+                    = link_to_remote icon_del,
+                      { url: del_asset_url(target_idx: fe.index), method: "POST", submit: "form", loading: true },
+                      { class: "btn btn-#{color_destroy}" }
+
+                    - fe.object.class.column_names.each do |column|
+                      - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
+                      = fe.hidden_field(column)
+              - else
+                = fe.hidden_field(:_destroy, value: 1)
+                - fe.object.class.column_names.each do |column|
+                  = fe.hidden_field(column)
+      .table-responsive
+        table.table.table-bordered.mb-0
+          thead
+            tr
+              - UserLifeplanAssetDecorator.other_assets_form_columns.each do |form_object|
+                th.bg-light.text-nowrap(style="#{cell_style(form_object)}")
+                  = UserLifeplanAsset.human form_object
+              th.bg-light.text-center
+          tbody
+            - f.fields_for :user_lifeplan_assets do |fe|
+              - next if fe.object.cash_deposits?
+              - unless fe.object._destroy
+                tr
+                  - UserLifeplanAssetDecorator.other_assets_form_objects(current_user,fe).each do |form_object_lists|
+                    - form_object_lists.each do |form_object|
+                      td(style="#{cell_style(form_object[:code])} background-color: #fff;")
                         = form_object[:input]
                   td.text-center
                     = fe.hidden_field(:user_lifeplan_asset_kind)
