@@ -28,7 +28,7 @@ class UserLifeplanAssetDecorator < ApplicationDecorator
     end
 
     def form_columns
-      %i[ user_lifeplan_asset_kind name cache_deposit_kind other_assets_kind amount_of_money financial_institution_name
+      %i[ user_lifeplan_asset_kind cache_deposit_kind other_assets_kind amount_of_money financial_institution_name
           store_name account_number reference_on rate content company_name asset_appraisal_value equity_appraisal_value
           scheduled_for_sale sundry_expenses profit description
       ]
@@ -46,11 +46,11 @@ class UserLifeplanAssetDecorator < ApplicationDecorator
                           disabled: true),
           col: 6, no_required: false, help: '', alert: ''
         }) ],
-        [ init_form( f, {
-            code: :name,
-            input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin)),
-            col: 6, no_required: false, help: '', alert: ''
-        }) ],
+        # [ init_form( f, {
+        #     code: :name,
+        #     input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin)),
+        #     col: 6, no_required: false, help: '', alert: ''
+        # }) ],
         [ init_form( f, {
           code: :cache_deposit_kind,
           input: f.select(:cache_deposit_kind,

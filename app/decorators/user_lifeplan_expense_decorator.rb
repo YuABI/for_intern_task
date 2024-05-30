@@ -28,7 +28,7 @@ class UserLifeplanExpenseDecorator < ApplicationDecorator
     end
 
     def form_columns
-      %i[ user_lifeplan_expense_kind name spending_item content company_name payment_start_year
+      %i[ user_lifeplan_expense_kind spending_item content company_name payment_start_year
           payment_end_year monthly_amount yearly_amount pay_by_years note]
     end
 
@@ -43,11 +43,11 @@ class UserLifeplanExpenseDecorator < ApplicationDecorator
                           disabled: true, class: f.object.decorate.input_class(:user_lifeplan_income_kind, :admin)),
           col: 6, no_required: false, help: '', alert: ''
         }), ],
-        [ init_form(f, {
-          code: :name,
-          input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin), placeholder: ''),
-          col: 6, no_required: false, help: '', alert: ''
-        }), ],
+        # [ init_form(f, {
+        #   code: :name,
+        #   input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin), placeholder: ''),
+        #   col: 6, no_required: false, help: '', alert: ''
+        # }), ],
         [
           [ init_form(f, {
             code: :spending_item,

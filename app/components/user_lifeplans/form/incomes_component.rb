@@ -40,4 +40,16 @@ class UserLifeplans::Form::IncomesComponent < ApplicationComponent
       )
     end
   end
+
+  def cell_style(cell_code)
+    style_txt = 'min-width: 150px;'
+
+    if %i[user_lifeplan_income_kind].include?(cell_code.to_sym)
+      style_txt = style_txt + 'position: sticky; top: 0; left: 0; z-index: 99;width: 150px;'
+    elsif %i[cache_income_kind_or_pension_kind cache_income_kind pension_kind].include?(cell_code.to_sym)
+      style_txt = style_txt + 'position: sticky;z-index: 99; top: 0; left: 150px;'
+    end
+
+    style_txt
+  end
 end

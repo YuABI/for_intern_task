@@ -20,7 +20,7 @@ ruby:
           thead
             tr
               - UserLifeplanExpenseDecorator.form_columns.each do |form_object|
-                th.bg-light.text-nowrap(style="#{cell_min(form_object)}")
+                th.bg-light.text-nowrap(style="#{cell_style(form_object)}")
                   = UserLifeplanExpense.human form_object
               th.bg-light.text-center
           tbody
@@ -29,7 +29,7 @@ ruby:
                 tr
                   - UserLifeplanExpenseDecorator.form_objects(current_user,fe).each do |form_object_lists|
                     - form_object_lists.each do |form_object|
-                      td
+                      td(style="#{cell_style(form_object[:code])} background-color: #fff;")
                         = form_object[:input]
                   td.text-center
                     = fe.hidden_field(:user_lifeplan_expense_kind)

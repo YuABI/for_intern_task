@@ -41,13 +41,23 @@ class UserLifeplans::Form::ExpensesComponent < ApplicationComponent
     end
   end
 
-  def cell_min(cell_code)
+  def cell_style(cell_code)
+    style_txt = ''
+
     if %i[payment_start_year payment_end_year].include?(cell_code)
-      "min-width: 100px;"
+      style_txt = style_txt + "min-width: 100px;"
     elsif %i[monthly_amount yearly_amount pay_by_years].include?(cell_code)
-      "min-width: 80px;"
+      style_txt = style_txt + "min-width: 80px;"
     else
-      "min-width: 150px;"
+      style_txt = style_txt + "min-width: 150px;"
     end
+
+    if %i[user_lifeplan_expense_kind].include?(cell_code.to_sym)
+      style_txt = style_txt + 'position: sticky; top: 0; left: 0; z-index: 99;width: 150px;'
+    elsif %i[spending_item expenditure_item_name].include?(cell_code.to_sym)
+      style_txt = style_txt + 'position: sticky;z-index: 99; top: 0; left: 150px;'
+    end
+
+    style_txt
   end
 end

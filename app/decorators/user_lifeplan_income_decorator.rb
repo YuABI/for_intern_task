@@ -28,7 +28,7 @@ class UserLifeplanIncomeDecorator < ApplicationDecorator
     end
 
     def form_columns
-      %i[ user_lifeplan_income_kind name cache_income_kind_or_pension_kind content company_name payment_start_year
+      %i[ user_lifeplan_income_kind cache_income_kind_or_pension_kind content company_name payment_start_year
           payment_end_year monthly_amount yearly_amount]
     end
 
@@ -44,11 +44,11 @@ class UserLifeplanIncomeDecorator < ApplicationDecorator
                           class: f.object.decorate.input_class(:user_lifeplan_income_kind, :admin)),
           col: 6, no_required: false, help: '', alert: ''
         }), ],
-        [ init_form(f, {
-          code: :name,
-          input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin), placeholder: ''),
-          col: 6, no_required: false, help: '', alert: ''
-        }), ],
+        # [ init_form(f, {
+        #   code: :name,
+        #   input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin), placeholder: ''),
+        #   col: 6, no_required: false, help: '', alert: ''
+        # }), ],
         [
           [ init_form(f, {
             code: :cache_income_kind,
