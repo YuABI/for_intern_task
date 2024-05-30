@@ -97,7 +97,7 @@ ja:
         user_id: 顧客
         member_id: 会員・パートナー
         user_lifeplan_status_id: ステータス
-        basis_on: 基準日
+        basis_on: 作成日
         apply_reviewed_on: 申請審査日
         reviewed_on: 審査日
         background_reason: 依頼の背景
@@ -131,6 +131,7 @@ ja:
         monthly_amount: 月額
         yearly_amount: 年額
         user_lifeplan_income_kind: 収入種類
+        cache_income_kind_or_pension_kind: 種類
       user_lifeplan_finance_condition:
         <<: *default
         user_lifeplan_id: ライフプランID

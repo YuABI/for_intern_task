@@ -7,20 +7,18 @@ ruby:
   label.me-3
     | 遺贈先
   = link_to_remote(icon_add,
-    { url: add_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.custom_id : nil),
-      method: "POST", submit: "form", loading: true },
+    { url: add_beneficiary_url, method: "POST", submit: "form", loading: true },
     { class: "btn btn-#{color_add} mb-3" } )
   .row
-    .col-6
-      = f.fields_for :user_lifeplan_beneficiaries do |fe|
+    .col-4
+      - f.fields_for :user_lifeplan_beneficiaries do |fe|
         - unless fe.object._destroy
-          - UserLifeplanBeneficiaryDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
+          - UserLifeplanBeneficiaryDecorator.form_objects(current_user,fe).each do |form_object_lists|
             - form_object_lists.each do |form_object|
-              .input-group.mb-3
+              .input-group.mb-3.col-3
                 = form_object[:input]
                 = link_to_remote icon_del,
-                  { url: del_user_lifeplan_beneficiary_members_user_lifeplans_url(id: object.exists_db? ? object.custom_id : nil,
-                    target_idx: fe.index), method: "POST", submit: "form", loading: true },
+                  { url: del_beneficiary_url(target_idx: fe.index), method: "POST", submit: "form", loading: true },
                   { class: "btn btn-#{color_destroy}" }
           - fe.object.class.column_names.each do |column|
             - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)

@@ -6,7 +6,6 @@
 #  contact_level_kind         :string           default(NULL), not null
 #  deleted                    :integer          default(0), not null
 #  deleted_at                 :datetime
-#  name                       :string           default(""), not null
 #  user_lifeplan_contact_kind :string           default(NULL), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null

@@ -106,4 +106,6 @@ Rails.application.configure do
 
   #ngrokの許可
   config.hosts << '.ngrok.io'
+  # docker対応
+  config.file_watcher = ActiveSupport::FileUpdateChecker
 end

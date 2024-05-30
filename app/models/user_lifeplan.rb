@@ -16,7 +16,6 @@
 #  household_disposal                  :string           default(NULL), not null
 #  legal_heir                          :string           default(NULL), not null
 #  legal_heir_comment                  :string           default(NULL), not null
-#  name                                :string           default(""), not null
 #  note                                :string           default(""), not null
 #  real_estate_disposal                :string           default(NULL), not null
 #  relatives                           :string           default(NULL), not null
@@ -88,6 +87,7 @@ class UserLifeplan < ApplicationRecord
   attribute :start_resident_elderly_facility_age, default: -> { 80 }
   attribute :start_nursing_care_age, default: -> { 85 }
   attribute :death_age, default: -> { 90 }
+  attribute :basis_on, default: -> { Time.current.to_date }
 
   class << self
     def permit_params

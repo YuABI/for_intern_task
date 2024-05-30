@@ -11,11 +11,19 @@ class UserLifeplanBeneficiaryDecorator < ApplicationDecorator
   #   end
 
   class << self
-    def form_objects(f)
-      common_form_object(f)
+    def form_objects(user, f)
+      if user.is_a?(AdminUser)
+        admin_form_objects(user, f)
+      else
+        member_form_objects(user, f)
+      end
     end
 
     def member_form_objects(member, f)
+      common_form_object(f)
+    end
+
+    def admin_form_objects(admin, f)
       common_form_object(f)
     end
 
@@ -26,7 +34,7 @@ class UserLifeplanBeneficiaryDecorator < ApplicationDecorator
         [ init_form( f, {
             code: :name,
             input: f.text_field(:name, class: f.object.decorate.input_class(:name, :admin)),
-            col: 6, no_required: false, help: '', alert: ''
+            col: 4, no_required: false, help: '', alert: ''
         }) ],
       ]
     end

@@ -16,7 +16,6 @@
 #  household_disposal                  :string           default(NULL), not null
 #  legal_heir                          :string           default(NULL), not null
 #  legal_heir_comment                  :string           default(NULL), not null
-#  name                                :string           default(""), not null
 #  note                                :string           default(""), not null
 #  real_estate_disposal                :string           default(NULL), not null
 #  relatives                           :string           default(NULL), not null

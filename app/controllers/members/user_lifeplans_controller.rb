@@ -82,7 +82,7 @@ class Members::UserLifeplansController < Members::MasterSearchController
     association_model = args[:association_model]
 
     render_javascript do |page|
-      obj.send(association_model).build
+      obj.send(association_model).build(association_model_params)
       page.replace_html('form', partial: 'form')
     end
   rescue StandardError => e
@@ -119,12 +119,17 @@ class Members::UserLifeplansController < Members::MasterSearchController
       end
     end
     origin_params[:user_lifeplan_finance_conditions_attributes]&.each do |i, child_attr|
-      p child_attr
       if child_attr[:docs].present?
         origin_params[:user_lifeplan_finance_conditions_attributes][i][:docs] = child_attr[:docs].uniq
       end
     end
 
     origin_params
+  end
+
+  def association_model_params
+    params[:association_model_params]&.permit(
+      :user_lifeplan_asset_kind, :user_lifeplan_income_kind, :user_lifeplan_expense_kind
+    )
   end
 end

@@ -5,34 +5,36 @@ ruby:
 
 .col-12
   .card
-    .card-header.justify-content-between.d-flex.align-items-center
+    .card-header.d-flex.align-items-center
       h4.card-title
         = "支出"
-      = link_to_remote icon_add,
-              { url: add_user_lifeplan_expense_admin_user_lifeplans_path(id: object.exists_db? ? object.custom_id : nil), method: "POST", submit: "form", loading: true },
-              { class: "btn btn-#{color_add}" }
+      .btn-group.ms-3
+        - UserLifeplanExpense.user_lifeplan_expense_kind.values.each do |kind|
+          = link_to_remote kind.text,
+            { url: add_expense_url({user_lifeplan_expense_kind: kind}),
+              method: "POST", submit: "form", loading: true },
+            { class: "btn btn-#{color_add}" }
     .card-body
       .table-responsive
         table.table.table-bordered.mb-0
           thead
             tr
-              - UserLifeplanExpenseDecorator.member_form_objects(@current_user,f).each do |form_object_lists|
-                - form_object_lists.each do |form_object|
-                  th.bg-light.text-nowrap(style="min-width: 150px;")
-                    = UserLifeplanExpense.human form_object[:code]
+              - UserLifeplanExpenseDecorator.form_columns.each do |form_object|
+                th.bg-light.text-nowrap(style="#{cell_min(form_object)}")
+                  = UserLifeplanExpense.human form_object
               th.bg-light.text-center
           tbody
-            = f.fields_for :user_lifeplan_expenses do |fe|
+            - f.fields_for :user_lifeplan_expenses do |fe|
               - unless fe.object._destroy
                 tr
-                  - UserLifeplanExpenseDecorator.member_form_objects(@current_user,fe).each do |form_object_lists|
+                  - UserLifeplanExpenseDecorator.form_objects(current_user,fe).each do |form_object_lists|
                     - form_object_lists.each do |form_object|
                       td
                         = form_object[:input]
                   td.text-center
+                    = fe.hidden_field(:user_lifeplan_expense_kind)
                     = link_to_remote icon_del,
-                      { url: del_user_lifeplan_expense_admin_user_lifeplans_path( id: object.exists_db? ? object.custom_id : nil,target_idx: fe.index),
-                        method: "POST", submit: "form", loading: true },
+                      { url: del_expense_url(target_idx: fe.index), method: "POST", submit: "form", loading: true },
                       { class: "btn btn-#{color_destroy}" }
               - else
                 = fe.hidden_field(:_destroy, value: 1)

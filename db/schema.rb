@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_08_100404) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_040534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -219,7 +219,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_100404) do
 
   create_table "user_lifeplan_contacts", force: :cascade do |t|
     t.bigint "user_lifeplan_id", null: false
-    t.string "name", default: "", null: false
     t.string "user_lifeplan_contact_kind", default: "", null: false
     t.integer "deleted", default: 0, null: false
     t.datetime "deleted_at"
@@ -295,7 +294,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_100404) do
   end
 
   create_table "user_lifeplans", force: :cascade do |t|
-    t.string "name", default: "", null: false
     t.integer "user_lifeplan_status_id", default: 1, null: false
     t.datetime "review_requested_at"
     t.datetime "review_completed_at"

@@ -75,7 +75,7 @@ class Admin::UserLifeplansController < Admin::MasterSearchController
     association_model = args[:association_model]
 
     render_javascript do |page|
-      obj.send(association_model).build
+      obj.send(association_model).build(association_model_params)
       page.replace_html('form', partial: 'form')
     end
   rescue StandardError => e
@@ -115,5 +115,11 @@ class Admin::UserLifeplansController < Admin::MasterSearchController
     end
 
     origin_params
+  end
+
+  def association_model_params
+    params[:association_model_params]&.permit(
+      :user_lifeplan_asset_kind, :user_lifeplan_income_kind, :user_lifeplan_expense_kind
+    )
   end
 end
