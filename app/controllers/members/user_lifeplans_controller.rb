@@ -19,9 +19,9 @@ class Members::UserLifeplansController < Members::MasterSearchController
 
   def update
     goto = if params[:confirm].present?
-             "members_user_lifeplan_url('#{params[:id]}')"
+             "members_user_lifeplan_url(obj)"
            else
-             "edit_members_user_lifeplan_url('#{params[:id]}')"
+             "edit_members_user_lifeplan_url(obj)"
            end
     super(goto)
   end

@@ -27,11 +27,6 @@
         th.bg-light
           |作成日
         td(colspan="3")
-          = l(user.created_at)
-      tr
-        th.bg-light
-          |基準日
-        td(colspan="3")
           = l(user_lifeplan_decorator.basis_on) if user_lifeplan_decorator.basis_on
       tr
         th.bg-light

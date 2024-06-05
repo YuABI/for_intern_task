@@ -12,9 +12,9 @@ class Admin::UserLifeplansController < Admin::MasterSearchController
 
   def update
     goto = if params[:confirm].present?
-             "admin_user_lifeplan_url('#{params[:id]}')"
+             "admin_user_lifeplan_url(obj)"
            else
-             "edit_admin_user_lifeplan_url('#{params[:id]}')"
+             "edit_admin_user_lifeplan_url(obj)"
            end
     super(goto)
   end
