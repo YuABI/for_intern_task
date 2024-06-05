@@ -18,8 +18,10 @@
               - if form_object[:code] == :docs
                 b.me-1
                   | アップロード済みファイル
-                - fe.object.docs.each do |doc|
-                  = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
+                .uploaded-files.d-flex.d-flex.gap-1
+                  - fe.object.docs.each do |doc|
+                    = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
+          = fe.hidden_field(:user_lifeplan_contact_kind)
       - fe.object.class.column_names.each do |column|
         - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
         = fe.hidden_field(column)
@@ -31,11 +33,11 @@
     div class="col"
       - f.object.contact_note_docs.each do |contact_note_doc|
         = f.hidden_field(:contact_note_docs, multiple: true, value: contact_note_doc.signed_id)
-      = f.file_field :contact_note_docs, class: "form-control", multiple: true
+      = f.file_field :contact_note_docs, class: "form-control", multiple: true, onchange: 'customDirectUploads(this)'
       - if f.object.contact_note_docs.present?
         b
           | アップロード済みファイル
-      - f.object.contact_note_docs.each do |contact_note_doc|
-        br
-        = link_to contact_note_doc.filename.to_s, url_for(contact_note_doc), target: :_blank
+      .uploaded-files.d-flex.gap-1
+        - f.object.contact_note_docs.each do |contact_note_doc|
+          = link_to contact_note_doc.filename.to_s, url_for(contact_note_doc), target: :_blank
 

@@ -9,7 +9,6 @@ class UserLifeplans::Form::BeneficiariesComponent < ApplicationComponent
     @user_lifeplan = args[:user_lifeplan]
     @current_user = args[:current_user]
     @form = args[:form]
-    p form
   end
 
   def f

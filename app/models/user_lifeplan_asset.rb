@@ -17,9 +17,9 @@
 #  name                       :string           default(""), not null
 #  other_assets_kind          :string           default(NULL), not null
 #  profit                     :integer          default(0), not null
-#  rate                       :integer          default(0), not null
+#  rate                       :integer          default(1), not null
 #  reference_on               :date
-#  scheduled_for_sale         :integer          default(0), not null
+#  scheduled_for_sale         :integer          default(2024), not null
 #  store_name                 :string           default(""), not null
 #  sundry_expenses            :integer          default(0), not null
 #  user_lifeplan_asset_kind   :string           default(NULL), not null
@@ -47,6 +47,10 @@ class UserLifeplanAsset < ApplicationRecord
   enumerize :other_assets_kind, in: %i[
     land building condominium securities life_insurance property_insurance loan deposit other_assets unselected
   ], default: :unselected
+
+  attribute :rate, default: -> { 1 }
+  attribute :scheduled_for_sale, default: -> { Time.current.year }
+
 
   class << self
     def permit_params

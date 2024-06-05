@@ -11,7 +11,7 @@
 #  monthly_amount             :integer          default(0), not null
 #  name                       :string           default(""), not null
 #  note                       :string           default(""), not null
-#  pay_by_years               :integer          default(0), not null
+#  pay_by_years               :integer          default(1), not null
 #  payment_end_year           :integer
 #  payment_start_year         :integer
 #  spending_item              :string           default(NULL), not null

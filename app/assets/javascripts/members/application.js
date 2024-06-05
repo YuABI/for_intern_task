@@ -29,5 +29,6 @@
 //= require common/summernote-ja-JP.min.js
 //= require common/jquery.todate.js
 //= require base/custom.js
-
+//= require activestorage
+//= require common/activestorage
 

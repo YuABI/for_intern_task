@@ -28,7 +28,7 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
     end
 
     def codes
-      %i[until_submitted_on account account_info balance confirmed_on docs user_lifeplan_finance_condition_status_id]
+      %i[until_submitted_on content account account_info balance confirmed_on docs user_lifeplan_finance_condition_status_id]
     end
 
     private
@@ -39,6 +39,11 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
             code: :until_submitted_on,
             input: f.text_field(:until_submitted_on,
                                 class: f.object.decorate.input_class(:until_submitted_on, :admin), type: :date),
+            col: 6, no_required: false, help: '', alert: ''
+        }) ],
+        [ init_form( f, {
+            code: :content,
+            input: f.text_area(:account, class: f.object.decorate.input_class(:account, :admin)),
             col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form( f, {
@@ -63,7 +68,10 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
         }) ],
         [ init_form( f, {
             code: :docs,
-            input: f.file_field(:docs, class: f.object.decorate.input_class(:docs, :admin), multiple: true),
+            input: f.file_field(:docs, class: f.object.decorate.input_class(:docs, :admin), multiple: true,
+                                       onchange: 'customDirectUploads(this)',
+                                       data: { 'hidden-input-name': 'user_lifeplan[contact_note_docs][]'}
+                               ),
             col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form( f, {

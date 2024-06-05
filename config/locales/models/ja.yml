@@ -136,6 +136,7 @@ ja:
         <<: *default
         user_lifeplan_id: ライフプランID
         user_lifeplan_finance_condition_status_id: ステータス
+        content: 内容
         until_submitted_on: 提出期限
         confirmed_on: 残高確認日
         account: 口座

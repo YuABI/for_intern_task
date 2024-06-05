@@ -31,13 +31,13 @@ class UserLifeplanContactDecorator < ApplicationDecorator
 
     def common_form_object(f)
       [
-        [ init_form( f, {
-          code: :user_lifeplan_contact_kind,
-          input: f.select(:user_lifeplan_contact_kind,
-                          UserLifeplanContact.user_lifeplan_contact_kind.values.map { |v| [v.text, v.value] }, {},
-                          class: f.object.decorate.input_class(:user_lifeplan_contact_kind, :admin)),
-          no_required: false, help: '', alert: ''
-        }), ],
+        # [ init_form( f, {
+        #   code: :user_lifeplan_contact_kind,
+        #   input: f.select(:user_lifeplan_contact_kind,
+        #                   UserLifeplanContact.user_lifeplan_contact_kind.values.map { |v| [v.text, v.value] }, {},
+        #                   class: f.object.decorate.input_class(:user_lifeplan_contact_kind, :admin)),
+        #   no_required: false, help: '', alert: ''
+        # }), ],
         [ init_form( f, {
           code: :contact_level_kind,
           input: f.select(:contact_level_kind,
@@ -47,7 +47,7 @@ class UserLifeplanContactDecorator < ApplicationDecorator
         }), ],
         [ init_form( f, {
             code: :docs,
-            input: f.file_field(:docs, class: f.object.decorate.input_class(:docs, :admin), multiple: true),
+            input: f.file_field(:docs, class: f.object.decorate.input_class(:docs, :admin), multiple: true, onchange: 'customDirectUploads(this)'),
             no_required: false, help: '', alert: ''
         }) ],
       ]

@@ -46,7 +46,7 @@ class UserLifeplans::Form::ExpensesComponent < ApplicationComponent
 
     if %i[payment_start_year payment_end_year].include?(cell_code)
       style_txt = style_txt + "min-width: 100px;"
-    elsif %i[monthly_amount yearly_amount pay_by_years].include?(cell_code)
+    elsif %i[pay_by_years].include?(cell_code)
       style_txt = style_txt + "min-width: 80px;"
     else
       style_txt = style_txt + "min-width: 150px;"

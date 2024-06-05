@@ -119,7 +119,8 @@ class Admin::UserLifeplansController < Admin::MasterSearchController
 
   def association_model_params
     params[:association_model_params]&.permit(
-      :user_lifeplan_asset_kind, :user_lifeplan_income_kind, :user_lifeplan_expense_kind
+      :user_lifeplan_asset_kind, :user_lifeplan_income_kind, :user_lifeplan_expense_kind,
+      :finance_condition_kind
     )
   end
 end
