@@ -42,4 +42,16 @@ class UserLifeplans::DetailIncomeAndExpenseComponent < ApplicationComponent
 
     "#{percent}%"
   end
+
+  def asset_finance_conditions
+    user_lifeplan_decorator.user_lifeplan_finance_conditions.with_finance_condition_kind(:asset)
+  end
+
+  def income_finance_conditions
+    user_lifeplan_decorator.user_lifeplan_finance_conditions.with_finance_condition_kind(:income)
+  end
+
+  def expense_finance_conditions
+    user_lifeplan_decorator.user_lifeplan_finance_conditions.with_finance_condition_kind(:expense)
+  end
 end

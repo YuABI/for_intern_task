@@ -33,4 +33,16 @@ class UserLifeplans::TrailBalanceComponent < ApplicationComponent
       number_to_currency(number, unit: '', precision: 0, format: "%u %n", negative_format: "%u -%n")
     end
   end
+
+  def cell_fix_first_row
+    'position: sticky; top: 0; left: 0; width: 50px;'
+  end
+
+  def cell_fix_second_row
+    'position: sticky; top: 0; left: 53px; width: 125px;'
+  end
+
+  def cell_fix_third_row
+    'position: sticky; top: 0; left: 178px;'
+  end
 end

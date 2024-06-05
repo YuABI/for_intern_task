@@ -6,7 +6,7 @@ ruby:
 .col-12
   .card
     .card-header.d-flex.align-items-center
-      h4.card-title
+      h4.card-title.fw-bold
         = "資産"
       .btn-group.ms-3
         - UserLifeplanAsset.user_lifeplan_asset_kind.values.each do |kind|
@@ -20,7 +20,8 @@ ruby:
           thead
             tr
               - UserLifeplanAssetDecorator.cash_deposits_form_columns.each do |form_object|
-                  th.bg-light.text-nowrap(style="#{cell_style(form_object)}")
+                  th.bg-light.text-nowrap(style="#{cell_style(form_object)}"
+                    class="#{%i[amount_of_money profit].include?(form_object) ? 'fw-bold fs-5' : ''}")
                     = UserLifeplanAsset.human form_object
               th.bg-light.text-center
           tbody
@@ -50,8 +51,10 @@ ruby:
           thead
             tr
               - UserLifeplanAssetDecorator.other_assets_form_columns.each do |form_object|
-                th.bg-light.text-nowrap(style="#{cell_style(form_object)}")
+                th.bg-light.text-nowrap(style="#{cell_style(form_object)}"
+                  class="#{%i[amount_of_money profit].include?(form_object) ? 'fw-bold fs-5' : ''}")
                   = UserLifeplanAsset.human form_object
+
               th.bg-light.text-center
           tbody
             - f.fields_for :user_lifeplan_assets do |fe|
@@ -76,6 +79,5 @@ ruby:
                 - fe.object.class.column_names.each do |column|
                   = fe.hidden_field(column)
         = f.object.decorate.error_message_html(:user_lifeplan_assets,:admin)
-    hr.m-0
-    = render UserLifeplans::Form::FinanceConditionsComponent.new(form: , user_lifeplan: , current_user: ,
+      = render UserLifeplans::Form::FinanceConditionsComponent.new(form: , user_lifeplan: , current_user: ,
                                                                  title_prefix: '資産', finance_condition_kind: 'asset')

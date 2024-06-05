@@ -32,8 +32,9 @@ class UserLifeplans::UserInformationComponent < ApplicationComponent
 
   def calcurate_age(year)
     return '' if user.birthday.blank? || year.blank?
+    diff = Date.today.year - year
 
-    year - user.birthday.year
+    user.age - diff
   end
 
   def pension_start_year
