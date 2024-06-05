@@ -54,4 +54,19 @@ class UserLifeplans::DetailIncomeAndExpenseComponent < ApplicationComponent
   def expense_finance_conditions
     user_lifeplan_decorator.user_lifeplan_finance_conditions.with_finance_condition_kind(:expense)
   end
+
+  def finance_condition_text(finance_condition)
+    text = ''
+    if finance_condition.account.present?
+      text = text + "#{UserLifeplanFinanceCondition.human_attribute_name(:account)}\n#{finance_condition.account}"
+    end
+    if finance_condition.account_info.present?
+      text = text + "\n\n#{UserLifeplanFinanceCondition.human_attribute_name(:account_info)}\n#{finance_condition.account_info}"
+    end
+    if finance_condition.content.present?
+      text = text + "\n\n#{UserLifeplanFinanceCondition.human_attribute_name(:content)}\n#{finance_condition.content}"
+    end
+
+    simple_format(text)
+  end
 end

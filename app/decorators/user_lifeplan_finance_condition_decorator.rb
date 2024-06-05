@@ -43,7 +43,7 @@ class UserLifeplanFinanceConditionDecorator < ApplicationDecorator
         }) ],
         [ init_form( f, {
             code: :content,
-            input: f.text_area(:account, class: f.object.decorate.input_class(:account, :admin)),
+            input: f.text_area(:content, class: f.object.decorate.input_class(:content, :admin)),
             col: 6, no_required: false, help: '', alert: ''
         }) ],
         [ init_form( f, {

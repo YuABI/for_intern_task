@@ -38,7 +38,7 @@ div.table-responsive.mb-3
           td
             = money_with_unit(user_lifeplan_asset.amount_of_money)
           td
-            = user_lifeplan_asset.description
+            = simple_format(user_lifeplan_asset.description, class: 'mb-0')
 h4
   |その他資産
 .table-responsive.mb-3
@@ -85,7 +85,7 @@ h4
           td
             = money_with_unit(user_lifeplan_asset.profit)
           td
-            = user_lifeplan_asset.description
+            = simple_format(user_lifeplan_asset.description, class: 'mb-0')
 
 h4
   |資産 財務情報
@@ -95,6 +95,7 @@ h4
       - asset_finance_conditions.each do |finance_condition|
         - finance_condition.docs.each do |doc|
           li.list-group-item
+            = finance_condition_text(finance_condition)
             = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
 hr
 h4
@@ -191,9 +192,11 @@ h4
   .col-4
     ul.list-group.mb-3
       - income_finance_conditions.each do |finance_condition|
-        - finance_condition.docs.each do |doc|
-          li.list-group-item
+        li.list-group-item
+          = finance_condition_text(finance_condition)
+          - finance_condition.docs.each do |doc|
             = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
+            br
 hr
 h4
   |支出
@@ -232,7 +235,7 @@ h4
             = ' ' if user_lifeplan_expense.company_name.present?
             = user_lifeplan_expense.content
           td
-            = user_lifeplan_expense.note
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
           td
             = year_with_unit(user_lifeplan_expense.payment_start_year)
           td
@@ -274,7 +277,7 @@ h4
             = ' ' if user_lifeplan_expense.company_name.present?
             = user_lifeplan_expense.content
           td
-            = user_lifeplan_expense.note
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
           td
             = year_with_unit(user_lifeplan_expense.payment_start_year)
           td
@@ -317,7 +320,7 @@ h4
           td
             = user_lifeplan_expense.company_name
           td
-            = user_lifeplan_expense.note
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
           td
             = year_with_unit(user_lifeplan_expense.payment_start_year)
           td
@@ -359,7 +362,7 @@ h4
           td
             = user_lifeplan_expense.content
           td
-            = user_lifeplan_expense.note
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
           td
             = year_with_unit(user_lifeplan_expense.payment_start_year)
           td
