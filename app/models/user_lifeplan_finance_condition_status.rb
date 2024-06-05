@@ -5,16 +5,26 @@ class UserLifeplanFinanceConditionStatus < ActiveHash::Base
     { id: 3, name: '却下', code: 'rejected'}
   ]
 
+  class << self
+    def checking() 1; end
+    def approved() 2; end
+    def rejected() 3; end
+  end
+
+  def code
+    self[:code]
+  end
+
   def checking?
-    id == 1
+    id == self.class.checking
   end
 
   def approved?
-    id == 2
+    id == self.class.approved
   end
 
   def rejected?
-    id == 3
+    id == self.class.rejected
   end
 end
 

@@ -173,7 +173,7 @@ ja:
         <<: *default
         user_lifeplan_id: ライフプランID
         name: 資産名
-        rate: 割合
+        rate: 割合(%)
         other_assets_kind: 他の資産種類
         financial_institution_name: 金融機関名
         store_name: 取扱店

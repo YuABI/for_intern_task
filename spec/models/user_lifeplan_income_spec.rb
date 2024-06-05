@@ -10,11 +10,11 @@
 #  deleted_at                :datetime
 #  monthly_amount            :integer          default(0), not null
 #  name                      :string           default(""), not null
-#  payment_end_year          :integer
-#  payment_start_year        :integer
+#  payment_end_year          :integer          default(2024), not null
+#  payment_start_year        :integer          default(2024), not null
 #  pension_kind              :string           default(NULL), not null
 #  user_lifeplan_income_kind :string           default(NULL), not null
-#  yearly_amount             :integer
+#  yearly_amount             :integer          default(0), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  user_lifeplan_id          :bigint           not null

@@ -171,34 +171,21 @@ class UserLifeplan
     end
 
     def set_last_year
-      return if last_year.present?
-      self.last_year = first_year
-
-      user_lifeplan&.user_lifeplan_incomes&.each do |user_lifeplan_income|
-        next if user_lifeplan_income.payment_end_year.blank?
-
-        if user_lifeplan_income.payment_end_year > last_year
-          self.last_year = user_lifeplan_income.payment_end_year
-        end
+      if user_lifeplan.basis_on.present? && first_year.blank?
+        self.first_year = user_lifeplan.basis_on.year
       end
 
-      user_lifeplan&.user_lifeplan_expenses&.each do |user_lifeplan_expense|
-        next if user_lifeplan_expense.payment_end_year.blank?
-
-        if user_lifeplan_expense.payment_end_year > last_year
-          self.last_year = user_lifeplan_expense.payment_end_year
-        end
-      end
-
-      if last_year == first_year
-        diff = 95 - ( user.age || 70 ) + 1
+      if user_lifeplan.death_age.present? && user.age.present? && last_year.blank?
+        diff = user_lifeplan.death_age - user.age
         self.last_year = first_year + diff
+      else
+        self.last_year = first_year + 20
       end
     end
 
     def set_initial_assets
       self.initial_cache_assets_total = cash_deposit_assets.sum(:amount_of_money)
-      self.initial_other_assets_total = other_assets.sum(:equity_appraisal_value)
+      self.initial_other_assets_total = other_assets.sum(:profit)
       self.cache_assets_total = initial_cache_assets_total
       self.other_assets_total = initial_other_assets_total
     end

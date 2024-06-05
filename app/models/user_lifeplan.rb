@@ -7,8 +7,8 @@
 #  background_reason_comment           :string           default(""), not null
 #  basis_on                            :date
 #  close_grave                         :string           default(NULL), not null
-#  contact_inspect_note                :text
-#  contact_note                        :text
+#  contact_inspect_note                :text             default(""), not null
+#  contact_note                        :text             default(""), not null
 #  death_age                           :integer          default(90), not null
 #  deleted                             :integer          default(0), not null
 #  deleted_at                          :datetime
@@ -88,6 +88,24 @@ class UserLifeplan < ApplicationRecord
   attribute :start_nursing_care_age, default: -> { 85 }
   attribute :death_age, default: -> { 90 }
   attribute :basis_on, default: -> { Time.current.to_date }
+
+  validates :background_reason, exclusion: { in: [nil] }
+  validates :legal_heir_comment, exclusion: { in: [nil] }
+  validates :legal_heir, exclusion: { in: [nil] }
+  validates :legal_heir_comment, exclusion: { in: [nil] }
+  validates :residue, exclusion: { in: [nil] }
+  validates :relatives, exclusion: { in: [nil] }
+  validates :relatives_comment, exclusion: { in: [nil] }
+  validates :household_disposal, exclusion: { in: [nil] }
+  validates :real_estate_disposal, exclusion: { in: [nil] }
+  validates :close_grave, exclusion: { in: [nil] }
+  validates :funeral_memorial_policy, exclusion: { in: [nil] }
+  validates :small_account, exclusion: { in: [nil] }
+  validates :note, exclusion: { in: [nil] }
+  validates :start_pension_age, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :start_resident_elderly_facility_age, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :start_nursing_care_age, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :death_age, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   class << self
     def permit_params

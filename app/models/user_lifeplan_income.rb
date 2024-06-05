@@ -10,11 +10,11 @@
 #  deleted_at                :datetime
 #  monthly_amount            :integer          default(0), not null
 #  name                      :string           default(""), not null
-#  payment_end_year          :integer
-#  payment_start_year        :integer
+#  payment_end_year          :integer          default(2024), not null
+#  payment_start_year        :integer          default(2024), not null
 #  pension_kind              :string           default(NULL), not null
 #  user_lifeplan_income_kind :string           default(NULL), not null
-#  yearly_amount             :integer
+#  yearly_amount             :integer          default(0), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  user_lifeplan_id          :bigint           not null
@@ -43,6 +43,16 @@ class UserLifeplanIncome < ApplicationRecord
     unselected salary severance_pay investment_fund insurance_money trust_fund donation rental_income parking_income refund
     other_income
   ], default: :unselected
+
+  validates :name, exclusion: { in: [nil] }
+  validates :cache_income_kind, exclusion: { in: [nil] }
+  validates :pension_kind, exclusion: { in: [nil] }
+  validates :content, exclusion: { in: [nil] }
+  validates :company_name, exclusion: { in: [nil] }
+  validates :monthly_amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :yearly_amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :payment_start_year, numericality: { greater_than_or_equal_to: 0 }
+  validates :payment_end_year, numericality: { greater_than_or_equal_to: 0 }
 
 
   class << self

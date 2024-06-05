@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_082519) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -244,8 +244,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_082519) do
     t.datetime "updated_at", null: false
     t.string "user_lifeplan_expense_kind", default: "", null: false
     t.string "spending_item", default: "", null: false
-    t.integer "payment_start_year"
-    t.integer "payment_end_year"
+    t.integer "payment_start_year", default: 0, null: false
+    t.integer "payment_end_year", default: 0, null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_expenses_on_user_lifeplan_id"
   end
 
@@ -279,9 +279,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_082519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_lifeplan_income_kind", default: "", null: false
-    t.integer "yearly_amount"
-    t.integer "payment_start_year"
-    t.integer "payment_end_year"
+    t.integer "yearly_amount", default: 0, null: false
+    t.integer "payment_start_year", default: 0, null: false
+    t.integer "payment_end_year", default: 0, null: false
     t.index ["user_lifeplan_id"], name: "index_user_lifeplan_incomes_on_user_lifeplan_id"
   end
 
@@ -318,8 +318,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_082519) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "member_id", null: false
-    t.text "contact_note"
-    t.text "contact_inspect_note"
+    t.text "contact_note", default: "", null: false
+    t.text "contact_inspect_note", default: "", null: false
     t.date "basis_on"
     t.integer "start_pension_age", default: 0, null: false
     t.integer "start_resident_elderly_facility_age", default: 0, null: false

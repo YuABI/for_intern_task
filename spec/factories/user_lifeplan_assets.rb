@@ -17,7 +17,7 @@
 #  name                       :string           default(""), not null
 #  other_assets_kind          :string           default(NULL), not null
 #  profit                     :integer          default(0), not null
-#  rate                       :integer          default(1), not null
+#  rate                       :integer          default(100), not null
 #  reference_on               :date
 #  scheduled_for_sale         :integer          default(2024), not null
 #  store_name                 :string           default(""), not null

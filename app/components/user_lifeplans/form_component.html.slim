@@ -7,6 +7,8 @@
         .mb-3
           label.form-label[for="#{form_object}_#{form_object[:code]}"]
             = form_object[:label]
+            - if %i[start_pension_age start_resident_elderly_facility_age start_nursing_care_age death_age].include?(form_object[:code])
+              = "（#{eval(form_object[:code].to_s + '_year')} 年）"
           = form_object[:input]
 = render UserLifeplans::Form::BeneficiariesComponent.new(form: , user_lifeplan: , current_user: )
 = render UserLifeplans::Form::AssetsComponent.new(form: , user_lifeplan: , current_user: )

@@ -17,7 +17,7 @@
 #  name                       :string           default(""), not null
 #  other_assets_kind          :string           default(NULL), not null
 #  profit                     :integer          default(0), not null
-#  rate                       :integer          default(1), not null
+#  rate                       :integer          default(100), not null
 #  reference_on               :date
 #  scheduled_for_sale         :integer          default(2024), not null
 #  store_name                 :string           default(""), not null
@@ -48,8 +48,26 @@ class UserLifeplanAsset < ApplicationRecord
     land building condominium securities life_insurance property_insurance loan deposit other_assets unselected
   ], default: :unselected
 
-  attribute :rate, default: -> { 1 }
+  attribute :rate, default: -> { 100 }
   attribute :scheduled_for_sale, default: -> { Time.current.year }
+
+  validates :name, exclusion: { in: [nil] }
+  validates :rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :other_assets_kind, exclusion: { in: [nil] }
+  validates :financial_institution_name, exclusion: { in: [nil] }
+  validates :store_name, exclusion: { in: [nil] }
+  validates :cache_deposit_kind, exclusion: { in: [nil] }
+  validates :account_number, exclusion: { in: [nil] }
+  validates :amount_of_money, numericality: { greater_than_or_equal_to: 0 }
+  validates :content, exclusion: { in: [nil] }
+  validates :company_name, exclusion: { in: [nil] }
+  validates :asset_appraisal_value, numericality: { greater_than_or_equal_to: 0 }
+  validates :equity_appraisal_value, numericality: { greater_than_or_equal_to: 0 }
+  validates :scheduled_for_sale, numericality: { greater_than_or_equal_to: 0 }
+  validates :sundry_expenses, numericality: { greater_than_or_equal_to: 0 }
+  validates :profit, numericality: { greater_than_or_equal_to: 0 }
+  validates :description, exclusion: { in: [nil] }
+
 
 
   class << self

@@ -7,8 +7,8 @@
 #  background_reason_comment           :string           default(""), not null
 #  basis_on                            :date
 #  close_grave                         :string           default(NULL), not null
-#  contact_inspect_note                :text
-#  contact_note                        :text
+#  contact_inspect_note                :text             default(""), not null
+#  contact_note                        :text             default(""), not null
 #  death_age                           :integer          default(90), not null
 #  deleted                             :integer          default(0), not null
 #  deleted_at                          :datetime

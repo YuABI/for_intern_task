@@ -18,4 +18,42 @@ class UserLifeplans::FormComponent < ApplicationComponent
   def object_name
     controller_name.singularize
   end
+
+  def start_pension_age_year
+    return nil if current_user_age.blank?
+
+    diff = user_lifeplan.start_pension_age - current_user_age
+    current_year + diff
+  end
+
+  def start_resident_elderly_facility_age_year
+    return nil if current_user_age.blank?
+
+    diff = user_lifeplan.start_resident_elderly_facility_age - current_user_age
+    current_year + diff
+  end
+
+  def start_nursing_care_age_year
+    return nil if current_user_age.blank?
+
+    diff = user_lifeplan.start_nursing_care_age - current_user_age
+    current_year + diff
+  end
+
+  def death_age_year
+    return nil if current_user_age.blank?
+
+    diff = user_lifeplan.death_age - current_user_age
+    current_year + diff
+  end
+
+  private
+
+  def current_user_age
+    user_lifeplan.user.age
+  end
+
+  def current_year
+    Time.current.year
+  end
 end
