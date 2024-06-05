@@ -1,15 +1,48 @@
 ruby:
   decorator = decorator_model.new(user_lifeplan)
 
-h3.mb-3
-  |試算表
-= render UserLifeplans::DetailIncomeAndExpenseComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: )
-h3.mb-3
-  |詳細収支内訳
-= render UserLifeplans::TrailBalanceComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: )
-h3.mb-3
-  |収支グラフ
-= render UserLifeplans::BlanceGraphComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: )
-h3.mb-3
-  |情報シート
-= render UserLifeplans::UserInformationComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: )
+ur.nav.nav-tabs
+  li.nav-item.border.bg-white
+    button.nav-link.active(data-bs-toggle="tab" aria-controls="#incomeAndExpense-pane" aria-selected="true"
+                           id="incomeAndExpense" type="button"
+                           data-bs-target="#incomeAndExpense-pane")
+      |試算表
+  li.nav-item.border.bg-white
+    button.nav-link(data-bs-toggle="tab" aria-controls="trailBalance-pane" aria-selected="true"
+                           id="trailBalance"
+                           data-bs-target="#trailBalance-pane" type="button")
+      |詳細収支内訳
+  li.nav-item.border.bg-white
+    button.nav-link(data-bs-toggle="tab" aria-controls="blanceGraph-pane" aria-selected="true"
+                           id="blanceGraph"
+                           data-bs-target="#blanceGraph-pane" type="button")
+      |収支グラフ
+  li.nav-item.border.bg-white
+    button.nav-link(data-bs-toggle="tab" aria-controls="informationSheet-pane" aria-selected="true"
+                           id="informationSheet"
+                           data-bs-target="#informationSheet-pane" type="button")
+      |情報シート
+
+.tab-content.p-3.border(style="background-color: #fff;")
+  .tab-pane.active id="incomeAndExpense-pane" role="tabpanel" aria-labelledby="incomeAndExpense" tabindex="0"
+    h3.mb-3
+      |試算表
+    = render UserLifeplans::DetailIncomeAndExpenseComponent.new(user_lifeplan_decorator: decorator,
+                                                                user_lifeplan_yearly_blance: )
+  .tab-pane id="trailBalance-pane" role="tabpanel" aria-labelledby="trailBalance" tabindex="1"
+    h3.mb-3
+      |詳細収支内訳
+    = render UserLifeplans::TrailBalanceComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: )
+
+  .tab-pane id="blanceGraph-pane" role="tabpanel" aria-labelledby="blanceGraph" tabindex="2"
+    h3.mb-3
+      |収支グラフ
+    = render UserLifeplans::BlanceGraphComponent.new(user_lifeplan_decorator: decorator, user_lifeplan_yearly_blance: )
+  .tab-pane id="informationSheet-pane" role="tabpanel" aria-labelledby="informationSheet" tabindex="3"
+    h3.mb-3
+      |情報シート
+    = render UserLifeplans::UserInformationComponent.new(user_lifeplan_decorator: decorator,
+                                                         user_lifeplan_yearly_blance: )
+
+javascript:
+

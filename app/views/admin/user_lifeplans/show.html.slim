@@ -19,12 +19,9 @@ ruby:
               class: "btn btn-primary", method: :patch
 
       .card-body
-        .table-responsive
-          table.table.table-bordered.mb-0
-            = render UserLifeplans::ConfirmationComponent.new(user_lifeplan: @user_lifeplan,
-                                                              current_user: @current_user,
-                                                              decorator_model: decorator_model,
-                                                              user_lifeplan_yearly_blance: @user_lifeplan_yearly_blance)
+        = render UserLifeplans::ConfirmationComponent.new(user_lifeplan: @user_lifeplan, current_user: @current_user,
+                                                          decorator_model: decorator_model,
+                                                          user_lifeplan_yearly_blance: @user_lifeplan_yearly_blance)
 
 
 
