@@ -32,50 +32,50 @@ class UserLifeplan
       (first_year..last_year).each do |year|
         pension_amount = 0
         pension_incomes.each do |pension_income|
-          pension_amount += pension_income.yearly_amount if is_in_payment_period?(pension_income, year)
+          pension_amount += pension_income.yearly_amount.to_i if is_in_payment_period?(pension_income, year)
         end
 
         cache_income_amount = 0
         cache_incomes.each do |cache_income|
-          cache_income_amount += cache_income.yearly_amount if is_in_payment_period?(cache_income, year)
+          cache_income_amount += cache_income.yearly_amount.to_i if is_in_payment_period?(cache_income, year)
         end
 
         temporary_cache_income_amount = 0
         temporary_cache_incomes.each do |temporary_cache_income|
           if is_in_payment_period?(temporary_cache_income, year)
-            temporary_cache_income_amount += temporary_cache_income.yearly_amount
+            temporary_cache_income_amount += temporary_cache_income.yearly_amount.to_i
           end
         end
-        income_total = pension_amount + cache_income_amount + temporary_cache_income_amount
+        income_total = pension_amount.to_i + cache_income_amount.to_i + temporary_cache_income_amount.to_i
 
         spending_amount = 0
         spending_expenses.each do |spending_expense|
           if is_in_payment_period?(spending_expense, year) && is_per_year?(spending_expense, year)
-            spending_amount += spending_expense.yearly_amount
+            spending_amount += spending_expense.yearly_amount.to_i
           end
         end
 
         life_event_amount = 0
         life_event_expenses.each do |life_event_expense|
           if is_in_payment_period?(life_event_expense, year) && is_per_year?(life_event_expense, year)
-            life_event_amount += life_event_expense.yearly_amount
+            life_event_amount += life_event_expense.yearly_amount.to_i
           end
         end
 
         elderly_facility_amount = 0
         elderly_facility_expenses.each do |elderly_facility_expense|
           if is_in_payment_period?(elderly_facility_expense, year)
-            elderly_facility_amount += elderly_facility_expense.yearly_amount
+            elderly_facility_amount += elderly_facility_expense.yearly_amount.to_i
           end
         end
 
         end_of_life_amount = 0
         end_of_life_expenses.each do |end_of_life_expense|
           if is_in_payment_period?(end_of_life_expense, year) && is_per_year?(end_of_life_expense, year)
-            end_of_life_amount += end_of_life_expense.yearly_amount
+            end_of_life_amount += end_of_life_expense.yearly_amount.to_i
           end
         end
-        expense_total = spending_amount + life_event_amount + elderly_facility_amount + end_of_life_amount
+        expense_total = spending_amount + life_event_amount.to_i + elderly_facility_amount.to_i + end_of_life_amount.to_i
 
         other_assets.each do |other_asset|
           if other_asset.scheduled_for_sale == year
