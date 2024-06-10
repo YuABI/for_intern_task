@@ -9,8 +9,8 @@ namespace :admin do
     :users,
     :members, :organizations,
     :invoices,
-    :trust_companies, :insurance_companies, :plans, :plan_options,
-    :news, :contents,
+    :trust_companies, :insurance_companies, :products, :product_options,
+    :notifications, :contents,
     :api_results,
     :system_configs,:admin_users, :api_clients,
   ].each do |sym|

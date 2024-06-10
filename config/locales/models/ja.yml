@@ -7,9 +7,9 @@ ja:
       invoice: 請求管理
       trust_company: 信託会社マスタ
       insurance_company: 保険会社マスタ
-      plan: プラン設定
-      plan_option: オプション設定
-      news: お知らせ管理
+      product: プラン設定
+      product_option: オプション設定
+      notification: お知らせ管理
       content: コンテンツ管理
       api_client: APIクライアント設定
       webhook_service: Webhook設定
