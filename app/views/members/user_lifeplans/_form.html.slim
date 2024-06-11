@@ -1,0 +1,39 @@
+ruby:
+  object_name     = controller_name.singularize
+  object          = instance_variable_get("@#{object_name}")
+  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
+
+= form_with model: [:members, object], html: { id: "form" } do |f|
+  .row
+    .col-lg-12
+      .card
+        .card-body
+          div
+            ul.wizard-nav.mb-5
+              li.wizard-list-item
+                .list-item
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="顧客登録"]
+                    i.uil.uil-users-alt
+              li.wizard-list-item
+                .list-item
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="カウンセリング登録"]
+                    i.uil.uil-clipboard-notes
+              li.wizard-list-item
+                .list-item[class="active"]
+                  .step-icon[data-bs-toggle="tooltip" data-bs-placement="top" title="ライフプラン審査"]
+                    i.uil.uil-paperclip
+            .wizard-tab style="display: block;"
+              .text-center.mb-4
+                h5
+                  | ライフプラン審査
+                p.card-title-desc
+                  | 必須項目を入力してください
+              = render UserLifeplans::FormComponent.new(form: f, user_lifeplan: object, current_user: @current_member)
+
+          .row
+            .col-12.pb-4
+              = f.submit("確認画面へ",
+                         class: "btn btn-#{color_add} w-sm ms-auto float-end", onclick: loading_open, name: "confirm")
+              = f.submit "仮保存", class: "btn btn-danger w-sm float-end mx-3", onclick: loading_open
+    javascript:
+        #{decorator_model.form_javascript(f)}

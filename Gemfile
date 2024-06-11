@@ -63,6 +63,7 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'brakeman'
   gem 'yard'
+  gem 'roo', '~> 2.10', '>= 2.10.1'
 end
 
 group :test do
@@ -109,6 +110,7 @@ gem 'exception_notification'
 gem 'rack-attack'
 gem 'rubyzip'
 gem 'rack-user_agent'
+gem "aws-sdk-s3", require: false
 
 # セッションDB管理
 gem 'activerecord-session_store'

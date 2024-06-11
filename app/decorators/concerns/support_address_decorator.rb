@@ -1,11 +1,11 @@
 module SupportAddressDecorator
   extend ActiveSupport::Concern
   def join_name
-    escape_html("#{family_name} #{first_name}").html_safe
+    escape_html("#{user.family_name} #{user.first_name}").html_safe
   end
 
   def join_name_kana
-    escape_html("#{family_name_kana} #{first_name_kana}").html_safe
+    escape_html("#{user.family_name_kana} #{first_name_kana}").html_safe
   end
 
   def join_name_with_kana

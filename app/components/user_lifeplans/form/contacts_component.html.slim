@@ -1,0 +1,43 @@
+.col-12.mb-3
+  label
+    | 契約書案確認
+  - f.fields_for :user_lifeplan_contacts do |fe|
+    label.d-block
+      = fe.object.user_lifeplan_contact_kind.text
+    .row.mb-3
+      - UserLifeplanContactDecorator.form_objects(current_user,fe).each do |form_object_lists|
+        - form_object_lists.each do |form_object|
+          - if form_object[:col]
+            div class="col-#{form_object[:col]}"
+          - else
+            div class="col"
+              - if form_object[:code] == :docs
+                - fe.object.docs.each do |doc|
+                  = fe.hidden_field(:docs, multiple: true, value: doc.signed_id)
+              = form_object[:input]
+              - if form_object[:code] == :docs
+                b.me-1
+                  | アップロード済みファイル
+                .uploaded-files.d-flex.d-flex.gap-1
+                  - fe.object.docs.each do |doc|
+                    = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
+          = fe.hidden_field(:user_lifeplan_contact_kind)
+      - fe.object.class.column_names.each do |column|
+        - next unless [:id, :deleted, :user_id, :address_type].include?(column.to_sym)
+        = fe.hidden_field(column)
+  label.d-block
+    | 契約備考欄
+  .row
+    div class="col"
+      = f.text_area :contact_note, class: "form-control", rows: 10
+    div class="col"
+      - f.object.contact_note_docs.each do |contact_note_doc|
+        = f.hidden_field(:contact_note_docs, multiple: true, value: contact_note_doc.signed_id)
+      = f.file_field :contact_note_docs, class: "form-control", multiple: true, onchange: 'customDirectUploads(this)'
+      - if f.object.contact_note_docs.present?
+        b
+          | アップロード済みファイル
+      .uploaded-files.d-flex.gap-1
+        - f.object.contact_note_docs.each do |contact_note_doc|
+          = link_to contact_note_doc.filename.to_s, url_for(contact_note_doc), target: :_blank
+

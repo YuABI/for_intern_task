@@ -44,3 +44,150 @@ ja:
         post: "POST"
         patch: "PATCH"
         delete: "DELETE"
+    user_lifeplan:
+      background_reason:
+        unselected: 未選択
+        no_children: 子どもがいない
+        children_issues: 子どもに問題がある
+        family_domestic_violence: 家族・親族によるDV
+        family_squandering: 家族・親族による散財
+        no_burden_on_family: 家族に迷惑をかけたくない
+      legal_heir:
+        unselected: 未選択
+        existing:  あり
+        not_existing: なし
+      legal_heir_comment:
+        unselected: 未選択
+        cooperative: 協力的
+        no_issues: 特に問題なし
+        problematic_background: 背景に問題あり
+        estranged_unknown: 疎遠で不明
+      residue:
+        unselected: 未選択
+        existing:  あり
+        not_existing: なし
+      relatives:
+        unselected: 未選択
+        existing:  あり
+        not_existing: なし
+      relatives_comment:
+        unselected: 未選択
+        cooperative: 協力的
+        no_issues: 特に問題なし
+        problematic_background: 背景に問題あり
+        estranged_unknown: 疎遠で不明
+      household_disposal:
+        unselected: 未選択
+        existing:  あり
+        not_existing: なし
+        checking: 現在確認中
+      real_estate_disposal:
+        unselected: 未選択
+        existing:  あり
+        not_existing: なし
+        checking: 現在確認中
+      close_grave:
+        unselected: 未選択
+        existing:  あり
+        not_existing: なし
+        checking: 現在確認中
+      funeral_memorial_policy:
+        unselected: 未選択
+        decided: 決定済み
+        checking: 現在確認中
+    user_lifeplan_asset:
+      user_lifeplan_asset_kind:
+        cash_deposits: 現金預貯金
+        other_assets: その他資産
+      cache_deposit_kind:
+        unselected: 未選択
+        ordinary_deposit: 普通預金
+        standard_savings: 通常貯金
+        regular_savings: 普通貯金
+        fixed_deposit: 定期預金
+        fixed_amount_savings: 定額貯金
+        time_deposit: 定期貯金
+        savings_deposit: 貯蓄預金
+        installment_savings: 積立預金
+        transfer_account: 振替口座
+        investment_fund: 投資信託
+        other_cache_deposit: その他
+      other_assets_kind:
+        unselected: 未選択
+        ordinary_deposit: 普通預金
+        land: 土地
+        building: 建物
+        condominium: マンション
+        securities: 有価証券
+        life_insurance: 生命保険
+        property_insurance: 損害保険
+        loan: 貸付金
+        deposit: 預託金
+        other_assets: その他
+    user_lifeplan_income:
+      user_lifeplan_income_kind:
+        pension: 年金
+        cache_income: 収入
+        temporary_cache_income: 一時
+      pension_kind:
+        unselected: 未選択
+        national_pension: "国民年金"
+        welfare_pension: "厚生年金"
+        national_welfare_pension: "国民年金/厚生年金"
+        survivor_pension: "遺族年金"
+        corporate_pension: "企業年金"
+        disability_pension: "障がい者年金"
+        private_pension_insurance: "個人年金保険"
+        pension_trust: "年金型信託"
+      cache_income_kind:
+        unselected: 未選択
+        salary: 給与
+        severance_pay: 退職金
+        investment_fund: 投資信託
+        insurance_money: 保険金
+        trust_fund: 信託金
+        donation: 贈与金
+        rental_income: 家賃収入
+        parking_income: 駐車場収入
+        refund: 還付金
+        other_income: その他収入
+    user_lifeplan_expense:
+      user_lifeplan_expense_kind:
+        spending: 支出
+        life_event: イベント
+        elderly_facility: 施設
+        end_of_life: 終活（STEP1〜STEP3費用）
+        deposit: 終活（預託金）
+      spending_item:
+        unselected: 未選択
+        total_living_costs: 生活費一式
+        living_costs_housing_food: 生活費（住+食）
+        food_expenses: 食費
+        rent: 家賃
+        maintenance_fee: 管理費
+        parking_fee: 駐車場
+        total_utilities: ライフライン一式
+        electricity: 電気
+        gas: ガス
+        water: 水道
+        total_communication_costs: 通信費一式
+        communication_costs: 通信費
+        broadcasting_fee: 受信料
+        newspaper_fee: 新聞代
+        neighborhood_association_fee: 町内会費
+        medical_expenses: 医療費
+        taxes: 税金
+        insurance_premiums: 保険料
+        miscellaneous_expenses: その他雑費
+    user_lifeplan_contact:
+      user_lifeplan_contact_kind:
+        testament: 遺言書
+        power_of_attorney: 事務委任契約
+        guardianship_agreement: 任意後見契約
+        post_mortem_proxy: 死後事務委任契約
+        deposit_management_contract: 預託金に関する財産管理契約
+        declaration_of_intent: 意思表示宣言書
+      contact_level_kind:
+        unselected: 未選択
+        standard: スタンダード
+        irregular: イレギュラー

@@ -30,8 +30,15 @@ class Member < ApplicationRecord
   include BaseAuthenticatable
   include EmailSetting
 
+  has_many :member_users
+  has_many :users, through: :member_users
+
   belongs_to :organization
 
   class << self
+  end
+
+  def full_name
+    "#{family_name} #{first_name}"
   end
 end

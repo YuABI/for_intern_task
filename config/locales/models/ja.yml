@@ -18,6 +18,13 @@ ja:
       admin_user: 管理者設定
       role: 権限管理
       system_config: システム設定
+      user_lifeplan: ライフプラン
+      user_lifeplan_income: 収入
+      user_lifeplan_finance_condition: 財務情報
+      user_lifeplan_expense: 支出
+      user_lifeplan_contact: ライフプラン契約
+      user_lifeplan_beneficiary: 遺贈先
+      user_lifeplan_asset: 現預金
 
     attributes:
       default: &default
@@ -84,6 +91,105 @@ ja:
         organization_id: 法人
         mobile_tel: 携帯番号
         available: 利用する
+      user_lifeplan:
+        <<: *default
+        name: 名称
+        user_id: 顧客
+        member_id: 会員・パートナー
+        user_lifeplan_status_id: ステータス
+        basis_on: 作成日
+        apply_reviewed_on: 申請審査日
+        reviewed_on: 審査日
+        background_reason: 依頼の背景
+        background_reason_comment: 依頼の背景備考
+        legal_heir: 法定相続人
+        legal_heir_comment: 法定相続人の状況
+        residue: 遺留分
+        relatives: 親族
+        relatives_comment: 親族の状況
+        household_disposal: 家財処分
+        real_estate_disposal: 不動産処分
+        close_grave: 墓じまい
+        funeral_memorial_policy: 葬儀・供養方針
+        small_account: 小口口座
+        note: 備考
+        start_pension_age: 年金開始年齢
+        start_resident_elderly_facility_age: 老人ホーム入居開始年齢
+        start_nursing_care_age: 介護開始年齢
+        death_age: 死亡年齢
+
+      user_lifeplan_income:
+        <<: *default
+        name: 収入名
+        user_lifeplan_id: ライフプランID
+        cache_income_kind: キャッシュ収入種類
+        pension_kind: 年金種類
+        content: 内容
+        company_name: 会社名
+        payment_start_year: 支払開始年
+        payment_end_year: 支払終了年
+        monthly_amount: 月額
+        yearly_amount: 年額
+        user_lifeplan_income_kind: 収入種類
+        cache_income_kind_or_pension_kind: 種類
+      user_lifeplan_finance_condition:
+        <<: *default
+        user_lifeplan_id: ライフプランID
+        user_lifeplan_finance_condition_status_id: ステータス
+        content: 内容
+        until_submitted_on: 提出期限
+        confirmed_on: 残高確認日
+        account: 口座
+        account_info: 口座情報
+        balance: 残高
+        docs: スキャン
+      user_lifeplan_expense:
+        <<: *default
+        name: 支出名
+        spending_item: 支出項目
+        expenditure_item_name: 支出項目名
+        user_lifeplan_id: ライフプランID
+        content: 内容
+        company_name: 会社名
+        note: 備考
+        payment_start_year: 支払開始年
+        payment_end_year: 支払終了年
+        monthly_amount: 月額
+        pay_by_years: 年毎
+        yearly_amount: 年額
+        user_lifeplan_expense_kind: 支出種類
+      user_lifeplan_contact:
+        <<: *default
+        user_lifeplan_id: ライフプランID
+        name: 契約書名
+        docs: 添付ファイル
+        user_lifeplan_contact_kind: ライフプラン連絡種類
+        contact_level_kind: 連絡レベル種類
+      user_lifeplan_beneficiarie:
+        <<: *default
+        user_lifeplan_id: ライフプランID
+        name: 名前
+      user_lifeplan_asset:
+        <<: *default
+        user_lifeplan_id: ライフプランID
+        name: 資産名
+        rate: 割合(%)
+        other_assets_kind: 他の資産種類
+        financial_institution_name: 金融機関名
+        store_name: 取扱店
+        cache_deposit_kind: 預金種別
+        account_number: 口座番号
+        reference_on: 基準日
+        amount_of_money: 金額
+        content: 内容
+        company_name: 会社名
+        asset_appraisal_value: 評価額
+        equity_appraisal_value: 持分評価額
+        scheduled_for_sale: 売却予定
+        sundry_expenses: 諸経費
+        profit: 利益
+        description: 摘要
+        user_lifeplan_asset_kind: 資産種類
 
 
   activemodel:
@@ -93,3 +199,7 @@ ja:
       public_file:
         <<: *default
         updated_at: 更新日時
+      user_lifeplan_status:
+        name: ステータス
+    models:
+      user_lifeplan_status: ライフプランステータス

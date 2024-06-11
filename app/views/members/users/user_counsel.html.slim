@@ -46,9 +46,9 @@ ruby:
                                 = f.text_area(:memo, class: f.object.decorate.input_class(:memo, :member), placeholder: '顧客に関する情報を記載してください', style:"min-height: 100px;")
   .row
     .col-12.d-flex.justify-content-center.pb-4
-      = link_to("顧客情報へもどる", edit_member_user_path(object), class: "btn btn-warning w-sm mx-2")
+      = link_to("顧客情報へもどる", edit_members_user_path(object), class: "btn btn-warning w-sm mx-2")
       = f.submit "保存して終了", class: "btn btn-danger w-sm", onclick: loading_open
-      = f.submit "ライフプラン審査へ進む", class: "btn btn-#{color_add} w-sm ms-auto", onclick: loading_open, name: ""
+      = f.submit "ライフプラン審査へ進む", class: "btn btn-#{color_add} w-sm ms-auto", onclick: loading_open, name: "user_lifeplan"
     javascript:
         #{decorator_model.form_javascript(f)}
 

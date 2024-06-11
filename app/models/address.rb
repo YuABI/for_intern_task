@@ -44,4 +44,8 @@ class Address < ApplicationRecord
 
   class << self
   end
+
+  def name
+    "#{family_name} #{first_name}"
+  end
 end

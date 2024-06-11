@@ -1,0 +1,383 @@
+h4
+  |現金預貯金
+div.table-responsive.mb-3
+  table.table.table-bordered.mb-3.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |金融機関
+        th
+          |取扱店
+        th
+          |種類
+        th
+          |口座番号
+        th
+          |基準日
+        th
+          |金額
+        th
+          |摘要
+    tbody
+      - user_lifeplan_yearly_blance.cash_deposit_assets.each do |user_lifeplan_asset|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_asset.financial_institution_name
+          td
+            = user_lifeplan_asset.store_name
+          td
+            = user_lifeplan_asset.cache_deposit_kind.text
+          td
+            = user_lifeplan_asset.account_number
+          td
+            = l(user_lifeplan_asset.reference_on) if user_lifeplan_asset.reference_on.present?
+          td
+            = money_with_unit(user_lifeplan_asset.amount_of_money)
+          td
+            = simple_format(user_lifeplan_asset.description, class: 'mb-0')
+h4
+  |その他資産
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |持分
+        th
+          |種類
+        th
+          |内容/会社名
+        th
+          |持分評価額
+        th
+          |売却予定年
+        th
+          |諸経費
+        th
+          |利益
+        th
+          |摘要
+    tbody
+      - user_lifeplan_yearly_blance.other_assets.each do |user_lifeplan_asset|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = percent_with_unit(user_lifeplan_asset.rate)
+          td
+            = user_lifeplan_asset.other_assets_kind.text
+          td
+            = user_lifeplan_asset.company_name
+            = ' ' if user_lifeplan_asset.company_name.present?
+            = user_lifeplan_asset.content
+          td
+            = money_with_unit(user_lifeplan_asset.equity_appraisal_value)
+          td
+            = year_with_unit(user_lifeplan_asset.scheduled_for_sale)
+          td
+            = money_with_unit(user_lifeplan_asset.sundry_expenses)
+          td
+            = money_with_unit(user_lifeplan_asset.profit)
+          td
+            = simple_format(user_lifeplan_asset.description, class: 'mb-0')
+
+h4
+  |資産 財務情報
+.row
+  .col-4
+    ul.list-group.mb-3
+      - asset_finance_conditions.each do |finance_condition|
+        - finance_condition.docs.each do |doc|
+          li.list-group-item
+            = finance_condition_text(finance_condition)
+            = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
+hr
+h4
+  |年金
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |資産収入
+        th
+          |種類
+        th
+          |内容/会社名
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |月額
+        th
+          |年額
+    tbody
+      - user_lifeplan_yearly_blance.pension_incomes.each do |user_lifeplan_income|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_income.pension_kind.text
+          td
+            = user_lifeplan_income.user_lifeplan_income_kind.text
+          td
+            = user_lifeplan_income.company_name
+            = ' ' if user_lifeplan_income.company_name.present?
+            = user_lifeplan_income.content
+          td
+            = year_with_unit(user_lifeplan_income.payment_start_year )
+          td
+            = year_with_unit(user_lifeplan_income.payment_end_year)
+          td
+            = money_with_unit(user_lifeplan_income.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_income.yearly_amount)
+h4
+  |収入
+
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |資産収入
+        th
+          |種類
+        th
+          |内容/会社名/番号
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |月額
+        th
+          |年額
+    tbody
+      - user_lifeplan_yearly_blance.cache_incomes_and_temporary_cache_incomes.each do |user_lifeplan_income|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_income.cache_income_kind.text
+          td
+            = user_lifeplan_income.user_lifeplan_income_kind.text
+          td
+            = user_lifeplan_income.company_name
+            = ' ' if user_lifeplan_income.company_name.present?
+            = user_lifeplan_income.content
+          td
+            = year_with_unit(user_lifeplan_income.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_income.payment_end_year)
+          td
+            = money_with_unit(user_lifeplan_income.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_income.yearly_amount)
+
+h4
+  |収入 財務情報
+.row
+  .col-4
+    ul.list-group.mb-3
+      - income_finance_conditions.each do |finance_condition|
+        li.list-group-item
+          = finance_condition_text(finance_condition)
+          - finance_condition.docs.each do |doc|
+            = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'
+            br
+hr
+h4
+  |支出
+
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |支出品名
+        th
+          |内容/会社名
+        th
+          |備考
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |年毎
+        th
+          |月額
+        th
+          |年額
+    tbody
+      - user_lifeplan_yearly_blance.spending_expenses.each do |user_lifeplan_expense|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.spending_item.text
+          td
+            = user_lifeplan_expense.company_name
+            = ' ' if user_lifeplan_expense.company_name.present?
+            = user_lifeplan_expense.content
+          td
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_expense.payment_end_year )
+          td
+            = user_lifeplan_expense.pay_by_years
+          td
+            = money_with_unit(user_lifeplan_expense.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_expense.yearly_amount)
+h4
+  |ライフイベント
+
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |イベント内容
+        th
+          |備考
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |年毎
+        th
+          |金額
+    tbody
+      - user_lifeplan_yearly_blance.life_event_expenses.each do |user_lifeplan_expense|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.company_name
+            = ' ' if user_lifeplan_expense.company_name.present?
+            = user_lifeplan_expense.content
+          td
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit( user_lifeplan_expense.payment_end_year )
+          td
+            = user_lifeplan_expense.pay_by_years
+          td
+            = money_with_unit(user_lifeplan_expense.yearly_amount)
+
+h4
+  |施設
+
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |費用項目
+        th
+          |施設
+        th
+          |備考
+        th
+          |入居開始
+        th
+          |入居終了
+        th
+          |月額
+        th
+          |年額
+    tbody
+      - user_lifeplan_yearly_blance.elderly_facility_expenses.each do |user_lifeplan_expense|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.expenditure_item_name
+          td
+            = user_lifeplan_expense.company_name
+          td
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_expense.payment_end_year)
+          td
+            = money_with_unit(user_lifeplan_expense.monthly_amount)
+          td
+            = money_with_unit(user_lifeplan_expense.yearly_amount)
+h4
+  |終活
+
+.table-responsive.mb-3
+  table.table.table-bordered.mb-0.text-nowrap
+    thead.table-light
+      tr
+        th
+          |名義人
+        th
+          |品名
+        th
+          |内容
+        th
+          |備考
+        th
+          |支払開始
+        th
+          |支払終了
+        th
+          |年毎
+        th
+          |金額
+    tbody
+      - user_lifeplan_yearly_blance.end_of_life_expenses.each do |user_lifeplan_expense|
+        tr
+          td
+            = user_lifeplan_decorator.user.full_name
+          td
+            = user_lifeplan_expense.expenditure_item_name
+          td
+            = user_lifeplan_expense.content
+          td
+            = simple_format(user_lifeplan_expense.note, class: 'mb-0')
+          td
+            = year_with_unit(user_lifeplan_expense.payment_start_year)
+          td
+            = year_with_unit(user_lifeplan_expense.payment_end_year)
+          td
+            = user_lifeplan_expense.pay_by_years
+          td
+            = money_with_unit( user_lifeplan_expense.yearly_amount )
+
+h4
+  |支出 財務情報
+.row
+  .col-4
+    ul.list-group.mb-3
+      - expense_finance_conditions.each do |finance_condition|
+        - finance_condition.docs.each do |doc|
+          li.list-group-item
+            = link_to doc.filename.to_s, url_for(doc), target: :_blank, class: 'me-1'

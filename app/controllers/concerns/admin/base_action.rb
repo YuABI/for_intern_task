@@ -37,5 +37,9 @@ module Admin
     def _csv_import_service_
       eval("Import::Csv::#{name_singularize.camelize}ImportService", binding, __FILE__, __LINE__)
     end
+
+    def params_id
+      params[:id]
+    end
   end
 end

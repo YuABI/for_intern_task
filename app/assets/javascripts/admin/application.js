@@ -29,3 +29,5 @@
 //= require common/summernote-ja-JP.min.js
 //= require base/custom.js
 //= require base/custom_cocoon.js
+//= require activestorage
+//= require common/activestorage

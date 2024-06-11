@@ -1,0 +1,17 @@
+.row
+  - decorator_model.member_form_objects(current_user, form).each do |form_object_lists|
+    - form_object_lists.each do |form_object|
+      - if %i[relatives household_disposal].include?(form_object[:code])
+        .w-100
+      div class="#{helpers.input_group_class} col-sm-#{form_object[:col] || 4}" style="#{"display: none;" if form_object[:hidden] }"
+        .mb-3
+          label.form-label[for="#{form_object}_#{form_object[:code]}"]
+            = form_object[:label]
+            - if %i[start_pension_age start_resident_elderly_facility_age start_nursing_care_age death_age].include?(form_object[:code])
+              = "（#{eval(form_object[:code].to_s + '_year')} 年）"
+          = form_object[:input]
+= render UserLifeplans::Form::BeneficiariesComponent.new(form: , user_lifeplan: , current_user: )
+= render UserLifeplans::Form::AssetsComponent.new(form: , user_lifeplan: , current_user: )
+= render UserLifeplans::Form::IncomesComponent.new(form: , user_lifeplan: , current_user: )
+= render UserLifeplans::Form::ExpensesComponent.new(form: , user_lifeplan: , current_user: )
+= render UserLifeplans::Form::ContactsComponent.new(form: , user_lifeplan: , current_user: )

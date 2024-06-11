@@ -13,6 +13,9 @@ namespace :admin do
     :news, :contents,
     :api_results,
     :system_configs,:admin_users, :api_clients,
+    :system_configs,:admin_users,:api_clients,
+    # TODO: 試しにマスターコントローラを実装
+    :user_lifeplans,
   ].each do |sym|
     namespace sym do
       case sym
@@ -41,6 +44,32 @@ namespace :admin do
           match :del_address, via: [:post,:patch]
           match :add_user_inquiry, via: [:post,:patch]
           match :del_user_inquiry, via: [:post,:patch]
+
+        end
+      when :user_lifeplans
+        scope module: :user_lifeplans do
+          resource :confirmations, only: %i[show update], controller: :user_lifeplan_confirmations
+          resource :review_remands, only: %i[update], controller: :review_remands
+          resource :review_completes, only: %i[update], controller: :review_completes
+        end
+        collection do
+          match :add_user_lifeplan_asset, via: [:post,:patch]
+          match :del_user_lifeplan_asset, via: [:post,:patch]
+
+          match :add_user_lifeplan_income, via: [:post,:patch]
+          match :del_user_lifeplan_income, via: [:post,:patch]
+
+          match :add_user_lifeplan_expense, via: [:post,:patch]
+          match :del_user_lifeplan_expense, via: [:post,:patch]
+
+          match :add_user_lifeplan_finance_condition, via: [:post,:patch]
+          match :del_user_lifeplan_finance_condition, via: [:post,:patch]
+
+          match :add_user_lifeplan_contact, via: [:post,:patch]
+          match :del_user_lifeplan_contact, via: [:post,:patch]
+
+          match :add_user_lifeplan_beneficiary, via: [:post,:patch]
+          match :del_user_lifeplan_beneficiary, via: [:post,:patch]
 
         end
       end

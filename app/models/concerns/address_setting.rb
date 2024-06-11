@@ -6,9 +6,9 @@ module AddressSetting
     validates :zip, :pref, :city, :address1, presence: {}
     validates :zip, presence: {}, format: Regex::ZIP
 
-    validates :tel, presence: {}, format: Regex::TEL
+    # validates :tel, presence: {}, format: Regex::TEL
     validate :valid_zip?
-    validate :valid_tel?
+    # validate :valid_tel?
 
     def valid_zip?
       set_target_config

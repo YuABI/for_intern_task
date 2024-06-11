@@ -44,6 +44,7 @@ class User < ApplicationRecord
   has_many :addresses, -> { order(address_type: :desc, id: :asc) }
   has_many :user_inquiries, -> { order(inquiry_at: :desc) }
   has_many :user_counsels, -> { order(id: :desc) }
+  has_many :user_lifeplans, -> { order(id: :desc) }
 
   has_many :other_addresses, -> { where(address_type: :other) }, class_name: 'Address'
 
@@ -59,6 +60,10 @@ class User < ApplicationRecord
 
   validates :birthday, comparison: { less_than: Date.today }, if: -> { use_birthday? }
   after_initialize :after_initialize_setup
+
+  def full_name
+    "#{family_name} #{first_name}"
+  end
 
   def after_initialize_setup
     nil unless new_record?
@@ -86,6 +91,19 @@ class User < ApplicationRecord
   def use_birthday?
     set_target_config
     birthday.present?
+  end
+
+  def age
+    return nil if birthday.blank?
+
+    date_format = "%m%d"
+    diff = (Date.today.strftime(date_format).to_i - birthday.strftime(date_format).to_i)
+    p diff < 0
+    if diff < 0
+      Date.today.year - birthday.year - 1
+    else
+      Date.today.year - birthday.year
+    end
   end
 
   class << self

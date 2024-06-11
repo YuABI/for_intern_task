@@ -3,6 +3,7 @@ class Operation < Base::BasicActiveModel
 
   DATA_LIST = [
     { id: 100,  code: 'users',               operation_category_id: OperationCategory.user.id },
+    { id: 100,  code: 'user_lifeplans',       operation_category_id: OperationCategory.user.id },
     { id: 200,  code: 'members',             operation_category_id: OperationCategory.member.id },
     { id: 250,  code: 'organizations',       operation_category_id: OperationCategory.member.id },
     { id: 300,  code: 'invoices',            operation_category_id: OperationCategory.invoice.id },

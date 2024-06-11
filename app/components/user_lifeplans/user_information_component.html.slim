@@ -1,0 +1,74 @@
+.row
+  .col-6
+    .table-responsive
+      table.table.table-bordered.mb-0.me-auto
+        thead
+          tr.bg-light
+            th(colspan="4")
+              |顧客情報
+          tr
+            th.bg-light style="width: 200px;"
+              |ご氏名
+            td(style="width: 200px;")
+              = user.full_name
+            th.bg-light(style="width: 200px;")
+              |性別
+            td(style="width: 200px;")
+              = user.sex.text
+          tr
+            th.bg-light
+              |ご住所
+            td(colspan="3")
+              = full_address
+          tr
+            th.bg-light
+              |生年月日
+            td(colspan="3")
+              = l(user.birthday) if user.birthday
+          tr
+            th.bg-light
+              |作成日
+            td(colspan="3")
+              = l(user_lifeplan_decorator.basis_on) if user_lifeplan_decorator.basis_on
+          tr
+            th.bg-light
+              |経過日数
+            td(colspan="3")
+              = duration_of_feeding_period
+          tr
+            th.bg-light
+              |残り日数
+            td(colspan="3")
+              = duration_of_deadline
+          tr
+            th.bg-light.align-middle(rowspan="5")
+              |情報
+            th.bg-light
+              |作成日年齢
+            td(colspan="2")
+              = calcurate_age(user_lifeplan_decorator.basis_on&.year)
+          tr
+            th.bg-light
+              |年金受給年齢
+            td(colspan="2")
+              = user_lifeplan_decorator.start_pension_age
+          tr
+            th.bg-light
+              |入居年齢
+            td(colspan="2")
+              = user_lifeplan_decorator.start_resident_elderly_facility_age
+          tr
+            th.bg-light
+              |介護開始年齢
+            td(colspan="2")
+              = user_lifeplan_decorator.start_nursing_care_age
+          tr
+            th.bg-light
+              |死亡年齢
+            td(colspan="2")
+              = user_lifeplan_decorator.death_age
+          tr
+            th.bg-light
+              |備考
+            td(colspan="3")
+              = user_lifeplan_decorator.note
