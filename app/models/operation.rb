@@ -11,7 +11,7 @@ class Operation < Base::BasicActiveModel
     { id: 450,  code: 'trust_companies',     operation_category_id: OperationCategory.plan.id },
     { id: 460,  code: 'insurance_companies', operation_category_id: OperationCategory.plan.id },
     { id: 500,  code: 'notifications',       operation_category_id: OperationCategory.content.id },
-    { id: 510,  code: 'contents',            operation_category_id: OperationCategory.content.id },
+    { id: 510,  code: 'video_channels',      operation_category_id: OperationCategory.content.id },
     { id: 800,  code: 'admin_users',         operation_category_id: OperationCategory.setting.id },
     { id: 900,  code: 'system_configs',      operation_category_id: OperationCategory.setting.id },
     # { id: 500,  code: 'api_clients',        operation_category_id: OperationCategory.setting.id },

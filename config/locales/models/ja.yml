@@ -10,7 +10,7 @@ ja:
       product: プラン設定
       product_option: オプション設定
       notification: お知らせ管理
-      content: コンテンツ管理
+      video_channel: コンテンツ管理
       api_client: APIクライアント設定
       webhook_service: Webhook設定
       webhook_result: Webhook通信履歴

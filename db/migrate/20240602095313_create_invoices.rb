@@ -87,8 +87,8 @@ class CreatInvoices < ActiveRecord::Migration[7.1]
       t.string :name, default: "", null: false, comment: "名称"
       t.string :code, default: "", null: false, comment: "コード"
       t.integer :price, default: 0, null: false,comment: "料金"
-      t.integer :cycle_mode, default: 0, null: false,comment: "サイクル（単発or定期）"
-      t.integer :cycle_num, default: 0, null: false,comment: "サイクル時の期間数（１ヶ月、５年）"
+      t.integer :cycle_type, default: 0, null: false,comment: "サイクルタイプ（単発or定期）"
+      t.integer :cycle_schedule, default: 0, null: false,comment: "サイクル時の期間数（○ヶ月）" # 1ヶ月は1、1年は12を指定することにする
       t.integer :available, default: 1, null: false,comment: "利用区分"
       t.integer :deleted, default: 0, null: false,comment: "削除区分"
       t.datetime :deleted_at, comment: "削除日時"
@@ -100,8 +100,8 @@ class CreatInvoices < ActiveRecord::Migration[7.1]
     add_index :product_options, [:product_category_id,:deleted]
 
     create_table :product_option_mappings, force: :cascade, comment: "商材・商材オプション中間テーブル" do |t|
-      t.bigint :products, default: 0, null: false, comment: "商材"
-      t.bigint :product_options, default: 0, null: false, comment: "商材オプション"
+      t.bigint :product_id, default: 0, null: false, comment: "商材"
+      t.bigint :product_option_id, default: 0, null: false, comment: "商材オプション"
       t.integer :deleted, default: 0, null: false,comment: "削除区分"
       t.datetime :deleted_at, comment: "削除日時"
       t.timestamps
