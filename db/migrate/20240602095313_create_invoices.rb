@@ -1,4 +1,4 @@
-class CreatInvoices < ActiveRecord::Migration[7.1]
+class CreateInvoices < ActiveRecord::Migration[7.1]
   def change
 
     add_column :organizations, :invoice_number, :string, comment: "インボイス登録番号"
