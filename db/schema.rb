@@ -75,6 +75,47 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
     t.index ["email"], name: "index_admin_users_on_email"
   end
 
+  create_table "invoice_details", comment: "請求書明細", force: :cascade do |t|
+    t.bigint "invoice_id", default: 0, null: false, comment: "請求書"
+    t.bigint "product_detail_id", default: 0, null: false, comment: "商材明細"
+    t.integer "price", default: 0, null: false, comment: "単価"
+    t.integer "qty", default: 1, null: false, comment: "数量"
+    t.integer "tax_rate", default: 0, null: false, comment: "税率"
+    t.text "content", default: "", null: false, comment: "明細名"
+    t.integer "mode", default: 0, null: false, comment: "区分"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted"], name: "index_invoice_details_on_deleted"
+    t.index ["invoice_id", "deleted"], name: "index_invoice_details_on_invoice_id_and_deleted"
+    t.index ["invoice_id"], name: "index_invoice_details_on_invoice_id"
+    t.index ["product_detail_id", "deleted"], name: "index_invoice_details_on_product_detail_id_and_deleted"
+    t.index ["product_detail_id"], name: "index_invoice_details_on_product_detail_id"
+  end
+
+  create_table "invoices", comment: "請求書", force: :cascade do |t|
+    t.bigint "user_id", default: 0, null: false, comment: "顧客"
+    t.bigint "member_id", default: 0, null: false, comment: "作成した会員"
+    t.bigint "organization_id", default: 0, null: false, comment: "組織"
+    t.string "invoice_code", default: "", null: false, comment: "請求書番号"
+    t.integer "invoice_status_id", default: 0, null: false, comment: "請求ステータス"
+    t.integer "total_price", default: 0, null: false, comment: "請求金額"
+    t.integer "tax_rate", default: 0, null: false, comment: "税率"
+    t.datetime "regstered_at", comment: "請求ステータス"
+    t.text "title", default: "", null: false, comment: "件名"
+    t.text "payment_term_to_user", default: "", null: false, comment: "顧客宛支払い条件"
+    t.bigint "transfer_id", default: 0, null: false, comment: "振込先"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted"], name: "index_invoices_on_deleted"
+    t.index ["invoice_code"], name: "index_invoices_on_invoice_code"
+    t.index ["user_id", "deleted"], name: "index_invoices_on_user_id_and_deleted"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
+
   create_table "member_users", comment: "顧客と会員・パートナーの中間", force: :cascade do |t|
     t.bigint "member_id", default: 0, null: false, comment: "会員・パートナー"
     t.bigint "user_id", default: 0, null: false, comment: "顧客"
@@ -121,9 +162,59 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
     t.datetime "deleted_at", comment: "削除日時"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "invoice_number", comment: "インボイス登録番号"
+    t.text "payment_term_to_user", comment: "顧客宛支払い条件"
     t.index ["deleted"], name: "index_organizations_on_deleted"
     t.index ["name", "deleted"], name: "index_organizations_on_name_and_deleted"
     t.index ["name"], name: "index_organizations_on_name"
+  end
+
+  create_table "product_category", comment: "商材カテゴリー", force: :cascade do |t|
+    t.string "name", default: "", null: false, comment: "名称"
+    t.string "code", default: "", null: false, comment: "コード"
+    t.integer "available", default: 1, null: false, comment: "利用区分"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_option_mappings", comment: "商材・商材オプション中間テーブル", force: :cascade do |t|
+    t.bigint "products", default: 0, null: false, comment: "商材"
+    t.bigint "product_options", default: 0, null: false, comment: "商材オプション"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_options", comment: "商材オプション", force: :cascade do |t|
+    t.bigint "product_category_id", default: 0, null: false, comment: "商材カテゴリー"
+    t.string "name", default: "", null: false, comment: "名称"
+    t.string "code", default: "", null: false, comment: "コード"
+    t.integer "price", default: 0, null: false, comment: "料金"
+    t.integer "cycle_mode", default: 0, null: false, comment: "サイクル（単発or定期）"
+    t.integer "cycle_num", default: 0, null: false, comment: "サイクル時の期間数（１ヶ月、５年）"
+    t.integer "available", default: 1, null: false, comment: "利用区分"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted"], name: "index_product_options_on_deleted"
+    t.index ["product_category_id", "deleted"], name: "index_product_options_on_product_category_id_and_deleted"
+    t.index ["product_category_id"], name: "index_product_options_on_product_category_id"
+  end
+
+  create_table "products", comment: "商材", force: :cascade do |t|
+    t.string "name", default: "", null: false, comment: "名称"
+    t.string "code", default: "", null: false, comment: "コード"
+    t.string "invoice_detail_name", default: "", null: false, comment: "請求書明細名"
+    t.integer "available", default: 1, null: false, comment: "利用区分"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted"], name: "index_products_on_deleted"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -142,6 +233,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted"], name: "index_system_configs_on_deleted"
+  end
+
+  create_table "transfers", comment: "銀行口座", force: :cascade do |t|
+    t.bigint "organization_id", default: 0, null: false, comment: "組織"
+    t.string "name", default: "", null: false, comment: "名称"
+    t.string "bank_name", default: "", null: false, comment: "金融機関名"
+    t.string "bank_code", default: "", null: false, comment: "金融機関番号"
+    t.string "bank_branch_name", default: "", null: false, comment: "支店"
+    t.string "bank_branch_code", default: "", null: false, comment: "支店コード"
+    t.integer "bank_type", default: 0, null: false, comment: "預金種別（普通、当座、貯蓄）"
+    t.string "bank_user_name", default: "", null: false, comment: "口座名義"
+    t.string "bank_user_code", default: "", null: false, comment: "口座番号"
+    t.integer "available", default: 1, null: false, comment: "利用区分"
+    t.integer "deleted", default: 0, null: false, comment: "削除区分"
+    t.datetime "deleted_at", comment: "削除日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_counsel_details", force: :cascade do |t|
