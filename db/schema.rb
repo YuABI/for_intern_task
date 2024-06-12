@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_055647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -465,6 +465,34 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  create_table "video_channels", force: :cascade do |t|
+    t.text "URL"
+    t.string "title"
+    t.string "explanation"
+    t.bigint "video_genre_id"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["video_genre_id"], name: "index_video_channels_on_video_genre_id"
+  end
+
+  create_table "video_genres", force: :cascade do |t|
+    t.string "name"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "video_tags", force: :cascade do |t|
+    t.string "tag_name"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "zip_lists", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -493,4 +521,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_061549) do
   add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
   add_foreign_key "user_lifeplans", "admin_users"
   add_foreign_key "user_lifeplans", "users"
+  add_foreign_key "video_channels", "video_genres"
 end
