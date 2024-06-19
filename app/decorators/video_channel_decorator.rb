@@ -70,10 +70,8 @@ class VideoChannelDecorator < ApplicationDecorator
         ]
       ]
     end
-
     def tag_names
       object.video_tags.pluck(:tag_name).join(', ')
     end
-
   end
 end
