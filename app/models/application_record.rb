@@ -170,7 +170,7 @@ class ApplicationRecord < ActiveRecord::Base
     def permit_params
       column_names + [
         :video_genre_id,
-        :name,
+        :tag_name,
         :attachment,
         :_destroy,
 

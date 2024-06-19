@@ -121,7 +121,7 @@ ja:
         <<: *default
         video_genre_id: ジャンル
         URL: URL
-        name: タグ
+        tag_name: タグ
         title: タイトル
         explanation: 詳細説明
         updated_at: 最終アップロード日時
