@@ -26,7 +26,6 @@ class VideoChannel < ApplicationRecord
 
   # validates :video_genre_id, presence: true, inclusion: { in: VideoGenre.pluck(:id) }
 
-
   def find_operation(operation_code)
     Operation.find_by(code: operation_code)
   end
