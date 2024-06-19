@@ -1,7 +1,7 @@
 class VideoChannelDecorator < ApplicationDecorator
   class << self
     def required_codes
-      %i[video_genre_id tag_name title URL]
+      %i[video_genre_id tag_names title URL]
     end
 
     def header_objects
@@ -17,7 +17,7 @@ class VideoChannelDecorator < ApplicationDecorator
     def body_objects
       [
         'video_genre_id',
-        'tag_name',
+        'tag_names',
         'title',
         'strftime_at(:updated_at)',
       ]
@@ -62,6 +62,9 @@ class VideoChannelDecorator < ApplicationDecorator
                       input: f.text_field(:updated_at_to, type: :date, class: input_class), col: 3 }),
         ]
       ]
+    end
+    def tag_names
+      object.video_tags.pluck(:tag_name).join(', ')
     end
   end
 end

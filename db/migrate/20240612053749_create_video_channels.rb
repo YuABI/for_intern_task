@@ -8,7 +8,6 @@ class CreateVideoChannels < ActiveRecord::Migration[7.1]
       t.integer :deleted, default: 0, null: false, comment: "削除区分"
       t.datetime :deleted_at, comment: "削除日時"
 
-      validates :title, length: {maximum: 28}
 
       t.timestamps
     end
