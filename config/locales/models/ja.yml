@@ -10,7 +10,7 @@ ja:
       product: プラン設定
       product_option: オプション設定
       notification: お知らせ管理
-      video_channel: コンテンツ管理
+      video_channel: 動画一覧
       api_client: APIクライアント設定
       webhook_service: Webhook設定
       webhook_result: Webhook通信履歴
@@ -117,6 +117,17 @@ ja:
         start_resident_elderly_facility_age: 老人ホーム入居開始年齢
         start_nursing_care_age: 介護開始年齢
         death_age: 死亡年齢
+      video_channel:
+        <<: *default
+        video_genre_id: ジャンル
+        URL: URL
+        name: タグ
+        title: タイトル
+        explanation: 詳細説明
+        updated_at: 最終アップロード日時
+        updated_at_from: 最終アップロード日時FROM
+        updated_at_to: 最終アップロード日時TO
+        attachment: 資料
 
       user_lifeplan_income:
         <<: *default
