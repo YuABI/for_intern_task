@@ -25,7 +25,8 @@ class VideoChannel < ApplicationRecord
   has_and_belongs_to_many :video_tags
 
   delegate :genre, to: :video_genre, allow_nil: true
-  delegate :name, to: :video_tag, allow_nil: true
+  delegate :tag_name, to: :video_tag, allow_nil: true, prefix: true
+
 
  include BaseAuthenticatable
   include EmailSetting
