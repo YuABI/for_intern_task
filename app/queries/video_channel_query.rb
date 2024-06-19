@@ -1,5 +1,5 @@
 class VideoChannelQuery < ApplicationQuery
-    like_attributes :video_genre_id, :name
+    like_attributes :video_genre_id, :tag_name
     DATE_ATTRIBUTES = [:updated_at].freeze
     DATE_ATTRIBUTES.each do |date_attribute|
       attribute :"#{date_attribute}", :date
