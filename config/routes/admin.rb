@@ -10,7 +10,7 @@ namespace :admin do
     :members, :organizations,
     :invoices,
     :trust_companies, :insurance_companies, :products, :product_options,
-    :notifications, :video_channels,
+    :notifications, :video_channels, :video_tags, :video_genres,
     :api_results,
     :system_configs,:admin_users, :api_clients,
     :system_configs,:admin_users,:api_clients,

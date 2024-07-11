@@ -13,6 +13,6 @@ FactoryBot.define do
   factory :video_tag do
     tag_name { "MyString" }
     deleted { 1 }
-    deleted_at { "2024-06-12 14:38:17" }
+    deleted_at { "2024-06-21 14:09:26" }
   end
 end

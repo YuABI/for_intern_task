@@ -25,8 +25,8 @@ FactoryBot.define do
     URL { "MyText" }
     title { "MyString" }
     explanation { "MyString" }
-    genre { nil }
+    video_genre { nil }
     deleted { 1 }
-    deleted_at { "2024-06-12 14:37:49" }
+    deleted_at { "2024-06-21 14:09:39" }
   end
 end

@@ -6,5 +6,6 @@ class CreateVideoChannelsVideoTags < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :video_channels_video_tags, [:video_channel_id, :video_tag_id], unique: true, name:index_video_channels_video_tags_on_channel_and_tag
   end
 end

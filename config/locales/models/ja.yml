@@ -11,6 +11,8 @@ ja:
       product_option: オプション設定
       notification: お知らせ管理
       video_channel: 動画一覧
+      video_genre: ジャンル一覧
+      video_tag: タグ一覧
       api_client: APIクライアント設定
       webhook_service: Webhook設定
       webhook_result: Webhook通信履歴
@@ -119,15 +121,21 @@ ja:
         death_age: 死亡年齢
       video_channel:
         <<: *default
-        video_genre_id: ジャンル
+        name: ジャンル名
         URL: URL
-        tag_name: タグ
+        tag_names: タグ名
         title: タイトル
         explanation: 詳細説明
         updated_at: 最終アップロード日時
         updated_at_from: 最終アップロード日時FROM
         updated_at_to: 最終アップロード日時TO
         attachment: 資料
+      video_genre:
+        <<: *default
+        name: ジャンル名
+      video_tag:
+        <<: *default
+        tag_name: タグの名称
 
       user_lifeplan_income:
         <<: *default

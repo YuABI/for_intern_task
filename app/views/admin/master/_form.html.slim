@@ -3,7 +3,7 @@ ruby:
  object          = instance_variable_get("@#{object_name}")
  decorator_model = eval("#{controller_name.singularize}".camelize + "Decorator")
 
-= form_with model: [:admin, object], html: { class: "" } do |f|
+= form_with model: [:admin, object], html: { class: "", } do |f|
   .row
     .col-12
       .card

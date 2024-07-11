@@ -13,6 +13,6 @@ FactoryBot.define do
   factory :video_genre do
     name { "MyString" }
     deleted { 1 }
-    deleted_at { "2024-06-12 14:37:11" }
+    deleted_at { "2024-06-21 14:09:13" }
   end
 end
