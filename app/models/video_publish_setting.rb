@@ -1,19 +1,17 @@
 # == Schema Information
 #
-# Table name: video_tags
+# Table name: video_publish_settings
 #
 #  id         :bigint           not null, primary key
 #  deleted    :integer
 #  deleted_at :datetime
-#  tag_name   :string
+#  setting    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class VideoTag < ApplicationRecord
-
-    has_many :video_channel_tags
-    has_many :video_channels, through: :video_channel_tags
-
+class VideoPublishSetting < ApplicationRecord
+    has_many :video_channels
+    
     before_create :set_default_values
 
     private

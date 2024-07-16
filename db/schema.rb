@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_21_082511) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_16_023409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -465,6 +465,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_082511) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  create_table "video_channel_tags", force: :cascade do |t|
+    t.bigint "video_channel_id"
+    t.bigint "video_tag_id"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["video_channel_id"], name: "index_video_channel_tags_on_video_channel_id"
+    t.index ["video_tag_id"], name: "index_video_channel_tags_on_video_tag_id"
+  end
+
   create_table "video_channels", force: :cascade do |t|
     t.text "URL"
     t.string "title"
@@ -474,6 +485,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_082511) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "video_publish_setting_id"
     t.index ["video_genre_id"], name: "index_video_channels_on_video_genre_id"
   end
 
@@ -488,6 +500,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_082511) do
 
   create_table "video_genres", force: :cascade do |t|
     t.string "name"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "video_publish_settings", force: :cascade do |t|
+    t.string "setting"
     t.integer "deleted"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -530,6 +550,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_082511) do
   add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
   add_foreign_key "user_lifeplans", "admin_users"
   add_foreign_key "user_lifeplans", "users"
+  add_foreign_key "video_channel_tags", "video_channels"
+  add_foreign_key "video_channel_tags", "video_tags"
   add_foreign_key "video_channels", "video_genres"
   add_foreign_key "video_channels_video_tags", "video_channels"
   add_foreign_key "video_channels_video_tags", "video_tags"

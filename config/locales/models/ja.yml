@@ -123,6 +123,7 @@ ja:
         <<: *default
         name: ジャンル名
         URL: URL
+        setting: 公開設定
         tag_names: タグ名
         title: タイトル
         explanation: 詳細説明
@@ -136,6 +137,7 @@ ja:
       video_tag:
         <<: *default
         tag_name: タグの名称
+
 
       user_lifeplan_income:
         <<: *default

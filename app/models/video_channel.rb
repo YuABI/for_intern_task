@@ -2,15 +2,16 @@
 #
 # Table name: video_channels
 #
-#  id             :bigint           not null, primary key
-#  URL            :text
-#  deleted        :integer
-#  deleted_at     :datetime
-#  explanation    :string
-#  title          :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  video_genre_id :bigint
+#  id                       :bigint           not null, primary key
+#  URL                      :text
+#  deleted                  :integer
+#  deleted_at               :datetime
+#  explanation              :string
+#  title                    :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  video_genre_id           :bigint
+#  video_publish_setting_id :integer
 #
 # Indexes
 #
@@ -22,7 +23,9 @@
 #
 class VideoChannel < ApplicationRecord
   belongs_to :video_genre, optional: true
-  has_and_belongs_to_many :video_tags, through: :video_channels_video_tags
+  belongs_to :video_publish_setting, optional: true
+  has_many :video_channel_tags
+  has_many :video_tags, through: :video_channel_tags
   has_many_attached :attachment
 
   before_create :set_default_values
