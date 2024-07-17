@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_014646) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_16_023409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,12 +73,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_014646) do
     t.index ["deleted"], name: "index_admin_users_on_deleted"
     t.index ["email", "deleted"], name: "index_admin_users_on_email_and_deleted"
     t.index ["email"], name: "index_admin_users_on_email"
-  end
-
-  create_table "contents", force: :cascade do |t|
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "invoice_details", comment: "請求書明細", force: :cascade do |t|
@@ -153,26 +147,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_014646) do
     t.index ["deleted"], name: "index_members_on_deleted"
     t.index ["email", "deleted"], name: "index_members_on_email_and_deleted"
     t.index ["email"], name: "index_members_on_email"
-  end
-
-  create_table "news", force: :cascade do |t|
-    t.text "content"
-    t.integer "deleted", default: 0, null: false, comment: "削除区分"
-    t.datetime "deleted_at", comment: "削除日時"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "draft"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.text "content", null: false, comment: "投稿文章"
-    t.text "button_name", comment: "ボタン名"
-    t.text "url", comment: "リンクURL"
-    t.integer "draft", null: false, comment: "下書き0、公開1"
-    t.integer "deleted", default: 0, null: false, comment: "削除区分"
-    t.datetime "deleted_at", comment: "削除日時"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "organizations", comment: "組織", force: :cascade do |t|
@@ -491,15 +465,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_014646) do
     t.index ["email"], name: "index_users_on_email"
   end
 
-  create_table "video_channels", force: :cascade do |t|
-    t.text "URL", default: "", null: false, comment: "URL"
-    t.string "title", default: "", null: false, comment: "タイトル"
-    t.string "explanation", default: "", null: false, comment: "詳細説明"
-    t.bigint "video_genre_id"
-    t.integer "deleted", default: 0, null: false, comment: "削除区分"
-    t.datetime "deleted_at", comment: "削除日時"
+  create_table "video_channel_tags", force: :cascade do |t|
+    t.bigint "video_channel_id"
+    t.bigint "video_tag_id"
+    t.integer "deleted"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["video_channel_id"], name: "index_video_channel_tags_on_video_channel_id"
+    t.index ["video_tag_id"], name: "index_video_channel_tags_on_video_tag_id"
+  end
+
+  create_table "video_channels", force: :cascade do |t|
+    t.text "URL"
+    t.string "title"
+    t.string "explanation"
+    t.bigint "video_genre_id"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "video_publish_setting_id"
     t.index ["video_genre_id"], name: "index_video_channels_on_video_genre_id"
   end
 
@@ -513,17 +499,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_014646) do
   end
 
   create_table "video_genres", force: :cascade do |t|
-    t.string "name", default: "", null: false, comment: "ジャンル名"
-    t.integer "deleted", default: 0, null: false, comment: "削除区分"
-    t.datetime "deleted_at", comment: "削除日時"
+    t.string "name"
+    t.integer "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "video_publish_settings", force: :cascade do |t|
+    t.string "setting"
+    t.integer "deleted"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "video_tags", force: :cascade do |t|
-    t.string "tag_name", default: "", null: false, comment: "タグ名"
-    t.integer "deleted", default: 0, null: false, comment: "削除区分"
-    t.datetime "deleted_at", comment: "削除日時"
+    t.string "tag_name"
+    t.integer "deleted"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -556,6 +550,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_014646) do
   add_foreign_key "user_lifeplan_incomes", "user_lifeplans"
   add_foreign_key "user_lifeplans", "admin_users"
   add_foreign_key "user_lifeplans", "users"
+  add_foreign_key "video_channel_tags", "video_channels"
+  add_foreign_key "video_channel_tags", "video_tags"
   add_foreign_key "video_channels", "video_genres"
   add_foreign_key "video_channels_video_tags", "video_channels"
   add_foreign_key "video_channels_video_tags", "video_tags"

@@ -2,15 +2,16 @@
 #
 # Table name: video_channels
 #
-#  id             :bigint           not null, primary key
-#  URL            :text
-#  deleted        :integer
-#  deleted_at     :datetime
-#  explanation    :string
-#  title          :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  video_genre_id :bigint
+#  id                       :bigint           not null, primary key
+#  URL                      :text
+#  deleted                  :integer
+#  deleted_at               :datetime
+#  explanation              :string
+#  title                    :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  video_genre_id           :bigint
+#  video_publish_setting_id :integer
 #
 # Indexes
 #

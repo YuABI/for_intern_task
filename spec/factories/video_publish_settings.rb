@@ -1,18 +1,18 @@
 # == Schema Information
 #
-# Table name: video_tags
+# Table name: video_publish_settings
 #
 #  id         :bigint           not null, primary key
 #  deleted    :integer
 #  deleted_at :datetime
-#  tag_name   :string
+#  setting    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 FactoryBot.define do
-  factory :video_tag do
-    tag_name { "MyString" }
+  factory :video_publish_setting do
+    setting { "MyString" }
     deleted { 1 }
-    deleted_at { "2024-06-21 14:09:26" }
+    deleted_at { "2024-07-16 10:27:48" }
   end
 end

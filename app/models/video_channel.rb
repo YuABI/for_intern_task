@@ -2,15 +2,16 @@
 #
 # Table name: video_channels
 #
-#  id                    :bigint           not null, primary key
-#  URL(URL)              :text             default(""), not null
-#  deleted(削除区分)     :integer          default(0), not null
-#  deleted_at(削除日時)  :datetime
-#  explanation(詳細説明) :string           default(""), not null
-#  title(タイトル)       :string           default(""), not null
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  video_genre_id        :bigint
+#  id                       :bigint           not null, primary key
+#  URL                      :text
+#  deleted                  :integer
+#  deleted_at               :datetime
+#  explanation              :string
+#  title                    :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  video_genre_id           :bigint
+#  video_publish_setting_id :integer
 #
 # Indexes
 #
@@ -21,23 +22,30 @@
 #  fk_rails_...  (video_genre_id => video_genres.id)
 #
 class VideoChannel < ApplicationRecord
-  belongs_to :video_genre
-  has_and_belongs_to_many :video_tags, join_table: 'video_channels_video_tags'
+  belongs_to :video_genre, optional: true
+  belongs_to :video_publish_setting, optional: true
+  has_many :video_channel_tags
+  has_many :video_tags, through: :video_channel_tags
+  has_many_attached :attachment
 
-  # validates :video_genre_id, presence: true, inclusion: { in: VideoGenre.pluck(:id) }
+  before_create :set_default_values
 
-  def find_operation(operation_code)
-    Operation.find_by(code: operation_code)
+  private
+
+  def set_default_values
+    self.deleted ||= 0
   end
 
-  def target_operations(operation_category_id = nil)
-    operations = Operation.all
-    operations = operations.where(operation_category_id:) if operation_category_id
-    operations
+  class << self
+   def permit_params
+     column_names + [
+       :video_genre_id,
+       :tag_name,
+       attachment:[],
+     ]
+   end
   end
 
-  # ビデオチャンネルに関連付けられているすべてのビデオタグの名前を配列として返すメソッド
-  def tag_names
-    video_tags.pluck(:tag_name)
-  end
+
+
 end

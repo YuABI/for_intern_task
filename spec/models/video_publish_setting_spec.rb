@@ -1,18 +1,16 @@
 # == Schema Information
 #
-# Table name: video_tags
+# Table name: video_publish_settings
 #
 #  id         :bigint           not null, primary key
 #  deleted    :integer
 #  deleted_at :datetime
-#  tag_name   :string
+#  setting    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-FactoryBot.define do
-  factory :video_tag do
-    tag_name { "MyString" }
-    deleted { 1 }
-    deleted_at { "2024-06-21 14:09:26" }
-  end
+require 'rails_helper'
+
+RSpec.describe VideoPublishSetting, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

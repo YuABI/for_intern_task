@@ -1,0 +1,4 @@
+- @video_channel.attachment.each do |attachment|
+  = f.hidden_field :attachment, multiple: true, value: attachment.signed_id
+
+= f.file_field :attachment, multiple: true, direct_upload: true

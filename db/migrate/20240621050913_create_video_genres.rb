@@ -1,7 +1,7 @@
-class CreateVideoTags < ActiveRecord::Migration[7.1]
+class CreateVideoGenres < ActiveRecord::Migration[7.1]
   def change
-    create_table :video_tags do |t|
-      t.string :tag_name, default: "", null: false, comment: "タグ名"
+    create_table :video_genres do |t|
+      t.string :name, default: "", null: false, comment: "ジャンルの名前"
       t.integer :deleted, default: 0, null: false, comment: "削除区分"
       t.datetime :deleted_at, comment: "削除日時"
 
